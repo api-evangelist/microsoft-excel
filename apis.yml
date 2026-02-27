@@ -1,0 +1,103 @@
+name: Microsoft Excel
+description: APIs for automating, integrating, and extending Microsoft Excel functionality
+image: https://example.com/excel-logo.png
+created: '2024'
+modified: '2024'
+specificationVersion: '0.18'
+url: https://www.microsoft.com/excel
+tags:
+- spreadsheets
+- office
+- automation
+- data analysis
+- microsoft
+apis:
+- name: Excel JavaScript API
+  description: Office Add-ins API for building custom functionality within Excel
+  image: https://example.com/excel-js-api-logo.png
+  humanUrl: https://learn.microsoft.com/en-us/office/dev/add-ins/reference/overview/excel-add-ins-reference-overview
+  baseUrl: https://excel.office.com
+  tags:
+  - javascript
+  - office-add-ins
+  - client-side
+  properties:
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/javascript/api/excel
+  - type: OpenAPI
+    url: https://example.com/openapi/excel-js-api.json
+  - type: Getting Started
+    url: https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/excel-quickstart-jquery
+- name: Microsoft Graph Excel API
+  description: REST API for accessing Excel workbooks stored in OneDrive and SharePoint
+  image: https://example.com/graph-excel-logo.png
+  humanUrl: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  baseUrl: https://graph.microsoft.com/v1.0
+  tags:
+  - rest
+  - microsoft-graph
+  - cloud
+  - onedrive
+  - sharepoint
+  properties:
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: OpenAPI
+    url: https://example.com/openapi/graph-excel-api.json
+  - type: Authentication
+    url: https://learn.microsoft.com/en-us/graph/auth/
+  - type: API Explorer
+    url: https://developer.microsoft.com/en-us/graph/graph-explorer
+  - type: SDK
+    url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
+- name: Office Scripts API
+  description: TypeScript-based automation for Excel on the web
+  image: https://example.com/office-scripts-logo.png
+  humanUrl: https://learn.microsoft.com/en-us/office/dev/scripts/overview/excel
+  baseUrl: https://excel.office.com
+  tags:
+  - typescript
+  - automation
+  - excel-online
+  - power-automate
+  properties:
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/office/dev/scripts/develop/scripting-fundamentals
+  - type: Samples
+    url: https://learn.microsoft.com/en-us/office/dev/scripts/resources/samples/samples-overview
+  - type: Tutorial
+    url: https://learn.microsoft.com/en-us/office/dev/scripts/tutorials/excel-tutorial
+- name: Excel REST API (Legacy)
+  description: Legacy REST API for Excel Services (SharePoint)
+  image: https://example.com/excel-rest-legacy-logo.png
+  humanUrl: https://learn.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/
+  baseUrl: https://sharepoint.example.com/_api
+  tags:
+  - rest
+  - legacy
+  - sharepoint
+  - excel-services
+  properties:
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/
+  - type: Deprecation Notice
+    url: https://example.com/deprecation-notice
+maintainers:
+- name: Microsoft Corporation
+  email: support@microsoft.com
+  url: https://www.microsoft.com
+common:
+- type: Developer Portal
+  url: https://developer.microsoft.com/en-us/microsoft-365
+- type: Support
+  url: https://support.microsoft.com/excel
+- type: Terms of Service
+  url: https://www.microsoft.com/en-us/legal/terms-of-use
+- type: Privacy Policy
+  url: https://privacy.microsoft.com/
+- type: Pricing
+  url: https://www.microsoft.com/en-us/microsoft-365/excel
+- type: Blog
+  url: https://techcommunity.microsoft.com/t5/excel-blog/bg-p/ExcelBlog
+- type: GitHub Organization
+  url: https://github.com/OfficeDev
