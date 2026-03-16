@@ -2,7 +2,7 @@ name: Microsoft Excel
 description: APIs for automating, integrating, and extending Microsoft Excel functionality
 image: https://example.com/excel-logo.png
 created: '2024'
-modified: '2024'
+modified: '2026-03-16'
 specificationVersion: '0.18'
 url: https://www.microsoft.com/excel
 tags:
@@ -24,8 +24,6 @@ apis:
   properties:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/javascript/api/excel
-  - type: OpenAPI
-    url: https://example.com/openapi/excel-js-api.json
   - type: Getting Started
     url: https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/excel-quickstart-jquery
 - name: Microsoft Graph Excel API
@@ -42,8 +40,6 @@ apis:
   properties:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/graph/api/resources/excel
-  - type: OpenAPI
-    url: https://example.com/openapi/graph-excel-api.json
   - type: Authentication
     url: https://learn.microsoft.com/en-us/graph/auth/
   - type: API Explorer
@@ -71,7 +67,7 @@ apis:
   description: Legacy REST API for Excel Services (SharePoint)
   image: https://example.com/excel-rest-legacy-logo.png
   humanUrl: https://learn.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/
-  baseUrl: https://sharepoint.example.com/_api
+  baseUrl: https://graph.microsoft.com/v1.0
   tags:
   - rest
   - legacy
@@ -80,12 +76,9 @@ apis:
   properties:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/
-  - type: Deprecation Notice
-    url: https://example.com/deprecation-notice
 maintainers:
-- name: Microsoft Corporation
-  email: support@microsoft.com
-  url: https://www.microsoft.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 common:
 - type: Developer Portal
   url: https://developer.microsoft.com/en-us/microsoft-365
