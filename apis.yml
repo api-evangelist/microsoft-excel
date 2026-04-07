@@ -7,29 +7,27 @@ modified: '2026-03-16'
 specificationVersion: '0.18'
 url: https://www.microsoft.com/excel
 tags:
-  - spreadsheets
-  - office
-  - automation
-  - data analysis
-  - microsoft
+  - Automation
+  - Data Analysis
+  - Microsoft
+  - Office
+  - Spreadsheets
 apis:
   - name: Excel JavaScript API
     description: >-
       Office Add-ins API for building custom functionality within Excel.
     image: https://example.com/excel-js-api-logo.png
-    humanUrl: 
-      https://learn.microsoft.com/en-us/office/dev/add-ins/reference/overview/excel-add-ins-reference-overview
+    humanUrl: https://learn.microsoft.com/en-us/office/dev/add-ins/reference/overview/excel-add-ins-reference-overview
     baseUrl: https://excel.office.com
     tags:
-      - javascript
-      - office-add-ins
-      - client-side
+      - Client-Side
+      - Javascript
+      - Office-Add-Ins
     properties:
       - type: Documentation
         url: https://learn.microsoft.com/en-us/javascript/api/excel
       - type: Getting Started
-        url: 
-          https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/excel-quickstart-jquery
+        url: https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/excel-quickstart-jquery
   - name: Microsoft Graph Excel API
     description: >-
       REST API for accessing Excel workbooks stored in OneDrive and SharePoint.
@@ -37,11 +35,11 @@ apis:
     humanUrl: https://learn.microsoft.com/en-us/graph/api/resources/excel
     baseUrl: https://graph.microsoft.com/v1.0
     tags:
-      - rest
-      - microsoft-graph
-      - cloud
-      - onedrive
-      - sharepoint
+      - Cloud
+      - Microsoft-Graph
+      - Onedrive
+      - Rest
+      - Sharepoint
     properties:
       - type: Documentation
         url: https://learn.microsoft.com/en-us/graph/api/resources/excel
@@ -55,40 +53,34 @@ apis:
     description: >-
       TypeScript-based automation for Excel on the web.
     image: https://example.com/office-scripts-logo.png
-    humanUrl: 
-      https://learn.microsoft.com/en-us/office/dev/scripts/overview/excel
+    humanUrl: https://learn.microsoft.com/en-us/office/dev/scripts/overview/excel
     baseUrl: https://excel.office.com
     tags:
-      - typescript
-      - automation
-      - excel-online
-      - power-automate
+      - Automation
+      - Excel-Online
+      - Power-Automate
+      - Typescript
     properties:
       - type: Documentation
-        url: 
-          https://learn.microsoft.com/en-us/office/dev/scripts/develop/scripting-fundamentals
+        url: https://learn.microsoft.com/en-us/office/dev/scripts/develop/scripting-fundamentals
       - type: Samples
-        url: 
-          https://learn.microsoft.com/en-us/office/dev/scripts/resources/samples/samples-overview
+        url: https://learn.microsoft.com/en-us/office/dev/scripts/resources/samples/samples-overview
       - type: Tutorial
-        url: 
-          https://learn.microsoft.com/en-us/office/dev/scripts/tutorials/excel-tutorial
+        url: https://learn.microsoft.com/en-us/office/dev/scripts/tutorials/excel-tutorial
   - name: Excel REST API (Legacy)
     description: >-
       Legacy REST API for Excel Services (SharePoint).
     image: https://example.com/excel-rest-legacy-logo.png
-    humanUrl: 
-      https://learn.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/
+    humanUrl: https://learn.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/
     baseUrl: https://graph.microsoft.com/v1.0
     tags:
-      - rest
-      - legacy
-      - sharepoint
-      - excel-services
+      - Excel-Services
+      - Legacy
+      - Rest
+      - Sharepoint
     properties:
       - type: Documentation
-        url: 
-          https://learn.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/
+        url: https://learn.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
