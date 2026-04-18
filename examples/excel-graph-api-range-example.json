@@ -1,0 +1,14 @@
+{
+  "address": "Sheet1!A1:B2",
+  "addressLocal": "Sheet1!A1:B2",
+  "cellCount": 4,
+  "columnCount": 2,
+  "columnIndex": 0,
+  "rowCount": 2,
+  "rowIndex": 0,
+  "hidden": false,
+  "values": [["Revenue", "Q1"], ["Product A", 15000]],
+  "text": [["Revenue", "Q1"], ["Product A", "15000"]],
+  "numberFormat": [["General", "General"], ["General", "#,##0"]],
+  "valueTypes": [["String", "String"], ["String", "Double"]]
+}

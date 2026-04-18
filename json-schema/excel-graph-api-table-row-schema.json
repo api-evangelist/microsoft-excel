@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/microsoft-excel/refs/heads/main/json-schema/excel-graph-api-table-row-schema.json",
+  "title": "TableRow",
+  "description": "Represents a row in an Excel table.",
+  "type": "object",
+  "properties": {
+    "index": {
+      "type": "integer",
+      "description": "Zero-based index of the row."
+    },
+    "values": {
+      "type": "array",
+      "description": "Raw values of the row.",
+      "items": {
+        "type": "array",
+        "items": {}
+      }
+    }
+  }
+}

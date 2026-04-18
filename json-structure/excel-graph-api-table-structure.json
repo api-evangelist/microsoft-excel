@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/microsoft-excel/refs/heads/main/json-structure/excel-graph-api-table-structure.json",
+  "name": "Table",
+  "description": "Represents an Excel table.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique identifier for the table." },
+    "name": { "type": "string", "description": "The name of the table." },
+    "showHeaders": { "type": "boolean", "description": "Whether the header row is visible." },
+    "showTotals": { "type": "boolean", "description": "Whether the total row is visible." },
+    "style": { "type": "string", "description": "Table style name." }
+  }
+}

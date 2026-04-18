@@ -1,0 +1,6 @@
+{
+  "name": "SalesRange",
+  "type": "Range",
+  "value": "Sheet1!$A$1:$D$50",
+  "visible": true
+}

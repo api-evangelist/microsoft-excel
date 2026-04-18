@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/microsoft-excel/refs/heads/main/json-structure/excel-graph-api-chart-structure.json",
+  "name": "Chart",
+  "description": "Represents an Excel chart object.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique identifier for the chart." },
+    "name": { "type": "string", "description": "The name of the chart." },
+    "height": { "type": "double", "description": "Height in points." },
+    "width": { "type": "double", "description": "Width in points." },
+    "left": { "type": "double", "description": "Left position in points." },
+    "top": { "type": "double", "description": "Top position in points." }
+  }
+}

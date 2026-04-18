@@ -1,0 +1,284 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Microsoft Graph Excel API"
+  description: "REST API for accessing and manipulating Excel workbooks via Microsoft Graph."
+  tags:
+    - Microsoft Excel
+    - Spreadsheets
+    - Microsoft Graph
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      MICROSOFT_GRAPH_TOKEN: MICROSOFT_GRAPH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: excel-graph
+      baseUri: https://graph.microsoft.com/v1.0
+      description: "Microsoft Graph Excel API for workbook operations."
+      authentication:
+        type: bearer
+        token: "{{MICROSOFT_GRAPH_TOKEN}}"
+      resources:
+        - name: sessions
+          path: /me/drive/items/{item-id}/workbook
+          description: "Workbook session management."
+          operations:
+            - name: create-session
+              method: POST
+              description: "Create a new workbook session."
+              inputParameters:
+                - name: item-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the workbook file."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  persistChanges: "{{tools.persistChanges}}"
+        - name: worksheets
+          path: /me/drive/items/{item-id}/workbook/worksheets
+          description: "Worksheet operations."
+          operations:
+            - name: list-worksheets
+              method: GET
+              description: "List all worksheets in a workbook."
+              inputParameters:
+                - name: item-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the workbook file."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-worksheet
+              method: POST
+              description: "Create a new worksheet."
+              inputParameters:
+                - name: item-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the workbook file."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+        - name: tables
+          path: /me/drive/items/{item-id}/workbook/tables/{table-id}
+          description: "Table operations."
+          operations:
+            - name: list-table-rows
+              method: GET
+              description: "List rows in a table."
+              inputParameters:
+                - name: item-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the workbook file."
+                - name: table-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the table."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: add-table-row
+              method: POST
+              description: "Add a row to a table."
+              inputParameters:
+                - name: item-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the workbook file."
+                - name: table-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the table."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  values: "{{tools.values}}"
+        - name: ranges
+          path: /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id}/range
+          description: "Cell range operations."
+          operations:
+            - name: get-range
+              method: GET
+              description: "Get a cell range."
+              inputParameters:
+                - name: item-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the workbook file."
+                - name: worksheet-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Worksheet ID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-range
+              method: PATCH
+              description: "Update cell values in a range."
+              inputParameters:
+                - name: item-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the workbook file."
+                - name: worksheet-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Worksheet ID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  values: "{{tools.values}}"
+        - name: charts
+          path: /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id}/charts
+          description: "Chart operations."
+          operations:
+            - name: list-charts
+              method: GET
+              description: "List charts in a worksheet."
+              inputParameters:
+                - name: item-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the workbook file."
+                - name: worksheet-id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Worksheet ID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: excel-graph-rest
+      resources:
+        - path: /v1/worksheets
+          name: worksheets
+          description: "Worksheet operations."
+          operations:
+            - method: GET
+              name: list-worksheets
+              description: "List worksheets."
+              call: "excel-graph.list-worksheets"
+        - path: /v1/tables/{table-id}/rows
+          name: table-rows
+          description: "Table row operations."
+          operations:
+            - method: GET
+              name: list-table-rows
+              description: "List table rows."
+              call: "excel-graph.list-table-rows"
+
+    - type: mcp
+      port: 9100
+      namespace: excel-graph-mcp
+      transport: http
+      tools:
+        - name: list-worksheets
+          description: "List all worksheets in an Excel workbook."
+          hints:
+            readOnly: true
+          call: "excel-graph.list-worksheets"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-worksheet
+          description: "Create a new worksheet."
+          hints:
+            readOnly: false
+          call: "excel-graph.create-worksheet"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-table-rows
+          description: "List rows in an Excel table."
+          hints:
+            readOnly: true
+          call: "excel-graph.list-table-rows"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: add-table-row
+          description: "Add a row to an Excel table."
+          hints:
+            readOnly: false
+          call: "excel-graph.add-table-row"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-range
+          description: "Get cell values from a range."
+          hints:
+            readOnly: true
+          call: "excel-graph.get-range"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-range
+          description: "Update cell values in a range."
+          hints:
+            readOnly: false
+          call: "excel-graph.update-range"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-charts
+          description: "List charts in a worksheet."
+          hints:
+            readOnly: true
+          call: "excel-graph.list-charts"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/microsoft-excel/refs/heads/main/json-structure/excel-graph-api-named-item-structure.json",
+  "name": "NamedItem",
+  "description": "Represents a defined name for a cell range or value.",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string", "description": "The name of the named item." },
+    "type": { "type": "string", "description": "The type of the named item." },
+    "value": { "type": "string", "description": "The formula or range reference." },
+    "visible": { "type": "boolean", "description": "Whether the named item is visible." }
+  }
+}

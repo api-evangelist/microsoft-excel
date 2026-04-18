@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/microsoft-excel/refs/heads/main/json-schema/excel-graph-api-range-schema.json",
+  "title": "Range",
+  "description": "Represents a cell range in a worksheet.",
+  "type": "object",
+  "properties": {
+    "address": {
+      "type": "string",
+      "description": "Range reference in A1-style notation."
+    },
+    "addressLocal": {
+      "type": "string",
+      "description": "Range reference in locale-specific notation."
+    },
+    "cellCount": {
+      "type": "integer",
+      "description": "Number of cells in the range."
+    },
+    "columnCount": {
+      "type": "integer",
+      "description": "Number of columns."
+    },
+    "columnIndex": {
+      "type": "integer",
+      "description": "Column number of the first cell."
+    },
+    "rowCount": {
+      "type": "integer",
+      "description": "Number of rows."
+    },
+    "rowIndex": {
+      "type": "integer",
+      "description": "Row number of the first cell."
+    },
+    "hidden": {
+      "type": "boolean",
+      "description": "Whether the range is hidden."
+    },
+    "formulas": {
+      "type": "array",
+      "description": "Formulas in A1-style notation.",
+      "items": { "type": "array", "items": {} }
+    },
+    "values": {
+      "type": "array",
+      "description": "Raw values of the range.",
+      "items": { "type": "array", "items": {} }
+    },
+    "text": {
+      "type": "array",
+      "description": "Text values of the range.",
+      "items": { "type": "array", "items": {} }
+    },
+    "numberFormat": {
+      "type": "array",
+      "description": "Number format codes.",
+      "items": { "type": "array", "items": { "type": "string" } }
+    },
+    "valueTypes": {
+      "type": "array",
+      "description": "Type of data in each cell.",
+      "items": { "type": "array", "items": { "type": "string" } }
+    }
+  }
+}

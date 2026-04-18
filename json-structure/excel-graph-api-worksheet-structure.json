@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/microsoft-excel/refs/heads/main/json-structure/excel-graph-api-worksheet-structure.json",
+  "name": "Worksheet",
+  "description": "Represents an Excel worksheet.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique identifier for the worksheet." },
+    "name": { "type": "string", "description": "The display name of the worksheet." },
+    "position": { "type": "int32", "description": "The zero-based position of the worksheet." },
+    "visibility": { "type": "string", "description": "Worksheet visibility.", "enum": ["Visible", "Hidden", "VeryHidden"] }
+  }
+}

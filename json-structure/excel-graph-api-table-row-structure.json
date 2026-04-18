@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/microsoft-excel/refs/heads/main/json-structure/excel-graph-api-table-row-structure.json",
+  "name": "TableRow",
+  "description": "Represents a row in an Excel table.",
+  "type": "object",
+  "properties": {
+    "index": { "type": "int32", "description": "Zero-based index of the row." },
+    "values": { "type": "array", "description": "Raw values of the row.", "items": { "type": "array", "items": {} } }
+  }
+}

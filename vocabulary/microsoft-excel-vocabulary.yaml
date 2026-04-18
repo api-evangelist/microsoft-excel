@@ -1,0 +1,140 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Microsoft Excel"
+  description: "Vocabulary mapping operational (OpenAPI) and capability (Naftiko) dimensions for Microsoft Excel APIs."
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+operational:
+  apis:
+    - name: Microsoft Graph Excel API
+      namespace: excel-graph
+      version: "1.0.0"
+      baseUrl: https://graph.microsoft.com/v1.0
+      status: active
+
+  resources:
+    - name: Worksheets
+      api: excel-graph
+      actions: [list, get, create, update, delete]
+    - name: Tables
+      api: excel-graph
+      actions: [list, get, create, update, sort, filter]
+    - name: Table Rows
+      api: excel-graph
+      actions: [list, add, delete]
+    - name: Table Columns
+      api: excel-graph
+      actions: [list, add, delete]
+    - name: Charts
+      api: excel-graph
+      actions: [list, add, update, get-image]
+    - name: Ranges
+      api: excel-graph
+      actions: [get, update, sort]
+    - name: Named Items
+      api: excel-graph
+      actions: [list]
+    - name: Functions
+      api: excel-graph
+      actions: [call]
+    - name: Sessions
+      api: excel-graph
+      actions: [create]
+
+  actions:
+    - name: list
+      methods: [GET]
+      pattern: read
+    - name: get
+      methods: [GET]
+      pattern: read
+    - name: create
+      methods: [POST]
+      pattern: write
+    - name: update
+      methods: [PATCH]
+      pattern: write
+    - name: delete
+      methods: [DELETE]
+      pattern: destructive
+    - name: add
+      methods: [POST]
+      pattern: write
+    - name: sort
+      methods: [POST]
+      pattern: write
+    - name: filter
+      methods: [POST]
+      pattern: write
+    - name: call
+      methods: [POST]
+      pattern: query
+
+  schemas:
+    core:
+      - name: Worksheet
+        properties: [id, name, position, visibility]
+      - name: Table
+        properties: [id, name, showHeaders, showTotals, style]
+      - name: TableRow
+        properties: [index, values]
+      - name: TableColumn
+        properties: [id, index, name, values]
+      - name: Chart
+        properties: [id, name, height, width, left, top]
+      - name: Range
+        properties: [address, cellCount, columnCount, rowCount, values, formulas]
+      - name: NamedItem
+        properties: [name, type, value, visible]
+
+  authentication:
+    schemes:
+      - type: oauth2
+        flow: authorizationCode
+        scopes: [Files.Read, Files.ReadWrite]
+
+capability:
+  workflows:
+    - name: Spreadsheet Automation
+      file: capabilities/spreadsheet-automation.yaml
+      description: "Automate Excel workbook operations."
+      apis: [excel-graph]
+      tools: 7
+      personas: [Data Analyst, Business Analyst]
+      domains: [Data Management, Reporting]
+
+  personas:
+    - id: data-analyst
+      name: Data Analyst
+      description: "Analysts working with Excel workbooks for data processing."
+      workflows: [Spreadsheet Automation]
+    - id: business-analyst
+      name: Business Analyst
+      description: "Business users automating Excel-based reporting."
+      workflows: [Spreadsheet Automation]
+
+  domains:
+    - name: Data Management
+      resources: [Worksheets, Tables, Ranges]
+    - name: Reporting
+      resources: [Charts, Named Items, Functions]
+
+crossReference:
+  - resource: Worksheets
+    operations: [listWorksheets, getWorksheet, createWorksheet, updateWorksheet, deleteWorksheet]
+    workflows: [Spreadsheet Automation]
+    personas: [Data Analyst, Business Analyst]
+  - resource: Tables
+    operations: [listTables, updateTable, sortTable, applyTableFilter]
+    workflows: [Spreadsheet Automation]
+    personas: [Data Analyst]
+  - resource: Ranges
+    operations: [getRange, updateRange]
+    workflows: [Spreadsheet Automation]
+    personas: [Data Analyst, Business Analyst]
+  - resource: Charts
+    operations: [listCharts, addChart]
+    workflows: [Spreadsheet Automation]
+    personas: [Business Analyst]

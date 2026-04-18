@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/microsoft-excel/refs/heads/main/json-structure/excel-graph-api-range-structure.json",
+  "name": "Range",
+  "description": "Represents a cell range in a worksheet.",
+  "type": "object",
+  "properties": {
+    "address": { "type": "string", "description": "Range reference in A1-style notation." },
+    "addressLocal": { "type": "string", "description": "Range reference in locale-specific notation." },
+    "cellCount": { "type": "int32", "description": "Number of cells in the range." },
+    "columnCount": { "type": "int32", "description": "Number of columns." },
+    "columnIndex": { "type": "int32", "description": "Column number of the first cell." },
+    "rowCount": { "type": "int32", "description": "Number of rows." },
+    "rowIndex": { "type": "int32", "description": "Row number of the first cell." },
+    "hidden": { "type": "boolean", "description": "Whether the range is hidden." }
+  }
+}
