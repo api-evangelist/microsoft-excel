@@ -155,6 +155,18 @@ common:
         description: Work with Excel workbooks stored in OneDrive for Business.
       - name: Microsoft Teams
         description: Share and collaborate on Excel workbooks within Teams.
+  - type: Integrations
+    url: https://www.microsoft.com/en-us/marketplace
+integrations:
+  - name: Microsoft
+  - name: Two people looking at a computer.
+  - name: This is placeholder text for
+  - name: IDC
+  - name: Nationwide
+  - name: RSA company
+  - name: Teleperformance
+  - name: A woman smiling at a laptop
+  - name: A man holding a laptop.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
