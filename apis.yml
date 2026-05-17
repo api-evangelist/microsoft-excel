@@ -59,7 +59,7 @@ apis:
         url: json-schema/excel-graph-api-named-item-schema.json
       - type: JSONStructure
         url: json-structure/excel-graph-api-worksheet-structure.json
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/microsoft-excel-graph-api-context.jsonld
       - type: Example
         url: examples/excel-graph-api-worksheet-example.json
