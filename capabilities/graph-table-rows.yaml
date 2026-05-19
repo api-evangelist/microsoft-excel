@@ -1,0 +1,210 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Microsoft Graph Excel API — Table Rows
+  description: 'Microsoft Graph Excel API — Table Rows. 3 operations. Lead operation: Microsoft Excel List Table Rows. Self-contained
+    Naftiko capability covering one Microsoft Excel business surface.'
+  tags:
+  - Microsoft Excel
+  - Table Rows
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MICROSOFT_EXCEL_API_KEY: MICROSOFT_EXCEL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: graph-table-rows
+    baseUri: https://graph.microsoft.com/v1.0
+    description: Microsoft Graph Excel API — Table Rows business capability. Self-contained, no shared references.
+    resources:
+    - name: me-drive-items-item-id-workbook-tables-table-id-rows
+      path: /me/drive/items/{item-id}/workbook/tables/{table-id}/rows
+      operations:
+      - name: listtablerows
+        method: GET
+        description: Microsoft Excel List Table Rows
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: table-id
+          in: path
+          type: string
+          description: The ID or name of the table.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+      - name: addtablerow
+        method: POST
+        description: Microsoft Excel Add Table Row
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: table-id
+          in: path
+          type: string
+          description: The ID or name of the table.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: me-drive-items-item-id-workbook-tables-table-id-rows-$-itemAt(index={row-index})
+      path: /me/drive/items/{item-id}/workbook/tables/{table-id}/rows/$/itemAt(index={row-index})
+      operations:
+      - name: deletetablerow
+        method: DELETE
+        description: Microsoft Excel Delete Table Row
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: table-id
+          in: path
+          type: string
+          description: The ID or name of the table.
+          required: true
+        - name: row-index
+          in: path
+          type: integer
+          description: Zero-based index of the row to delete.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+    authentication:
+      type: bearer
+      token: '{{env.MICROSOFT_EXCEL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: graph-table-rows-rest
+    port: 8080
+    description: REST adapter for Microsoft Graph Excel API — Table Rows. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/me/drive/items/{item-id}/workbook/tables/{table-id}/rows
+      name: me-drive-items-item-id-workbook-tables-table-id-rows
+      description: REST surface for me-drive-items-item-id-workbook-tables-table-id-rows.
+      operations:
+      - method: GET
+        name: listtablerows
+        description: Microsoft Excel List Table Rows
+        call: graph-table-rows.listtablerows
+        with:
+          item-id: rest.item-id
+          table-id: rest.table-id
+          workbook-session-id: rest.workbook-session-id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addtablerow
+        description: Microsoft Excel Add Table Row
+        call: graph-table-rows.addtablerow
+        with:
+          item-id: rest.item-id
+          table-id: rest.table-id
+          workbook-session-id: rest.workbook-session-id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/drive/items/{item-id}/workbook/tables/{table-id}/rows//itemat-index-row-index
+      name: me-drive-items-item-id-workbook-tables-table-id-rows-itemat-index-row-index
+      description: REST surface for me-drive-items-item-id-workbook-tables-table-id-rows-$-itemAt(index={row-index}).
+      operations:
+      - method: DELETE
+        name: deletetablerow
+        description: Microsoft Excel Delete Table Row
+        call: graph-table-rows.deletetablerow
+        with:
+          item-id: rest.item-id
+          table-id: rest.table-id
+          row-index: rest.row-index
+          workbook-session-id: rest.workbook-session-id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: graph-table-rows-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Microsoft Graph Excel API — Table Rows. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: microsoft-excel-list-table-rows
+      description: Microsoft Excel List Table Rows
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graph-table-rows.listtablerows
+      with:
+        item-id: tools.item-id
+        table-id: tools.table-id
+        workbook-session-id: tools.workbook-session-id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: microsoft-excel-add-table-row
+      description: Microsoft Excel Add Table Row
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: graph-table-rows.addtablerow
+      with:
+        item-id: tools.item-id
+        table-id: tools.table-id
+        workbook-session-id: tools.workbook-session-id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: microsoft-excel-delete-table-row
+      description: Microsoft Excel Delete Table Row
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: graph-table-rows.deletetablerow
+      with:
+        item-id: tools.item-id
+        table-id: tools.table-id
+        row-index: tools.row-index
+        workbook-session-id: tools.workbook-session-id
+      outputParameters:
+      - type: object
+        mapping: $.

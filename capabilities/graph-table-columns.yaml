@@ -1,0 +1,210 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Microsoft Graph Excel API — Table Columns
+  description: 'Microsoft Graph Excel API — Table Columns. 3 operations. Lead operation: Microsoft Excel List Table Columns.
+    Self-contained Naftiko capability covering one Microsoft Excel business surface.'
+  tags:
+  - Microsoft Excel
+  - Table Columns
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MICROSOFT_EXCEL_API_KEY: MICROSOFT_EXCEL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: graph-table-columns
+    baseUri: https://graph.microsoft.com/v1.0
+    description: Microsoft Graph Excel API — Table Columns business capability. Self-contained, no shared references.
+    resources:
+    - name: me-drive-items-item-id-workbook-tables-table-id-columns
+      path: /me/drive/items/{item-id}/workbook/tables/{table-id}/columns
+      operations:
+      - name: listtablecolumns
+        method: GET
+        description: Microsoft Excel List Table Columns
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: table-id
+          in: path
+          type: string
+          description: The ID or name of the table.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+      - name: addtablecolumn
+        method: POST
+        description: Microsoft Excel Add Table Column
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: table-id
+          in: path
+          type: string
+          description: The ID or name of the table.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: me-drive-items-item-id-workbook-tables-table-id-columns-column-id
+      path: /me/drive/items/{item-id}/workbook/tables/{table-id}/columns/{column-id}
+      operations:
+      - name: deletetablecolumn
+        method: DELETE
+        description: Microsoft Excel Delete Table Column
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: table-id
+          in: path
+          type: string
+          description: The ID or name of the table.
+          required: true
+        - name: column-id
+          in: path
+          type: string
+          description: The ID of the column to delete.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+    authentication:
+      type: bearer
+      token: '{{env.MICROSOFT_EXCEL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: graph-table-columns-rest
+    port: 8080
+    description: REST adapter for Microsoft Graph Excel API — Table Columns. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/me/drive/items/{item-id}/workbook/tables/{table-id}/columns
+      name: me-drive-items-item-id-workbook-tables-table-id-columns
+      description: REST surface for me-drive-items-item-id-workbook-tables-table-id-columns.
+      operations:
+      - method: GET
+        name: listtablecolumns
+        description: Microsoft Excel List Table Columns
+        call: graph-table-columns.listtablecolumns
+        with:
+          item-id: rest.item-id
+          table-id: rest.table-id
+          workbook-session-id: rest.workbook-session-id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addtablecolumn
+        description: Microsoft Excel Add Table Column
+        call: graph-table-columns.addtablecolumn
+        with:
+          item-id: rest.item-id
+          table-id: rest.table-id
+          workbook-session-id: rest.workbook-session-id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/drive/items/{item-id}/workbook/tables/{table-id}/columns/{column-id}
+      name: me-drive-items-item-id-workbook-tables-table-id-columns-column-id
+      description: REST surface for me-drive-items-item-id-workbook-tables-table-id-columns-column-id.
+      operations:
+      - method: DELETE
+        name: deletetablecolumn
+        description: Microsoft Excel Delete Table Column
+        call: graph-table-columns.deletetablecolumn
+        with:
+          item-id: rest.item-id
+          table-id: rest.table-id
+          column-id: rest.column-id
+          workbook-session-id: rest.workbook-session-id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: graph-table-columns-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Microsoft Graph Excel API — Table Columns. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: microsoft-excel-list-table-columns
+      description: Microsoft Excel List Table Columns
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graph-table-columns.listtablecolumns
+      with:
+        item-id: tools.item-id
+        table-id: tools.table-id
+        workbook-session-id: tools.workbook-session-id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: microsoft-excel-add-table-column
+      description: Microsoft Excel Add Table Column
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: graph-table-columns.addtablecolumn
+      with:
+        item-id: tools.item-id
+        table-id: tools.table-id
+        workbook-session-id: tools.workbook-session-id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: microsoft-excel-delete-table-column
+      description: Microsoft Excel Delete Table Column
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: graph-table-columns.deletetablecolumn
+      with:
+        item-id: tools.item-id
+        table-id: tools.table-id
+        column-id: tools.column-id
+        workbook-session-id: tools.workbook-session-id
+      outputParameters:
+      - type: object
+        mapping: $.

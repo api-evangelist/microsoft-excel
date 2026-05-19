@@ -1,0 +1,155 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Microsoft Graph Excel API — Charts
+  description: 'Microsoft Graph Excel API — Charts. 2 operations. Lead operation: Microsoft Excel List Charts. Self-contained
+    Naftiko capability covering one Microsoft Excel business surface.'
+  tags:
+  - Microsoft Excel
+  - Charts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MICROSOFT_EXCEL_API_KEY: MICROSOFT_EXCEL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: graph-charts
+    baseUri: https://graph.microsoft.com/v1.0
+    description: Microsoft Graph Excel API — Charts business capability. Self-contained, no shared references.
+    resources:
+    - name: me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-charts
+      path: /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/charts
+      operations:
+      - name: listcharts
+        method: GET
+        description: Microsoft Excel List Charts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: worksheet-id-or-name
+          in: path
+          type: string
+          description: Worksheet ID or name.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+    - name: me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-charts-Add
+      path: /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/charts/Add
+      operations:
+      - name: addchart
+        method: POST
+        description: Microsoft Excel Add Chart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: worksheet-id-or-name
+          in: path
+          type: string
+          description: Worksheet ID or name.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.MICROSOFT_EXCEL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: graph-charts-rest
+    port: 8080
+    description: REST adapter for Microsoft Graph Excel API — Charts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/charts
+      name: me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-charts
+      description: REST surface for me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-charts.
+      operations:
+      - method: GET
+        name: listcharts
+        description: Microsoft Excel List Charts
+        call: graph-charts.listcharts
+        with:
+          item-id: rest.item-id
+          worksheet-id-or-name: rest.worksheet-id-or-name
+          workbook-session-id: rest.workbook-session-id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/charts/add
+      name: me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-charts-add
+      description: REST surface for me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-charts-Add.
+      operations:
+      - method: POST
+        name: addchart
+        description: Microsoft Excel Add Chart
+        call: graph-charts.addchart
+        with:
+          item-id: rest.item-id
+          worksheet-id-or-name: rest.worksheet-id-or-name
+          workbook-session-id: rest.workbook-session-id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: graph-charts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Microsoft Graph Excel API — Charts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: microsoft-excel-list-charts
+      description: Microsoft Excel List Charts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graph-charts.listcharts
+      with:
+        item-id: tools.item-id
+        worksheet-id-or-name: tools.worksheet-id-or-name
+        workbook-session-id: tools.workbook-session-id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: microsoft-excel-add-chart
+      description: Microsoft Excel Add Chart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: graph-charts.addchart
+      with:
+        item-id: tools.item-id
+        worksheet-id-or-name: tools.worksheet-id-or-name
+        workbook-session-id: tools.workbook-session-id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

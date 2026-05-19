@@ -1,0 +1,355 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Microsoft Graph Excel API — Tables
+  description: 'Microsoft Graph Excel API — Tables. 5 operations. Lead operation: Microsoft Excel Update Table. Self-contained
+    Naftiko capability covering one Microsoft Excel business surface.'
+  tags:
+  - Microsoft Excel
+  - Tables
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MICROSOFT_EXCEL_API_KEY: MICROSOFT_EXCEL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: graph-tables
+    baseUri: https://graph.microsoft.com/v1.0
+    description: Microsoft Graph Excel API — Tables business capability. Self-contained, no shared references.
+    resources:
+    - name: me-drive-items-item-id-workbook-tables-table-id
+      path: /me/drive/items/{item-id}/workbook/tables/{table-id}
+      operations:
+      - name: updatetable
+        method: PATCH
+        description: Microsoft Excel Update Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: table-id
+          in: path
+          type: string
+          description: The ID or name of the table.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: me-drive-items-item-id-workbook-tables-table-id-convertToRange
+      path: /me/drive/items/{item-id}/workbook/tables/{table-id}/convertToRange
+      operations:
+      - name: converttabletorange
+        method: POST
+        description: Microsoft Excel Convert Table to Range
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: table-id
+          in: path
+          type: string
+          description: The ID or name of the table.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+    - name: me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-tables
+      path: /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables
+      operations:
+      - name: listtables
+        method: GET
+        description: Microsoft Excel List Tables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: worksheet-id-or-name
+          in: path
+          type: string
+          description: Worksheet ID or name.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+    - name: me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-tables-table-id-
+      path: /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables/{table-id}/columns({column-id})/filter/apply
+      operations:
+      - name: applytablefilter
+        method: POST
+        description: Microsoft Excel Apply Table Filter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: worksheet-id-or-name
+          in: path
+          type: string
+          description: Worksheet ID or name.
+          required: true
+        - name: table-id
+          in: path
+          type: string
+          description: The ID or name of the table.
+          required: true
+        - name: column-id
+          in: path
+          type: string
+          description: The ID of the column to filter.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-tables-table-id-
+      path: /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables/{table-id}/sort/apply
+      operations:
+      - name: sorttable
+        method: POST
+        description: Microsoft Excel Sort Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item-id
+          in: path
+          type: string
+          description: The ID of the workbook file.
+          required: true
+        - name: worksheet-id-or-name
+          in: path
+          type: string
+          description: Worksheet ID or name.
+          required: true
+        - name: table-id
+          in: path
+          type: string
+          description: The ID or name of the table.
+          required: true
+        - name: workbook-session-id
+          in: header
+          type: string
+          description: Workbook session ID.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.MICROSOFT_EXCEL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: graph-tables-rest
+    port: 8080
+    description: REST adapter for Microsoft Graph Excel API — Tables. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/me/drive/items/{item-id}/workbook/tables/{table-id}
+      name: me-drive-items-item-id-workbook-tables-table-id
+      description: REST surface for me-drive-items-item-id-workbook-tables-table-id.
+      operations:
+      - method: PATCH
+        name: updatetable
+        description: Microsoft Excel Update Table
+        call: graph-tables.updatetable
+        with:
+          item-id: rest.item-id
+          table-id: rest.table-id
+          workbook-session-id: rest.workbook-session-id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/drive/items/{item-id}/workbook/tables/{table-id}/converttorange
+      name: me-drive-items-item-id-workbook-tables-table-id-converttorange
+      description: REST surface for me-drive-items-item-id-workbook-tables-table-id-convertToRange.
+      operations:
+      - method: POST
+        name: converttabletorange
+        description: Microsoft Excel Convert Table to Range
+        call: graph-tables.converttabletorange
+        with:
+          item-id: rest.item-id
+          table-id: rest.table-id
+          workbook-session-id: rest.workbook-session-id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables
+      name: me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-tables
+      description: REST surface for me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-tables.
+      operations:
+      - method: GET
+        name: listtables
+        description: Microsoft Excel List Tables
+        call: graph-tables.listtables
+        with:
+          item-id: rest.item-id
+          worksheet-id-or-name: rest.worksheet-id-or-name
+          workbook-session-id: rest.workbook-session-id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables/{table-id}/columns-column-id/filter/apply
+      name: me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-tables-table-id
+      description: REST surface for me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-tables-table-id-.
+      operations:
+      - method: POST
+        name: applytablefilter
+        description: Microsoft Excel Apply Table Filter
+        call: graph-tables.applytablefilter
+        with:
+          item-id: rest.item-id
+          worksheet-id-or-name: rest.worksheet-id-or-name
+          table-id: rest.table-id
+          column-id: rest.column-id
+          workbook-session-id: rest.workbook-session-id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables/{table-id}/sort/apply
+      name: me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-tables-table-id
+      description: REST surface for me-drive-items-item-id-workbook-worksheets-worksheet-id-or-name-tables-table-id-.
+      operations:
+      - method: POST
+        name: sorttable
+        description: Microsoft Excel Sort Table
+        call: graph-tables.sorttable
+        with:
+          item-id: rest.item-id
+          worksheet-id-or-name: rest.worksheet-id-or-name
+          table-id: rest.table-id
+          workbook-session-id: rest.workbook-session-id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: graph-tables-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Microsoft Graph Excel API — Tables. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: microsoft-excel-update-table
+      description: Microsoft Excel Update Table
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: graph-tables.updatetable
+      with:
+        item-id: tools.item-id
+        table-id: tools.table-id
+        workbook-session-id: tools.workbook-session-id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: microsoft-excel-convert-table-range
+      description: Microsoft Excel Convert Table to Range
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: graph-tables.converttabletorange
+      with:
+        item-id: tools.item-id
+        table-id: tools.table-id
+        workbook-session-id: tools.workbook-session-id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: microsoft-excel-list-tables
+      description: Microsoft Excel List Tables
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graph-tables.listtables
+      with:
+        item-id: tools.item-id
+        worksheet-id-or-name: tools.worksheet-id-or-name
+        workbook-session-id: tools.workbook-session-id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: microsoft-excel-apply-table-filter
+      description: Microsoft Excel Apply Table Filter
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: graph-tables.applytablefilter
+      with:
+        item-id: tools.item-id
+        worksheet-id-or-name: tools.worksheet-id-or-name
+        table-id: tools.table-id
+        column-id: tools.column-id
+        workbook-session-id: tools.workbook-session-id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: microsoft-excel-sort-table
+      description: Microsoft Excel Sort Table
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: graph-tables.sorttable
+      with:
+        item-id: tools.item-id
+        worksheet-id-or-name: tools.worksheet-id-or-name
+        table-id: tools.table-id
+        workbook-session-id: tools.workbook-session-id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
