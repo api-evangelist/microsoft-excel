@@ -37,7 +37,7 @@ apis:
     url: https://learn.microsoft.com/en-us/graph/auth/
   - type: APIReference
     url: https://learn.microsoft.com/en-us/graph/api/resources/excel
-  - type: SDK
+  - type: SDKs
     url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
   - type: JSONSchema
     url: json-schema/excel-graph-api-worksheet-schema.json
@@ -57,29 +57,29 @@ apis:
     url: json-structure/excel-graph-api-worksheet-structure.json
   - type: JSONLD
     url: json-ld/microsoft-excel-graph-api-context.jsonld
-  - type: Example
+  - type: Examples
     url: examples/excel-graph-api-worksheet-example.json
-  - type: Example
+  - type: Examples
     url: examples/excel-graph-api-table-example.json
-  - type: Example
+  - type: Examples
     url: examples/excel-graph-api-range-example.json
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/graph-charts.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/graph-functions.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/graph-named-items.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/graph-ranges.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/graph-sessions.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/graph-table-columns.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/graph-table-rows.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/graph-tables.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/graph-worksheets.yaml
 - name: Excel JavaScript API
   description: Office Add-ins API for building custom functionality within Excel using JavaScript and TypeScript.

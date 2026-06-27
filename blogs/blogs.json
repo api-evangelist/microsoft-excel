@@ -2,20 +2,13 @@
   "repo": "microsoft-excel",
   "feeds": [
     {
-      "source": "https://techcommunity.microsoft.com/t5/excel-blog/bg-p/ExcelBlog/rss",
-      "feed_url": "https://techcommunity.microsoft.com/t5/excel-blog/bg-p/ExcelBlog/rss",
-      "title": "",
-      "saved": 0,
-      "method": "none"
-    },
-    {
-      "source": "https://www.microsoft.com/en-us/microsoft-365/excel",
-      "feed_url": "https://www.microsoft.com/en-us/microsoft-365/excel",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "source": "https://techcommunity.microsoft.com/t5/excel-blog/bg-p/ExcelBlog",
+      "feed_url": "",
+      "saved": 1,
+      "method": "agent-scrape"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 1,
+  "fetched": "2026-06-27T12:54:25Z",
+  "agent_pulled": "2026-06-27"
 }
