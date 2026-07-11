@@ -1,0 +1,24 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/microsoft-excel-graph-api.yaml
+schemes:
+- name: oauth2
+  source: openapi/microsoft-excel-graph-api.yaml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+    tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+  description: OAuth 2.0 authorization using Microsoft Identity Platform
+scopes:
+- scope: Files.Read
+  description: Read user files
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/microsoft-excel-graph-api.yaml
+- scope: Files.ReadWrite
+  description: Read and write user files
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/microsoft-excel-graph-api.yaml

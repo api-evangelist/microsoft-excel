@@ -112,6 +112,8 @@ apis:
   - type: Tutorials
     url: https://learn.microsoft.com/en-us/office/dev/scripts/tutorials/excel-tutorial
 common:
+- type: OAuthScopes
+  url: scopes/microsoft-excel-scopes.yml
 - type: DeveloperPortal
   url: https://developer.microsoft.com/en-us/microsoft-365
 - type: Support
