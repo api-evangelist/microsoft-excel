@@ -2,13 +2,14 @@
   "repo": "microsoft-excel",
   "feeds": [
     {
-      "source": "https://techcommunity.microsoft.com/t5/excel-blog/bg-p/ExcelBlog",
-      "feed_url": "",
-      "saved": 1,
-      "method": "agent-scrape"
+      "source": "https://www.microsoft.com/en-us/microsoft-365/excel",
+      "feed_url": "https://www.microsoft.com/en-us/microsoft-365/excel",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 1,
-  "fetched": "2026-06-27T12:54:25Z",
+  "post_count": 2,
+  "fetched": "2026-07-11T11:50:51Z",
   "agent_pulled": "2026-06-27"
 }
