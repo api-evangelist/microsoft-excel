@@ -1,0 +1,45 @@
+generated: '2026-06-20'
+method: searched
+source: https://learn.microsoft.com/en-us/graph/workbook-best-practice
+note: Cross-cutting request/response semantics for the Microsoft Graph Excel API (OData v4).
+authentication:
+  style: oauth2-bearer
+  scheme: OAuth 2.0 (Microsoft identity platform, authorization code)
+  header: 'Authorization: Bearer <token>'
+  ref: authentication/microsoft-excel-authentication.yml
+sessions:
+  header: workbook-session-id
+  modes: [persistent, non-persistent]
+  note: >-
+    Excel-specific. Create a session via createWorkbookSession and pass the returned id in
+    the workbook-session-id header on subsequent requests for efficient, consistent state.
+    Without a session, calls run in a less-efficient sessionless mode.
+  docs: https://learn.microsoft.com/en-us/graph/api/resources/excel
+pagination:
+  style: server-driven
+  response_field: '@odata.nextLink'
+  query_options: ['$top', '$skip', '$select', '$filter', '$orderby', '$count', '$expand']
+  note: OData v4 paging; follow @odata.nextLink until absent.
+versioning:
+  style: uri-path
+  current: v1.0
+  ref: lifecycle/microsoft-excel-lifecycle.yml
+request_tracing:
+  request_id_header: request-id
+  client_request_id_header: client-request-id
+  note: >-
+    Responses and error innerError carry request-id / client-request-id used when opening
+    support cases.
+error_envelope:
+  shape: '{ error: { code, message, innerError: { request-id, date } } }'
+  content_type: application/json
+  ref: errors/microsoft-excel-problem-types.yml
+rate_limiting:
+  signal_headers: [Retry-After, x-ms-throttle-limit-percentage]
+  status: 429
+  note: >-
+    Excel APIs favor sequential (not concurrent) requests, especially writes;
+    x-ms-throttle-limit-percentage warns as an app approaches its limit (values 0.8–1.8).
+  ref: rate-limits/microsoft-excel-rate-limits.yml
+metadata:
+  odata_annotations: ['@odata.context', '@odata.type', '@odata.nextLink', '@odata.id']

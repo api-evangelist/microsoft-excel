@@ -1,0 +1,37 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/microsoft-excel-graph-api.yaml
+note: Standards conformance derived from the OpenAPI + Microsoft identity/Graph docs.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: openapi securitySchemes type oauth2 (authorizationCode flow, Microsoft identity platform)
+- id: oidc
+  conforms: true
+  evidence: login.microsoftonline.com/common/v2.0/.well-known/openid-configuration returns 200
+- id: odata-v4
+  conforms: true
+  evidence: >-
+    Microsoft Graph is an OData 4.0 service; collection responses carry @odata.nextLink /
+    @odata.context, and $select/$filter/$top query options apply
+- id: rfc8594-sunset
+  conforms: true
+  evidence: >-
+    Microsoft Graph deprecation policy uses Deprecation + Sunset headers and a minimum
+    24-month deprecation window (versioning-and-support docs)
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    errors use the Microsoft Graph error envelope { error: { code, message, innerError } },
+    not application/problem+json
+- id: pagination
+  conforms: true
+  evidence: OData server-driven paging via @odata.nextLink
+- id: fhir-r4
+  conforms: false
+- id: scim2
+  conforms: false
+- id: json-api
+  conforms: false
+- id: fapi
+  conforms: false

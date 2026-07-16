@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Microsoft Graph Excel API
+  version: 1.0.0
+extends: openapi/microsoft-excel-graph-api.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: microsoft-excel
+    x-apievangelist-standards: [oauth2, oidc, odata-v4, rfc8594-sunset]
+    x-apievangelist-auth: OAuth 2.0 (Microsoft identity platform, authorization code)
+- target: $.info
+  update:
+    x-apievangelist-docs:
+      permissions: https://learn.microsoft.com/en-us/graph/permissions-reference
+      throttling: https://learn.microsoft.com/en-us/graph/throttling-limits
+      excel-best-practice: https://learn.microsoft.com/en-us/graph/workbook-best-practice
+      changelog: https://developer.microsoft.com/en-us/graph/changelog
+- target: $.servers
+  update:
+    x-apievangelist-beta-endpoint: https://graph.microsoft.com/beta
+- target: $.components.securitySchemes.oauth2
+  update:
+    x-apievangelist-scopes-note: >-
+      Files.Read / Files.ReadWrite operate on the signed-in user's own files;
+      Files.Read.All / Files.ReadWrite.All and Sites.Read.All / Sites.ReadWrite.All
+      broaden access to shared and SharePoint-hosted workbooks.

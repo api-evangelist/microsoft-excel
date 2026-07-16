@@ -1,0 +1,33 @@
+generated: '2026-06-20'
+method: searched
+source: https://developer.microsoft.com/en-us/graph/changelog
+note: >-
+  Microsoft Graph publishes a single dated changelog across all workloads (there is no
+  Excel-only feed). Scheme is a dated feed keyed by version (v1.0 / beta), workload, and
+  change type (Addition / Deletion / Change / Deprecation). Recent workbook/files-relevant
+  and notable entries captured below from the live changelog and What's New feeds.
+scheme: dated-feed
+channels: [v1.0, beta]
+change_types: [Addition, Change, Deletion, Deprecation]
+whats_new: https://learn.microsoft.com/en-us/graph/whats-new-overview
+entries:
+- date: '2026-07'
+  workload: Files
+  type: Addition
+  channel: v1.0
+  highlight: driveItem lock/releaseLock methods added to acquire or refresh an exclusive lock on a file.
+- date: '2026-07'
+  workload: Files
+  type: Change
+  channel: v1.0
+  highlight: fileStorageContainer permission upsert limit raised from 10 to 40 objects per request; getByUser method added.
+- date: '2026-07'
+  workload: Cloud PC
+  type: Deprecation
+  channel: v1.0
+  highlight: cloudPcUserSetting notificationSetting property deprecated; stops returning data 2026-07-14.
+- date: '2026-07'
+  workload: Groups
+  type: Addition
+  channel: v1.0
+  highlight: assignedLabels sensitivity labels for cloud security groups; Group.ManageProtection.All least-privilege permission added.

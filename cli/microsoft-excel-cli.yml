@@ -1,0 +1,45 @@
+generated: '2026-06-20'
+method: searched
+source: https://github.com/microsoftgraph/msgraph-cli
+name: Microsoft Graph CLI
+binary: mgc
+official: true
+status: generally-available
+docs: https://learn.microsoft.com/en-us/graph/cli/overview
+repo: https://github.com/microsoftgraph/msgraph-cli
+note: >-
+  Cross-platform (.NET/Kiota-generated) CLI over Microsoft Graph. Excel workbook operations
+  are reached through the drives/items/workbook command tree. A separate mgc-beta targets
+  the beta endpoint. The binary itself is catalogued in packages/.
+install:
+- platform: windows
+  method: download
+  source: https://aka.ms/get/graphcli/latest/win-x64.zip
+- platform: macos-arm64
+  method: download
+  source: https://aka.ms/get/graphcli/latest/osx-arm64.zip
+- platform: linux
+  method: download
+  source: https://aka.ms/get/graphcli/latest/linux-x64.zip
+- platform: docker
+  method: container
+  source: https://github.com/microsoftgraph/msgraph-cli
+auth:
+  command: mgc login
+  note: Interactive/device-code/app-only auth via Microsoft identity platform; --scopes selects delegated permissions.
+command_groups:
+- name: login / logout
+  purpose: Authenticate the CLI session and manage scopes.
+- name: users
+  purpose: Operate on user resources (e.g. mgc users list).
+- name: drives
+  purpose: Access OneDrive/SharePoint drive items that host workbooks.
+- name: 'drives ... items ... workbook'
+  purpose: Excel workbook operations — worksheets, tables, charts, ranges, names, functions, createSession.
+- name: sites
+  purpose: Access SharePoint sites hosting Excel files.
+key_flows:
+- name: read a range
+  example: mgc drives items workbook worksheets range get --drive-id <id> --drive-item-id <id> --worksheet-id-or-name Sheet1
+- name: list worksheets
+  example: mgc drives items workbook worksheets list --drive-id <id> --drive-item-id <id>

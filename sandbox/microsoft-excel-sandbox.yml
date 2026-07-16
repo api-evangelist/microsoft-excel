@@ -1,0 +1,26 @@
+generated: '2026-06-20'
+method: searched
+source: https://learn.microsoft.com/en-us/graph/graph-explorer/graph-explorer-overview
+note: >-
+  Microsoft Graph has no card/token-style test values (it is not a payments API). Its
+  sandbox surface is a tenant-based developer environment plus a hosted API explorer with
+  sample data. No credentials are invented here; the facilities below are the published
+  test/dev surfaces.
+facilities:
+- name: Graph Explorer
+  type: hosted-api-explorer
+  url: https://developer.microsoft.com/en-us/graph/graph-explorer
+  note: >-
+    Browser tool to run Excel/Graph requests. Works unauthenticated against a Microsoft-hosted
+    sample tenant with seed data, or authenticated against your own tenant. Provides code
+    snippets, permission consent, and sample queries including workbook operations.
+- name: Microsoft 365 Developer Program
+  type: sandbox-tenant
+  url: https://developer.microsoft.com/en-us/microsoft-365/dev-program
+  note: >-
+    Free renewable Microsoft 365 E5 developer subscription (sandbox tenant) that can be
+    provisioned with sample users, mailboxes, and files for building and testing Graph apps.
+endpoints:
+  production: https://graph.microsoft.com/v1.0
+  beta: https://graph.microsoft.com/beta
+  note: There is no separate sandbox host; test against a dev tenant or Graph Explorer's sample tenant on the same endpoints.

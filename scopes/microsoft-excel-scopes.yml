@@ -1,6 +1,12 @@
-generated: '2026-07-11'
-method: derived
+generated: '2026-06-20'
+method: searched
 source: openapi/microsoft-excel-graph-api.yaml
+docs: https://learn.microsoft.com/en-us/graph/permissions-reference
+note: >-
+  Baseline (Files.Read, Files.ReadWrite) derived from the OpenAPI oauth2 flow; the .All and
+  Sites.* scopes added from the Microsoft Graph permissions reference — they are the
+  delegated permissions required to reach Excel workbooks beyond the signed-in user's own
+  files (shared files and SharePoint-hosted workbooks).
 schemes:
 - name: oauth2
   source: openapi/microsoft-excel-graph-api.yaml
@@ -11,14 +17,26 @@ schemes:
   description: OAuth 2.0 authorization using Microsoft Identity Platform
 scopes:
 - scope: Files.Read
-  description: Read user files
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/microsoft-excel-graph-api.yaml
+  description: Read the signed-in user's files.
+  flows: [authorizationCode]
+  sources: [openapi/microsoft-excel-graph-api.yaml]
 - scope: Files.ReadWrite
-  description: Read and write user files
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/microsoft-excel-graph-api.yaml
+  description: Read, create, update and delete the signed-in user's files.
+  flows: [authorizationCode]
+  sources: [openapi/microsoft-excel-graph-api.yaml]
+- scope: Files.Read.All
+  description: Read all files the signed-in user can access.
+  flows: [authorizationCode]
+  sources: [docs]
+- scope: Files.ReadWrite.All
+  description: Read, create, update and delete all files the signed-in user can access.
+  flows: [authorizationCode]
+  sources: [docs]
+- scope: Sites.Read.All
+  description: Read documents and list items in all site collections on behalf of the signed-in user (SharePoint-hosted workbooks).
+  flows: [authorizationCode]
+  sources: [docs]
+- scope: Sites.ReadWrite.All
+  description: Edit or delete documents and list items in all site collections on behalf of the signed-in user (SharePoint-hosted workbooks).
+  flows: [authorizationCode]
+  sources: [docs]

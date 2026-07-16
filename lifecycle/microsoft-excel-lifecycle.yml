@@ -1,0 +1,25 @@
+generated: '2026-06-20'
+method: searched
+source: https://learn.microsoft.com/en-us/graph/versioning-and-support
+versioning:
+  scheme: uri-path
+  current: v1.0
+  channels: [v1.0, beta]
+  docs: https://learn.microsoft.com/en-us/graph/versioning-and-support
+  note: >-
+    v1.0 is the production endpoint with change management guarantees; beta
+    (https://graph.microsoft.com/beta) is subject to breaking change and not for production.
+deprecation:
+  policy_url: https://learn.microsoft.com/en-us/graph/versioning-and-support
+  minimum_notice: 24 months
+  deprecation_header: true      # Deprecation header
+  sunset_header: true           # Sunset header (RFC 8594)
+  note: >-
+    Deprecated APIs/members are announced in the changelog and continue to function for a
+    minimum of 24 months (or 36 months for some) before removal.
+sla:
+  url: https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services
+  note: Covered under the Microsoft 365 / Online Services SLA (typically 99.9% uptime).
+status_page: https://portal.office.com/servicestatus
+changelog: https://developer.microsoft.com/en-us/graph/changelog
+deprecated_operations: []

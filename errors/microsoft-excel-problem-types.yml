@@ -1,0 +1,40 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/microsoft-excel-graph-api.yaml
+format: microsoft-graph-error
+envelope:
+  field: error
+  shape: '{ error: { code: string, message: string, innerError: { request-id, date } } }'
+  content_type: application/json
+  docs: https://learn.microsoft.com/en-us/graph/errors
+note: >-
+  Microsoft Graph does not use RFC 9457 problem+json. Errors are returned in the Graph
+  error envelope with a string `code`, a human `message`, and an `innerError` carrying the
+  request-id for support. HTTP statuses below are derived from the OpenAPI responses; the
+  `code` values are the documented Graph error codes for those statuses.
+problems:
+- status: 400
+  code: BadRequest
+  title: Bad request
+  remediation: The request is malformed or invalid (bad range address, invalid body).
+  source_operations: [createWorkbookSession, createWorksheet, updateWorksheet, updateTable, addTableRow, addTableColumn, addChart, updateRange, callWorkbookFunction]
+- status: 401
+  code: InvalidAuthenticationToken
+  title: Unauthorized
+  remediation: Access token is missing, expired, or invalid; re-acquire a token with the required Files/Sites scope.
+  source_operations: [all]
+- status: 403
+  code: AccessDenied
+  title: Forbidden
+  remediation: The caller lacks permission (insufficient scope/consent) for the workbook or session operation.
+  source_operations: [createWorkbookSession]
+- status: 404
+  code: ItemNotFound
+  title: Not found
+  remediation: The drive item, worksheet, table, column, chart, or range does not exist.
+  source_operations: [listWorksheets, getWorksheet, updateWorksheet, deleteWorksheet, listTables, updateTable, listTableRows, deleteTableRow, listTableColumns, deleteTableColumn, convertTableToRange, listCharts, getRange, listNamedItems]
+common_graph_codes:
+- {code: ItemAlreadyExists, meaning: A resource with the same name or identifier already exists.}
+- {code: TooManyRequests, status: 429, meaning: Throttling — retry after the Retry-After header interval.}
+- {code: ServiceNotAvailable, status: 503, meaning: Service temporarily unavailable; retry with backoff.}
+- {code: UnknownError, status: 500, meaning: Internal server error.}

@@ -1,0 +1,29 @@
+generated: '2026-06-20'
+method: searched
+note: >-
+  The Microsoft Graph API host (graph.microsoft.com) requires authentication and returns
+  401 for all /.well-known/ paths. Discovery is served by the Microsoft identity platform
+  (login.microsoftonline.com) and the organization security.txt is published at microsoft.com.
+hosts:
+- host: https://login.microsoftonline.com
+  documents:
+  - path: /common/v2.0/.well-known/openid-configuration   # OIDC discovery (RFC 8414 / OIDC)
+    status: 200
+    file: microsoft-excel-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+- host: https://www.microsoft.com
+  documents:
+  - path: /.well-known/security.txt          # RFC 9116
+    status: 200
+    file: microsoft-excel-security.txt
+- host: https://graph.microsoft.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 401
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/api-catalog
+    status: 401
+  - path: /.well-known/ai-plugin.json
+    status: 401

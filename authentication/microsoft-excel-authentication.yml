@@ -1,6 +1,12 @@
-generated: '2026-07-11'
-method: derived
+generated: '2026-06-20'
+method: searched
 source: openapi/microsoft-excel-graph-api.yaml
+docs: https://learn.microsoft.com/en-us/graph/auth/
+note: >-
+  OAuth 2.0 via the Microsoft identity platform (Microsoft Entra ID). Delegated
+  (authorization code / PKCE) and app-only (client credentials) flows are supported; Excel
+  workbook access requires Files.* / Sites.* scopes (see scopes/). Tokens are acquired from
+  login.microsoftonline.com and presented as Bearer tokens on graph.microsoft.com.
 summary:
   types:
   - oauth2

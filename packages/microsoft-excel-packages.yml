@@ -1,0 +1,63 @@
+generated: '2026-06-20'
+method: searched
+source: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
+note: >-
+  First-party Microsoft Graph SDKs. Excel workbook operations are surfaced through the
+  Graph service libraries (no Excel-specific package exists); these are the official,
+  Microsoft-maintained clients that call the Microsoft Graph Excel REST endpoints.
+packages:
+- language: dotnet
+  registry: nuget
+  name: Microsoft.Graph
+  url: https://www.nuget.org/packages/Microsoft.Graph
+  install: dotnet add package Microsoft.Graph
+  repo: https://github.com/microsoftgraph/msgraph-sdk-dotnet
+  official: true
+- language: java
+  registry: maven
+  name: com.microsoft.graph:microsoft-graph
+  url: https://central.sonatype.com/artifact/com.microsoft.graph/microsoft-graph
+  repo: https://github.com/microsoftgraph/msgraph-sdk-java
+  official: true
+- language: javascript
+  registry: npm
+  name: "@microsoft/microsoft-graph-client"
+  url: https://www.npmjs.com/package/@microsoft/microsoft-graph-client
+  install: npm install @microsoft/microsoft-graph-client
+  repo: https://github.com/microsoftgraph/msgraph-sdk-javascript
+  official: true
+- language: python
+  registry: pypi
+  name: msgraph-sdk
+  url: https://pypi.org/project/msgraph-sdk/
+  install: pip install msgraph-sdk
+  repo: https://github.com/microsoftgraph/msgraph-sdk-python
+  official: true
+- language: php
+  registry: packagist
+  name: microsoft/microsoft-graph
+  url: https://packagist.org/packages/microsoft/microsoft-graph
+  install: composer require microsoft/microsoft-graph
+  repo: https://github.com/microsoftgraph/msgraph-sdk-php
+  official: true
+- language: go
+  registry: pkg.go.dev
+  name: github.com/microsoftgraph/msgraph-sdk-go
+  url: https://pkg.go.dev/github.com/microsoftgraph/msgraph-sdk-go
+  install: go get github.com/microsoftgraph/msgraph-sdk-go
+  repo: https://github.com/microsoftgraph/msgraph-sdk-go
+  official: true
+- language: powershell
+  registry: powershell-gallery
+  name: Microsoft.Graph
+  url: https://www.powershellgallery.com/packages/Microsoft.Graph
+  install: Install-Module Microsoft.Graph -Scope CurrentUser
+  repo: https://github.com/microsoftgraph/msgraph-sdk-powershell
+  official: true
+- language: cli
+  registry: github-releases
+  name: msgraph-cli (mgc)
+  url: https://github.com/microsoftgraph/msgraph-cli
+  install: "download from https://aka.ms/get/graphcli/latest/<platform>.zip"
+  repo: https://github.com/microsoftgraph/msgraph-cli
+  official: true

@@ -1,0 +1,40 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/microsoft-excel-graph-api.yaml
+note: >-
+  Entity-relationship graph derived from the OpenAPI schemas and the Graph Excel path
+  hierarchy (/workbook/worksheets/{id}/tables/{id}/rows ...). The root entity is the
+  Workbook (a driveItem's /workbook facet).
+entities:
+- name: Workbook
+  description: The workbook facet of a OneDrive/SharePoint driveItem; root of the Excel object model.
+- name: WorkbookSessionInfo
+  description: A persistent or non-persistent session over a workbook (workbook-session-id).
+- name: Worksheet
+  description: A sheet within a workbook.
+- name: Table
+  description: A structured table on a worksheet (or accessed workbook-wide).
+- name: TableRow
+  description: A data row within a table.
+- name: TableColumn
+  description: A column within a table.
+- name: Chart
+  description: A chart on a worksheet.
+- name: Range
+  description: An addressed cell range on a worksheet.
+- name: NamedItem
+  description: A named range/item defined at workbook scope.
+- name: WorkbookFunctionResult
+  description: The result of invoking an Excel worksheet function.
+relationships:
+- {from: Workbook, to: WorkbookSessionInfo, type: has_many, via: createSession}
+- {from: Workbook, to: Worksheet, type: has_many, via: worksheets}
+- {from: Workbook, to: NamedItem, type: has_many, via: names}
+- {from: Workbook, to: Table, type: has_many, via: tables}
+- {from: Worksheet, to: Table, type: has_many, via: tables}
+- {from: Worksheet, to: Chart, type: has_many, via: charts}
+- {from: Worksheet, to: Range, type: has_many, via: range(address)}
+- {from: Table, to: TableRow, type: has_many, via: rows}
+- {from: Table, to: TableColumn, type: has_many, via: columns}
+- {from: Table, to: Worksheet, type: belongs_to, via: worksheet}
+- {from: Chart, to: Worksheet, type: belongs_to, via: worksheet}

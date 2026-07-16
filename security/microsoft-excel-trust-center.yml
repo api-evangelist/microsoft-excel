@@ -1,0 +1,29 @@
+generated: '2026-06-20'
+method: searched
+probe: false
+source: https://www.microsoft.com/en-us/trust-center
+url: https://www.microsoft.com/en-us/trust-center
+service_trust_portal: https://servicetrust.microsoft.com/
+note: >-
+  Microsoft Graph / Microsoft 365 compliance is covered by the Microsoft Trust Center and
+  Service Trust Portal, which publish audit reports and certifications for the underlying
+  cloud services. Certifications listed are those Microsoft documents for Microsoft 365 /
+  Azure; consult the Service Trust Portal for the current attestation set and scope.
+certifications:
+- SOC 1
+- SOC 2
+- SOC 3
+- ISO 27001
+- ISO 27017
+- ISO 27018
+- ISO 27701
+- PCI DSS
+- HIPAA / HITRUST
+- FedRAMP
+- GDPR
+- CSA STAR
+evidence:
+- source: https://www.microsoft.com/en-us/trust-center
+  keywords: [trust center, compliance, certifications]
+- source: https://servicetrust.microsoft.com/
+  keywords: [audit reports, soc, iso 27001, fedramp]
