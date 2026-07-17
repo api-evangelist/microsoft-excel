@@ -1,0 +1,142 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Delete a Table Row by Index
+  summary: Read a table's rows, delete one by its zero-based index, and confirm the removal.
+  description: >-
+    Row deletion in the Graph Excel API is by position, not by key, which makes
+    a read-before-delete mandatory: the caller must see the current rows to know
+    which index actually holds the record it means to remove, and indexes shift
+    as soon as a row is deleted. This flow reads the rows, deletes the target
+    index, and re-reads to confirm the new row set. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: prune-table-row
+  summary: Safely remove a single row from an Excel table by index.
+  description: >-
+    Snapshots the table rows so the caller can confirm the target index, deletes
+    that row, and re-reads the rows to verify the deletion.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetIdOrName
+    - rowIndex
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetIdOrName:
+        type: string
+        description: The worksheet holding the target table.
+      rowIndex:
+        type: integer
+        description: >-
+          The zero-based index of the row to delete, verified against the
+          snapshot taken by this flow before the delete is issued.
+  steps:
+  - stepId: openSession
+    description: Open a persisting session so the deletion is committed to the stored workbook.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: resolveTable
+    description: Resolve the table on the worksheet that the row will be deleted from.
+    operationId: listTables
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.value.length > 0
+      type: jsonpath
+    outputs:
+      tableId: $response.body#/value/0/id
+  - stepId: snapshotRows
+    description: >-
+      Read every row before deleting so the caller holds a copy of the row about
+      to be destroyed and can confirm the index points at the intended record.
+    operationId: listTableRows
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.value.length > 0
+      type: jsonpath
+    outputs:
+      rowsBefore: $response.body#/value
+  - stepId: deleteRow
+    description: >-
+      Delete the row at the supplied index. This is destructive, and every row
+      after it shifts up by one, so any cached indexes are invalid afterwards.
+    operationId: deleteTableRow
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: row-index
+      in: path
+      value: $inputs.rowIndex
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: verifyDeletion
+    description: >-
+      Re-read the rows to confirm the record is gone and to hand the caller the
+      re-indexed row set for any further deletions.
+    operationId: listTableRows
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rowsAfter: $response.body#/value
+  outputs:
+    tableId: $steps.resolveTable.outputs.tableId
+    rowsBefore: $steps.snapshotRows.outputs.rowsBefore
+    rowsAfter: $steps.verifyDeletion.outputs.rowsAfter

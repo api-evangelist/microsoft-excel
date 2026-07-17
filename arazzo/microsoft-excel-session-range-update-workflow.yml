@@ -1,0 +1,145 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Read, Write, and Verify a Cell Range
+  summary: Open a persisting session, read a range, write new values, and read the range back.
+  description: >-
+    The core read-modify-write loop of the Graph Excel API. A persisting
+    workbook session is opened first so the write is saved to the file and so
+    the read and the write are billed against one session rather than two cold
+    calls. The range is read before the write to capture the prior values, the
+    new values are patched in, and the range is read back to prove the write
+    landed. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: session-range-update
+  summary: Read a cell range, overwrite its values in a session, and verify the result.
+  description: >-
+    Captures the prior contents of an A1-notation range, patches new values into
+    it inside a persisting session, then re-reads the range to confirm the
+    committed state.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetIdOrName
+    - address
+    - values
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetIdOrName:
+        type: string
+        description: The worksheet holding the range (e.g. "Sheet1").
+      address:
+        type: string
+        description: The range address in A1 notation (e.g. "A1:B2").
+      values:
+        type: array
+        description: >-
+          A two-dimensional array of cell values whose shape must match the
+          target range exactly; Excel rejects a mismatched write.
+        items:
+          type: array
+          items: {}
+  steps:
+  - stepId: openSession
+    description: >-
+      Open a workbook session with persistChanges true so the values written
+      later in this flow are saved back to the stored workbook.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: readBefore
+    description: >-
+      Read the range before writing so the caller retains the prior values and
+      can confirm the target range has the row and column count it expects.
+    operationId: getRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: address
+      in: path
+      value: $inputs.address
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      priorValues: $response.body#/values
+      rowCount: $response.body#/rowCount
+      columnCount: $response.body#/columnCount
+  - stepId: writeValues
+    description: >-
+      Patch the supplied two-dimensional values into the range. Only values are
+      sent, so any existing number formats on the cells are left intact.
+    operationId: updateRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: address
+      in: path
+      value: $inputs.address
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        values: $inputs.values
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      writtenAddress: $response.body#/address
+      writtenValues: $response.body#/values
+  - stepId: readBack
+    description: >-
+      Re-read the same range to verify the committed values, including the text
+      representation Excel rendered for each cell.
+    operationId: getRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: address
+      in: path
+      value: $inputs.address
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedValues: $response.body#/values
+      confirmedText: $response.body#/text
+  outputs:
+    sessionId: $steps.openSession.outputs.sessionId
+    priorValues: $steps.readBefore.outputs.priorValues
+    confirmedValues: $steps.readBack.outputs.confirmedValues

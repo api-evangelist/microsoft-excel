@@ -1,0 +1,158 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Calculate with a Workbook Function and Write the Result
+  summary: Read input cells, invoke an Excel function as a calculation engine, and write the result back.
+  description: >-
+    This is the flow that makes Excel interesting as an API rather than as a
+    file format: the workbook functions endpoint exposes Excel's own
+    calculation engine over HTTP, so a caller can compute with the same PMT, NPV
+    or lookup semantics a finance team already trusts, without reimplementing
+    them. The flow reads the input range, calls the named function, checks the
+    result carries no Excel error, and writes the value back into the workbook.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: workbook-function-calc
+  summary: Invoke an Excel workbook function and persist its result into a cell.
+  description: >-
+    Reads the inputs backing a calculation, calls a named Excel function with
+    the supplied parameters, verifies no function error was returned, and writes
+    the computed value into a target cell.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetIdOrName
+    - inputAddress
+    - functionName
+    - functionParameters
+    - resultAddress
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetIdOrName:
+        type: string
+        description: The worksheet holding the input and result cells.
+      inputAddress:
+        type: string
+        description: >-
+          The A1-notation range holding the values that back the calculation
+          (e.g. "A1:A3").
+      functionName:
+        type: string
+        description: The Excel function to invoke (e.g. "pmt", "npv", "vlookup").
+      functionParameters:
+        type: object
+        description: >-
+          The function's named parameters as key-value pairs, matching the
+          argument names Excel expects (e.g. {"rate": 4.5, "nper": 12,
+          "pv": -1250}).
+      resultAddress:
+        type: string
+        description: The A1-notation single cell the computed value is written to (e.g. "B5").
+  steps:
+  - stepId: openSession
+    description: >-
+      Open a persisting session so the calculation reads a consistent view of
+      the workbook and the written result is saved.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: readInputs
+    description: >-
+      Read the cells backing the calculation so the caller can record exactly
+      which inputs produced the result that is about to be written.
+    operationId: getRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: address
+      in: path
+      value: $inputs.inputAddress
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      inputValues: $response.body#/values
+      inputFormulas: $response.body#/formulas
+  - stepId: callFunction
+    description: >-
+      Invoke the named Excel function through the workbook functions endpoint.
+      Excel returns a 200 with an error field set when the function itself
+      fails, so a 200 alone is not proof of a usable result.
+    operationId: callWorkbookFunction
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: function-name
+      in: path
+      value: $inputs.functionName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload: $inputs.functionParameters
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.error == null
+      type: jsonpath
+    outputs:
+      functionValue: $response.body#/value
+      functionError: $response.body#/error
+  - stepId: writeResult
+    description: >-
+      Write the computed value into the target cell so the workbook carries the
+      answer alongside the inputs that produced it.
+    operationId: updateRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: address
+      in: path
+      value: $inputs.resultAddress
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        values:
+        - - $steps.callFunction.outputs.functionValue
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      writtenAddress: $response.body#/address
+      writtenValues: $response.body#/values
+  outputs:
+    inputValues: $steps.readInputs.outputs.inputValues
+    functionValue: $steps.callFunction.outputs.functionValue
+    writtenAddress: $steps.writeResult.outputs.writtenAddress

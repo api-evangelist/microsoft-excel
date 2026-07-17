@@ -1,0 +1,144 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Write Through a Named Range
+  summary: Resolve a workbook's named items, read the range a name points at, and write values through it.
+  description: >-
+    Hard-coding "A1:D3" into an integration means the integration breaks the
+    first time somebody inserts a row. Named items are Excel's answer to that: a
+    stable name the workbook owner controls, pointing at an address that can
+    move underneath it. This flow resolves the workbook's named items, reads the
+    range the target name currently resolves to, and writes values through that
+    resolved address, so the contract between the caller and the workbook is the
+    name rather than a coordinate. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: named-range-write
+  summary: Write into a workbook range addressed by its defined name rather than a fixed coordinate.
+  description: >-
+    Lists the workbook's named items, reads the range the first named item
+    resolves to, writes new values into that range, and verifies the write.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetIdOrName
+    - address
+    - values
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetIdOrName:
+        type: string
+        description: The worksheet the named range lives on.
+      address:
+        type: string
+        description: >-
+          The A1-notation address the named item resolves to on that worksheet,
+          confirmed against the named item list this flow reads (e.g. "A1:D3").
+      values:
+        type: array
+        description: A two-dimensional array of values shaped to the named range.
+        items:
+          type: array
+          items: {}
+  steps:
+  - stepId: openSession
+    description: Open a persisting session so values written through the named range are saved.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: resolveNamedItems
+    description: >-
+      List the workbook's named items. Each carries the formula or range
+      reference it points at, which is what the caller checks the target address
+      against before writing anything.
+    operationId: listNamedItems
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.value.length > 0
+      type: jsonpath
+    outputs:
+      namedItems: $response.body#/value
+      firstNamedItemName: $response.body#/value/0/name
+      firstNamedItemValue: $response.body#/value/0/value
+  - stepId: readNamedRange
+    description: >-
+      Read the range the name resolves to, capturing its current values and
+      dimensions so the caller can confirm the payload matches the shape.
+    operationId: getRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: address
+      in: path
+      value: $inputs.address
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      priorValues: $response.body#/values
+      rowCount: $response.body#/rowCount
+      columnCount: $response.body#/columnCount
+  - stepId: writeNamedRange
+    description: >-
+      Write the values through the resolved address. Because the address came
+      from the named item, the integration keeps working when the owner moves
+      the data and updates the name.
+    operationId: updateRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: address
+      in: path
+      value: $inputs.address
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        values: $inputs.values
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      writtenAddress: $response.body#/address
+      writtenValues: $response.body#/values
+  outputs:
+    namedItems: $steps.resolveNamedItems.outputs.namedItems
+    resolvedName: $steps.resolveNamedItems.outputs.firstNamedItemName
+    priorValues: $steps.readNamedRange.outputs.priorValues
+    writtenAddress: $steps.writeNamedRange.outputs.writtenAddress

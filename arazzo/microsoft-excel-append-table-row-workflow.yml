@@ -1,0 +1,154 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Append a Row to a Table
+  summary: Resolve a table on a worksheet, confirm its column shape, append a row, and read it back.
+  description: >-
+    The most common Excel integration of all: land a record from an external
+    system as a new row in a structured table. The flow resolves the table by
+    name on the target worksheet, reads the table's columns so the caller can
+    confirm the values array is ordered and sized to match the header, appends
+    the row at the end of the table, and lists the rows back to prove the append
+    landed. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: append-table-row
+  summary: Append a single record to an Excel table and verify it was written.
+  description: >-
+    Finds the table on a worksheet, validates its column shape, posts a new row
+    at the end of the table, and re-reads the rows to confirm.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetIdOrName
+    - values
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetIdOrName:
+        type: string
+        description: The worksheet holding the target table (e.g. "Sheet1").
+      values:
+        type: array
+        description: >-
+          A two-dimensional array holding the row to append, ordered to match
+          the table's columns (e.g. [["Jan-15-2026", "49", "37"]]).
+        items:
+          type: array
+          items: {}
+  steps:
+  - stepId: openSession
+    description: >-
+      Open a persisting session so the appended row is committed to the stored
+      workbook rather than held in a transient calculation session.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: resolveTable
+    description: >-
+      List the tables on the worksheet and take the first one as the append
+      target. The step fails closed if the worksheet carries no table.
+    operationId: listTables
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.value.length > 0
+      type: jsonpath
+    outputs:
+      tableId: $response.body#/value/0/id
+      tableName: $response.body#/value/0/name
+  - stepId: confirmColumnShape
+    description: >-
+      Read the table's columns so the caller can confirm the row being appended
+      has one value per column and in the same order. Excel rejects a row whose
+      width does not match the table.
+    operationId: listTableColumns
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      columns: $response.body#/value
+  - stepId: appendRow
+    description: >-
+      Append the row. Sending index as null tells Excel to add the row at the
+      end of the table rather than inserting it at a position.
+    operationId: addTableRow
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        values: $inputs.values
+        index: null
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      rowIndex: $response.body#/index
+      rowValues: $response.body#/values
+  - stepId: verifyRow
+    description: >-
+      List the table rows back so the caller can confirm the appended row is
+      present at the index Excel reported.
+    operationId: listTableRows
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rows: $response.body#/value
+  outputs:
+    tableId: $steps.resolveTable.outputs.tableId
+    tableName: $steps.resolveTable.outputs.tableName
+    rowIndex: $steps.appendRow.outputs.rowIndex
+    rows: $steps.verifyRow.outputs.rows

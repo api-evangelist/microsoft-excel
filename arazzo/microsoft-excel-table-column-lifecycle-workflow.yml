@@ -1,0 +1,174 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Add and Retire a Table Column
+  summary: Inspect a table's columns, insert a new column at a position, verify it, then remove it.
+  description: >-
+    Schema evolution for an Excel table. Columns are the table's schema, so
+    adding one changes the shape of every row append that follows, and removing
+    one destroys the data underneath it. This flow reads the existing columns,
+    inserts a new column with its header and values at a chosen index, re-reads
+    to confirm the new shape, and then deletes the column to demonstrate the
+    retire path. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: table-column-lifecycle
+  summary: Add a column to an Excel table, confirm the new schema, and retire the column.
+  description: >-
+    Reads the current column set, adds a column at an index, verifies the table
+    shape changed, then removes the column it added.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetIdOrName
+    - columnValues
+    - index
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetIdOrName:
+        type: string
+        description: The worksheet holding the target table.
+      columnValues:
+        type: array
+        description: >-
+          A two-dimensional array holding the new column, with the header as the
+          first entry (e.g. [["Status"], ["Open"], ["Closed"]]).
+        items:
+          type: array
+          items: {}
+      index:
+        type: integer
+        description: The zero-based position to insert the new column at.
+  steps:
+  - stepId: openSession
+    description: Open a persisting session so the schema change is committed to the workbook.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: resolveTable
+    description: Resolve the table on the worksheet whose schema is being changed.
+    operationId: listTables
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.value.length > 0
+      type: jsonpath
+    outputs:
+      tableId: $response.body#/value/0/id
+      tableName: $response.body#/value/0/name
+  - stepId: readColumnsBefore
+    description: >-
+      Capture the table's column set before the change so the caller has the
+      prior schema and can pick a valid insert index.
+    operationId: listTableColumns
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      columnsBefore: $response.body#/value
+  - stepId: addColumn
+    description: >-
+      Insert the new column at the requested index, carrying its header and
+      seed values. Columns to the right of the index shift over by one.
+    operationId: addTableColumn
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        values: $inputs.columnValues
+        index: $inputs.index
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      columnId: $response.body#/id
+      columnName: $response.body#/name
+      columnIndex: $response.body#/index
+  - stepId: readColumnsAfter
+    description: >-
+      Re-read the columns to confirm the new schema, which is the shape every
+      subsequent row append must now match.
+    operationId: listTableColumns
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      columnsAfter: $response.body#/value
+  - stepId: retireColumn
+    description: >-
+      Delete the column that was just added, demonstrating the retire path. This
+      destroys every value in the column and cannot be undone through the API.
+    operationId: deleteTableColumn
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: column-id
+      in: path
+      value: $steps.addColumn.outputs.columnId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 204
+  outputs:
+    tableId: $steps.resolveTable.outputs.tableId
+    columnsBefore: $steps.readColumnsBefore.outputs.columnsBefore
+    columnsAfter: $steps.readColumnsAfter.outputs.columnsAfter
+    retiredColumnId: $steps.addColumn.outputs.columnId

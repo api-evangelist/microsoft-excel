@@ -166,6 +166,42 @@ common:
   url: https://techcommunity.microsoft.com/t5/excel-blog/bg-p/ExcelBlog
 - type: GitHubOrganization
   url: https://github.com/OfficeDev
+- type: Arazzo
+  url: arazzo/microsoft-excel-append-table-row-workflow.yml
+  name: Microsoft Excel Append a Row to a Table
+- type: Arazzo
+  url: arazzo/microsoft-excel-build-chart-from-range-workflow.yml
+  name: Microsoft Excel Build a Chart from a Data Range
+- type: Arazzo
+  url: arazzo/microsoft-excel-convert-table-to-range-workflow.yml
+  name: Microsoft Excel Flatten a Table into a Plain Range
+- type: Arazzo
+  url: arazzo/microsoft-excel-create-worksheet-seed-data-workflow.yml
+  name: Microsoft Excel Create a Worksheet and Seed It with Data
+- type: Arazzo
+  url: arazzo/microsoft-excel-discover-workbook-structure-workflow.yml
+  name: Microsoft Excel Discover Workbook Structure
+- type: Arazzo
+  url: arazzo/microsoft-excel-named-range-write-workflow.yml
+  name: Microsoft Excel Write Through a Named Range
+- type: Arazzo
+  url: arazzo/microsoft-excel-prepare-table-report-workflow.yml
+  name: Microsoft Excel Sort, Filter, and Total a Table for Reporting
+- type: Arazzo
+  url: arazzo/microsoft-excel-prune-table-row-workflow.yml
+  name: Microsoft Excel Delete a Table Row by Index
+- type: Arazzo
+  url: arazzo/microsoft-excel-session-range-update-workflow.yml
+  name: Microsoft Excel Read, Write, and Verify a Cell Range
+- type: Arazzo
+  url: arazzo/microsoft-excel-table-column-lifecycle-workflow.yml
+  name: Microsoft Excel Add and Retire a Table Column
+- type: Arazzo
+  url: arazzo/microsoft-excel-workbook-function-calc-workflow.yml
+  name: Microsoft Excel Calculate with a Workbook Function and Write the Result
+- type: Arazzo
+  url: arazzo/microsoft-excel-worksheet-lifecycle-workflow.yml
+  name: Microsoft Excel Scratch Worksheet Lifecycle
 - type: SpectralRules
   url: rules/microsoft-excel-spectral-rules.yml
 - type: Vocabulary

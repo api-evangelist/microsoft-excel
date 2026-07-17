@@ -1,0 +1,145 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Scratch Worksheet Lifecycle
+  summary: Create a temporary worksheet, read it, rename and reposition it, then delete it.
+  description: >-
+    The full create-read-update-delete lifecycle for a worksheet, which is what
+    an integration test or a scratch-space integration needs: stand a sheet up,
+    confirm it exists, mutate its properties, and clean it up so the workbook is
+    left as it was found. The delete step is destructive and is the reason the
+    flow reads the sheet back first. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: worksheet-lifecycle
+  summary: Exercise create, get, update, and delete against a single scratch worksheet.
+  description: >-
+    Creates a worksheet, fetches it to confirm it exists, patches its name and
+    position, then removes it from the workbook.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetName
+    - renamedWorksheetName
+    - position
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetName:
+        type: string
+        description: The name to give the scratch worksheet on creation.
+      renamedWorksheetName:
+        type: string
+        description: The name to rename the worksheet to during the update step.
+      position:
+        type: integer
+        description: The zero-based position to move the worksheet to.
+  steps:
+  - stepId: openSession
+    description: >-
+      Open a persisting session so each mutation in the lifecycle is committed
+      and observable by the next step.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: createScratchSheet
+    description: Create the scratch worksheet and capture the id Excel assigns to it.
+    operationId: createWorksheet
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.worksheetName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      worksheetId: $response.body#/id
+      createdName: $response.body#/name
+  - stepId: readScratchSheet
+    description: >-
+      Fetch the worksheet by the id returned at creation to confirm it exists
+      and to capture its starting position and visibility.
+    operationId: getWorksheet
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $steps.createScratchSheet.outputs.worksheetId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      startingPosition: $response.body#/position
+      visibility: $response.body#/visibility
+  - stepId: renameScratchSheet
+    description: >-
+      Patch the worksheet's name and position. Excel applies both properties in
+      a single PATCH and returns the updated worksheet.
+    operationId: updateWorksheet
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $steps.createScratchSheet.outputs.worksheetId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.renamedWorksheetName
+        position: $inputs.position
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      renamedTo: $response.body#/name
+      newPosition: $response.body#/position
+  - stepId: deleteScratchSheet
+    description: >-
+      Remove the scratch worksheet, leaving the workbook as it was found. This
+      is destructive and cannot be undone through the API.
+    operationId: deleteWorksheet
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $steps.createScratchSheet.outputs.worksheetId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 204
+  outputs:
+    worksheetId: $steps.createScratchSheet.outputs.worksheetId
+    startingPosition: $steps.readScratchSheet.outputs.startingPosition
+    renamedTo: $steps.renameScratchSheet.outputs.renamedTo

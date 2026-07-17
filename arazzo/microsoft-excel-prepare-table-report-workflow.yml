@@ -1,0 +1,210 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Sort, Filter, and Total a Table for Reporting
+  summary: Resolve a table's columns, sort it, filter a column, and switch on the totals row.
+  description: >-
+    Preparing a table for a human to read. The three things a reporting handoff
+    almost always needs are an ordering, a narrowed view, and a totals row. This
+    flow resolves the table and its columns so the sort key and the filter
+    column are chosen against real column indexes rather than guesses, applies
+    the sort, applies the column filter, and then patches the table to show its
+    totals row. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: prepare-table-report
+  summary: Order, narrow, and total an Excel table in one pass.
+  description: >-
+    Sorts a table on a chosen column, applies a filter criterion to a column,
+    and turns on the totals row so the table is ready to present.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetIdOrName
+    - sortKey
+    - ascending
+    - filterColumnId
+    - filterCriterion
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetIdOrName:
+        type: string
+        description: The worksheet holding the target table.
+      sortKey:
+        type: integer
+        description: The zero-based column index to sort the table on.
+      ascending:
+        type: boolean
+        description: Whether the sort runs ascending.
+      filterColumnId:
+        type: string
+        description: The id of the column to apply the filter to.
+      filterCriterion:
+        type: string
+        description: The value the filter keeps (e.g. "Open").
+  steps:
+  - stepId: openSession
+    description: Open a persisting session so the sort, filter, and totals row are all committed.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: resolveTable
+    description: Resolve the table on the worksheet that is being prepared for reporting.
+    operationId: listTables
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.value.length > 0
+      type: jsonpath
+    outputs:
+      tableId: $response.body#/value/0/id
+      tableName: $response.body#/value/0/name
+  - stepId: resolveColumns
+    description: >-
+      Read the table's columns so the sort key index and the filter column id
+      are chosen against the table's real schema rather than assumed.
+    operationId: listTableColumns
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      columns: $response.body#/value
+  - stepId: applySort
+    description: >-
+      Sort the table rows on the chosen column. The sort is applied to the table
+      in place and persists with the workbook.
+    operationId: sortTable
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        fields:
+        - key: $inputs.sortKey
+          ascending: $inputs.ascending
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: applyFilter
+    description: >-
+      Narrow the table to the rows matching the criterion. filterOn Values with
+      a single criterion keeps only rows whose column equals that value.
+    operationId: applyTableFilter
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: column-id
+      in: path
+      value: $inputs.filterColumnId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        criteria:
+          filterOn: Values
+          criterion1: $inputs.filterCriterion
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: showTotalsRow
+    description: >-
+      Patch the table to display its header and totals rows so the prepared view
+      carries its own summary line.
+    operationId: updateTable
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        showHeaders: true
+        showTotals: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tableName: $response.body#/name
+      showTotals: $response.body#/showTotals
+  - stepId: readPreparedRows
+    description: >-
+      Read the rows back so the caller receives the table in its sorted,
+      filtered, totalled state.
+    operationId: listTableRows
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      preparedRows: $response.body#/value
+  outputs:
+    tableId: $steps.resolveTable.outputs.tableId
+    columns: $steps.resolveColumns.outputs.columns
+    preparedRows: $steps.readPreparedRows.outputs.preparedRows

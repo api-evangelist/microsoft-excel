@@ -1,0 +1,131 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Discover Workbook Structure
+  summary: Open a session and inventory a workbook's worksheets, tables, named items, and charts.
+  description: >-
+    The first thing any integration or agent needs against an unfamiliar
+    workbook is a map of what is inside it. This workflow opens a non-persisting
+    workbook session, then walks the four discovery surfaces the Graph Excel API
+    exposes: worksheets, the tables on a chosen worksheet, the workbook-level
+    named items, and the charts on the worksheet. Nothing is written. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: discover-workbook-structure
+  summary: Inventory the structure of an Excel workbook without modifying it.
+  description: >-
+    Creates a read-only session and collects the worksheets, tables, named
+    ranges, and charts so a caller can decide where to read or write next.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetIdOrName
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file in OneDrive or SharePoint.
+      worksheetIdOrName:
+        type: string
+        description: The worksheet to inspect for tables and charts (e.g. "Sheet1").
+  steps:
+  - stepId: openSession
+    description: >-
+      Open a workbook session with persistChanges false. A read-only session
+      keeps the discovery pass fast and guarantees nothing is written back.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: listSheets
+    description: >-
+      List every worksheet in the workbook, including position and visibility,
+      so hidden sheets are visible to the caller.
+    operationId: listWorksheets
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      worksheets: $response.body#/value
+      firstWorksheetName: $response.body#/value/0/name
+  - stepId: listSheetTables
+    description: >-
+      List the structured tables defined on the target worksheet. Tables are the
+      preferred write surface because they carry a header row and grow safely.
+    operationId: listTables
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tables: $response.body#/value
+      firstTableId: $response.body#/value/0/id
+  - stepId: listWorkbookNames
+    description: >-
+      List workbook-level named items. Named ranges are the stable way to
+      address data that may move as the sheet is edited.
+    operationId: listNamedItems
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      namedItems: $response.body#/value
+  - stepId: listSheetCharts
+    description: >-
+      List the charts already present on the worksheet so a reporting flow does
+      not duplicate a chart that already exists.
+    operationId: listCharts
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      charts: $response.body#/value
+  outputs:
+    sessionId: $steps.openSession.outputs.sessionId
+    worksheets: $steps.listSheets.outputs.worksheets
+    tables: $steps.listSheetTables.outputs.tables
+    namedItems: $steps.listWorkbookNames.outputs.namedItems
+    charts: $steps.listSheetCharts.outputs.charts

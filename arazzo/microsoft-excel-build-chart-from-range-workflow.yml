@@ -1,0 +1,165 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Build a Chart from a Data Range
+  summary: Verify a source range has data, create a chart over it, and confirm the chart exists.
+  description: >-
+    Turning a block of numbers into a visual is the payoff step of most Excel
+    reporting integrations. Charts in the Graph Excel API are created against a
+    source data range, so this flow reads that range first to prove it is
+    populated and correctly sized before a chart is built over it, lists the
+    charts already on the sheet to avoid stacking duplicates, adds the chart,
+    and lists the charts again to confirm. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: build-chart-from-range
+  summary: Create a chart over a verified source range and confirm it was added.
+  description: >-
+    Reads and validates the source data range, checks the worksheet's existing
+    charts, adds a new chart of the requested type, and verifies the result.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetIdOrName
+    - sourceData
+    - chartType
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetIdOrName:
+        type: string
+        description: The worksheet the chart is drawn on.
+      sourceData:
+        type: string
+        description: >-
+          The A1-notation range the chart plots, including the header row
+          (e.g. "A1:C4").
+      chartType:
+        type: string
+        description: >-
+          The Excel chart type to create (e.g. "ColumnClustered", "Line",
+          "Pie").
+  steps:
+  - stepId: openSession
+    description: Open a persisting session so the created chart is saved to the stored workbook.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: verifySourceData
+    description: >-
+      Read the source range before charting it. A chart built over an empty or
+      wrongly sized range renders blank, and this read catches that early.
+    operationId: getRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: address
+      in: path
+      value: $inputs.sourceData
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.cellCount > 0
+      type: jsonpath
+    outputs:
+      sourceValues: $response.body#/values
+      rowCount: $response.body#/rowCount
+      columnCount: $response.body#/columnCount
+  - stepId: listExistingCharts
+    description: >-
+      List the charts already on the worksheet so a repeated run can be
+      recognised instead of stacking a second chart on top of the first.
+    operationId: listCharts
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      chartsBefore: $response.body#/value
+  - stepId: addChart
+    description: >-
+      Create the chart over the verified range. seriesby Auto lets Excel decide
+      whether the series run by row or by column based on the range shape.
+    operationId: addChart
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        type: $inputs.chartType
+        sourcedata: $inputs.sourceData
+        seriesby: Auto
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      chartId: $response.body#/id
+      chartName: $response.body#/name
+      height: $response.body#/height
+      width: $response.body#/width
+  - stepId: verifyChart
+    description: >-
+      List the charts again to confirm the new chart is present on the sheet and
+      to hand the caller the full chart set with positions.
+    operationId: listCharts
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.value.length > 0
+      type: jsonpath
+    outputs:
+      chartsAfter: $response.body#/value
+  outputs:
+    chartId: $steps.addChart.outputs.chartId
+    chartName: $steps.addChart.outputs.chartName
+    sourceValues: $steps.verifySourceData.outputs.sourceValues
+    chartsAfter: $steps.verifyChart.outputs.chartsAfter

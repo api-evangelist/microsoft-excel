@@ -1,0 +1,156 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Create a Worksheet and Seed It with Data
+  summary: Add a new worksheet to a workbook, write a header and data block into it, and read it back.
+  description: >-
+    The standard "publish a report sheet" pattern. A persisting session is
+    opened, the workbook's existing sheets are listed so the caller can avoid a
+    name collision, a new worksheet is created, a block of data is written into
+    it in A1 notation, and the block is read back to confirm it landed. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: create-worksheet-seed-data
+  summary: Create a worksheet and populate it with an initial block of values.
+  description: >-
+    Lists the existing sheets to check for a name clash, adds a new worksheet,
+    seeds a range of values into it, and verifies the written block.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetName
+    - address
+    - values
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetName:
+        type: string
+        description: The name to give the new worksheet (e.g. "Q3 Report").
+      address:
+        type: string
+        description: >-
+          The A1-notation range to seed on the new sheet, sized to the values
+          being written (e.g. "A1:C4").
+      values:
+        type: array
+        description: A two-dimensional array of values, typically a header row followed by data rows.
+        items:
+          type: array
+          items: {}
+  steps:
+  - stepId: openSession
+    description: >-
+      Open a persisting workbook session so the new sheet and its seeded data
+      are saved to the stored workbook.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: listExistingSheets
+    description: >-
+      List the current worksheets so the caller can confirm the requested name
+      is free. Excel returns ItemAlreadyExists if the name is already taken.
+    operationId: listWorksheets
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      existingSheets: $response.body#/value
+  - stepId: addWorksheet
+    description: >-
+      Create the new worksheet. Excel appends it at the end of the workbook and
+      returns its generated id and position.
+    operationId: createWorksheet
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.worksheetName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      worksheetId: $response.body#/id
+      worksheetName: $response.body#/name
+      position: $response.body#/position
+  - stepId: seedValues
+    description: >-
+      Write the initial block of values into the new sheet, addressing the range
+      by the sheet name returned when it was created.
+    operationId: updateRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $steps.addWorksheet.outputs.worksheetName
+    - name: address
+      in: path
+      value: $inputs.address
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    requestBody:
+      contentType: application/json
+      payload:
+        values: $inputs.values
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      seededAddress: $response.body#/address
+  - stepId: verifySeed
+    description: >-
+      Read the seeded range back to confirm the cell count and values match what
+      was sent before any downstream chart or table work depends on it.
+    operationId: getRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $steps.addWorksheet.outputs.worksheetName
+    - name: address
+      in: path
+      value: $inputs.address
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedValues: $response.body#/values
+      cellCount: $response.body#/cellCount
+  outputs:
+    worksheetId: $steps.addWorksheet.outputs.worksheetId
+    worksheetName: $steps.addWorksheet.outputs.worksheetName
+    confirmedValues: $steps.verifySeed.outputs.confirmedValues

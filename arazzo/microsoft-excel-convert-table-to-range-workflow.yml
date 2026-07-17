@@ -1,0 +1,161 @@
+arazzo: 1.0.1
+info:
+  title: Microsoft Excel Flatten a Table into a Plain Range
+  summary: Snapshot a table's rows and columns, convert it to a static range, and read the flattened cells.
+  description: >-
+    Converting a table to a range is a one-way door: the structured object, its
+    header semantics, its sort and its filter all disappear, and only the cell
+    values are left behind. That makes it the right final step when freezing a
+    working table into an archival tab, and the wrong thing to run casually.
+    This flow therefore snapshots both the rows and the columns before it
+    converts, so the caller retains the schema the conversion destroys, and
+    reads the resulting range afterwards. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI.
+  version: 1.0.0
+sourceDescriptions:
+- name: excelGraphApi
+  url: ../openapi/microsoft-excel-graph-api.yaml
+  type: openapi
+workflows:
+- workflowId: convert-table-to-range
+  summary: Archive a table by snapshotting it and flattening it into static cells.
+  description: >-
+    Captures a table's columns and rows, converts the table into a plain range,
+    and reads the resulting cells back at the address the conversion returned.
+  inputs:
+    type: object
+    required:
+    - itemId
+    - worksheetIdOrName
+    properties:
+      itemId:
+        type: string
+        description: The drive item id of the workbook file.
+      worksheetIdOrName:
+        type: string
+        description: The worksheet holding the table to flatten.
+  steps:
+  - stepId: openSession
+    description: Open a persisting session so the conversion is committed to the stored workbook.
+    operationId: createWorkbookSession
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    requestBody:
+      contentType: application/json
+      payload:
+        persistChanges: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/id
+  - stepId: resolveTable
+    description: Resolve the table on the worksheet that is about to be flattened.
+    operationId: listTables
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.value.length > 0
+      type: jsonpath
+    outputs:
+      tableId: $response.body#/value/0/id
+      tableName: $response.body#/value/0/name
+  - stepId: snapshotColumns
+    description: >-
+      Capture the column schema before conversion. Once the table becomes a
+      range these column names and ids no longer exist anywhere in the API.
+    operationId: listTableColumns
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      archivedColumns: $response.body#/value
+  - stepId: snapshotRows
+    description: >-
+      Capture every row before conversion so the caller holds a complete record
+      of the table as a structured object.
+    operationId: listTableRows
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      archivedRows: $response.body#/value
+  - stepId: flattenTable
+    description: >-
+      Convert the table into a plain range. This is irreversible through the
+      API: the table object, its filters, and its sort are all discarded, and
+      Excel returns the range the cells now occupy.
+    operationId: convertTableToRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: table-id
+      in: path
+      value: $steps.resolveTable.outputs.tableId
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rangeAddress: $response.body#/address
+      rangeValues: $response.body#/values
+      cellCount: $response.body#/cellCount
+  - stepId: verifyFlattenedRange
+    description: >-
+      Read the flattened cells back at the address the conversion reported to
+      confirm the values survived the conversion intact.
+    operationId: getRange
+    parameters:
+    - name: item-id
+      in: path
+      value: $inputs.itemId
+    - name: worksheet-id-or-name
+      in: path
+      value: $inputs.worksheetIdOrName
+    - name: address
+      in: path
+      value: $steps.flattenTable.outputs.rangeAddress
+    - name: workbook-session-id
+      in: header
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      flattenedValues: $response.body#/values
+  outputs:
+    archivedColumns: $steps.snapshotColumns.outputs.archivedColumns
+    archivedRows: $steps.snapshotRows.outputs.archivedRows
+    rangeAddress: $steps.flattenTable.outputs.rangeAddress
+    flattenedValues: $steps.verifyFlattenedRange.outputs.flattenedValues
