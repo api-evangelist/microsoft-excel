@@ -1,0 +1,224 @@
+openapi: 3.0.3
+info:
+  title: Microsoft Graph Excel Charts Table Columns API
+  description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
+  version: 1.0.0
+  contact:
+    name: Microsoft Graph Support
+    url: https://developer.microsoft.com/graph/support
+  license:
+    name: Microsoft API Terms of Use
+    url: https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://graph.microsoft.com/v1.0
+  description: Microsoft Graph v1.0 production endpoint
+security:
+- oauth2:
+  - Files.Read
+  - Files.ReadWrite
+tags:
+- name: Table Columns
+  description: Operations for managing table columns.
+paths:
+  /me/drive/items/{item-id}/workbook/tables/{table-id}/columns:
+    get:
+      operationId: listTableColumns
+      summary: Microsoft Excel List Table Columns
+      description: Retrieve a list of columns in the table.
+      tags:
+      - Table Columns
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: table-id
+        in: path
+        required: true
+        description: The ID or name of the table.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Columns returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableColumnCollection'
+              examples:
+                ListTableColumns200Example:
+                  summary: Default listTableColumns 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - id: '1'
+                      index: 0
+                      name: Date
+                      values:
+                      - - Date
+                      - - 42019
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Table not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: addTableColumn
+      summary: Microsoft Excel Add Table Column
+      description: Add a new column to the table.
+      tags:
+      - Table Columns
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: table-id
+        in: path
+        required: true
+        description: The ID or name of the table.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: array
+                    items: {}
+                index:
+                  type: integer
+            examples:
+              AddTableColumnRequestExample:
+                summary: Default addTableColumn request
+                x-microcks-default: true
+                value:
+                  values:
+                  - - Status
+                  - - Open
+                  - - Closed
+                  index: 2
+      responses:
+        '201':
+          description: Column added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableColumn'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/tables/{table-id}/columns/{column-id}:
+    delete:
+      operationId: deleteTableColumn
+      summary: Microsoft Excel Delete Table Column
+      description: Delete a column from the table.
+      tags:
+      - Table Columns
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: table-id
+        in: path
+        required: true
+        description: The ID or name of the table.
+        schema:
+          type: string
+      - name: column-id
+        in: path
+        required: true
+        description: The ID of the column to delete.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Column deleted successfully.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Column not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    TableColumn:
+      type: object
+      description: Represents a column in an Excel table.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the column.
+          example: '1'
+        index:
+          type: integer
+          description: Zero-based index of the column.
+          example: 0
+        name:
+          type: string
+          description: The name of the column.
+          example: Date
+        values:
+          type: array
+          description: Raw values of the column.
+          items:
+            type: array
+            items: {}
+    TableColumnCollection:
+      type: object
+      description: Collection of table columns.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableColumn'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization using Microsoft Identity Platform
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            Files.Read: Read user files
+            Files.ReadWrite: Read and write user files

@@ -1,0 +1,405 @@
+openapi: 3.0.3
+info:
+  title: Microsoft Graph Excel Charts Tables API
+  description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
+  version: 1.0.0
+  contact:
+    name: Microsoft Graph Support
+    url: https://developer.microsoft.com/graph/support
+  license:
+    name: Microsoft API Terms of Use
+    url: https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://graph.microsoft.com/v1.0
+  description: Microsoft Graph v1.0 production endpoint
+security:
+- oauth2:
+  - Files.Read
+  - Files.ReadWrite
+tags:
+- name: Tables
+  description: Operations for managing tables within worksheets.
+paths:
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables:
+    get:
+      operationId: listTables
+      summary: Microsoft Excel List Tables
+      description: Retrieve a list of tables in the worksheet.
+      tags:
+      - Tables
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: worksheet-id-or-name
+        in: path
+        required: true
+        description: Worksheet ID or name.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tables returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableCollection'
+              examples:
+                ListTables200Example:
+                  summary: Default listTables 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - id: '1'
+                      name: SalesData
+                      showHeaders: true
+                      showTotals: false
+                      style: TableStyleMedium4
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Worksheet not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/tables/{table-id}:
+    patch:
+      operationId: updateTable
+      summary: Microsoft Excel Update Table
+      description: Update table properties such as name or style.
+      tags:
+      - Tables
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: table-id
+        in: path
+        required: true
+        description: The ID or name of the table.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Table'
+            examples:
+              UpdateTableRequestExample:
+                summary: Default updateTable request
+                x-microcks-default: true
+                value:
+                  name: UpdatedTable
+                  showHeaders: true
+                  showTotals: false
+                  style: TableStyleMedium4
+      responses:
+        '200':
+          description: Table updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Table not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/tables/{table-id}/convertToRange:
+    post:
+      operationId: convertTableToRange
+      summary: Microsoft Excel Convert Table to Range
+      description: Convert the table to a regular range of cells.
+      tags:
+      - Tables
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: table-id
+        in: path
+        required: true
+        description: The ID or name of the table.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Table converted to range successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Range'
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Table not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables/{table-id}/sort/apply:
+    post:
+      operationId: sortTable
+      summary: Microsoft Excel Sort Table
+      description: Apply sort criteria to a table.
+      tags:
+      - Tables
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: worksheet-id-or-name
+        in: path
+        required: true
+        description: Worksheet ID or name.
+        schema:
+          type: string
+      - name: table-id
+        in: path
+        required: true
+        description: The ID or name of the table.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fields:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        type: integer
+                      ascending:
+                        type: boolean
+      responses:
+        '204':
+          description: Sort applied successfully.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables/{table-id}/columns({column-id})/filter/apply:
+    post:
+      operationId: applyTableFilter
+      summary: Microsoft Excel Apply Table Filter
+      description: Apply a filter to a table column.
+      tags:
+      - Tables
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: worksheet-id-or-name
+        in: path
+        required: true
+        description: Worksheet ID or name.
+        schema:
+          type: string
+      - name: table-id
+        in: path
+        required: true
+        description: The ID or name of the table.
+        schema:
+          type: string
+      - name: column-id
+        in: path
+        required: true
+        description: The ID of the column to filter.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                criteria:
+                  type: object
+                  properties:
+                    filterOn:
+                      type: string
+                    criterion1:
+                      type: string
+                    operator:
+                      type: string
+                    criterion2:
+                      type: string
+      responses:
+        '204':
+          description: Filter applied successfully.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Range:
+      type: object
+      description: Represents a cell range in a worksheet.
+      properties:
+        address:
+          type: string
+          description: Range reference in A1-style notation.
+          example: Sheet1!A1:B2
+        addressLocal:
+          type: string
+          description: Range reference in locale-specific notation.
+          example: Sheet1!A1:B2
+        cellCount:
+          type: integer
+          description: Number of cells in the range.
+          example: 4
+        columnCount:
+          type: integer
+          description: Number of columns.
+          example: 2
+        columnIndex:
+          type: integer
+          description: Column number of the first cell.
+          example: 0
+        rowCount:
+          type: integer
+          description: Number of rows.
+          example: 2
+        rowIndex:
+          type: integer
+          description: Row number of the first cell.
+          example: 0
+        hidden:
+          type: boolean
+          description: Whether the range is hidden.
+          example: false
+        formulas:
+          type: array
+          description: Formulas in A1-style notation.
+          items:
+            type: array
+            items: {}
+        values:
+          type: array
+          description: Raw values of the range.
+          items:
+            type: array
+            items: {}
+        text:
+          type: array
+          description: Text values of the range.
+          items:
+            type: array
+            items: {}
+        numberFormat:
+          type: array
+          description: Number format codes.
+          items:
+            type: array
+            items:
+              type: string
+        valueTypes:
+          type: array
+          description: Type of data in each cell.
+          items:
+            type: array
+            items:
+              type: string
+    Table:
+      type: object
+      description: Represents an Excel table.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the table.
+          example: '2'
+        name:
+          type: string
+          description: The name of the table.
+          example: SalesData
+        showHeaders:
+          type: boolean
+          description: Whether the header row is visible.
+          example: true
+        showTotals:
+          type: boolean
+          description: Whether the total row is visible.
+          example: false
+        style:
+          type: string
+          description: Table style name.
+          example: TableStyleMedium4
+    TableCollection:
+      type: object
+      description: Collection of tables.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization using Microsoft Identity Platform
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            Files.Read: Read user files
+            Files.ReadWrite: Read and write user files

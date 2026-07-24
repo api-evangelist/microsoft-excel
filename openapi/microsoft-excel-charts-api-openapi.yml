@@ -1,0 +1,193 @@
+openapi: 3.0.3
+info:
+  title: Microsoft Graph Excel Charts API
+  description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
+  version: 1.0.0
+  contact:
+    name: Microsoft Graph Support
+    url: https://developer.microsoft.com/graph/support
+  license:
+    name: Microsoft API Terms of Use
+    url: https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://graph.microsoft.com/v1.0
+  description: Microsoft Graph v1.0 production endpoint
+security:
+- oauth2:
+  - Files.Read
+  - Files.ReadWrite
+tags:
+- name: Charts
+  description: Operations for managing charts within worksheets.
+paths:
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/charts:
+    get:
+      operationId: listCharts
+      summary: Microsoft Excel List Charts
+      description: Retrieve a list of charts in the worksheet.
+      tags:
+      - Charts
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: worksheet-id-or-name
+        in: path
+        required: true
+        description: Worksheet ID or name.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Charts returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartCollection'
+              examples:
+                ListCharts200Example:
+                  summary: Default listCharts 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - id: '{00000000-0008-0000-0100-000003000000}'
+                      name: Chart 1
+                      height: 235.5
+                      width: 401.25
+                      left: 276.0
+                      top: 0.0
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Worksheet not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/charts/Add:
+    post:
+      operationId: addChart
+      summary: Microsoft Excel Add Chart
+      description: Create a new chart in the worksheet.
+      tags:
+      - Charts
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: worksheet-id-or-name
+        in: path
+        required: true
+        description: Worksheet ID or name.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Chart type.
+                sourcedata:
+                  type: string
+                  description: Source data range.
+                seriesby:
+                  type: string
+                  description: Series by setting.
+            examples:
+              AddChartRequestExample:
+                summary: Default addChart request
+                x-microcks-default: true
+                value:
+                  type: ColumnClustered
+                  sourcedata: A1:C4
+                  seriesby: Auto
+      responses:
+        '201':
+          description: Chart created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chart'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Chart:
+      type: object
+      description: Represents an Excel chart object.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the chart.
+          example: '{00000000-0008-0000-0100-000003000000}'
+        name:
+          type: string
+          description: The name of the chart.
+          example: Chart 1
+        height:
+          type: number
+          format: double
+          description: Height in points.
+          example: 235.5
+        width:
+          type: number
+          format: double
+          description: Width in points.
+          example: 401.25
+        left:
+          type: number
+          format: double
+          description: Left position in points.
+          example: 276.0
+        top:
+          type: number
+          format: double
+          description: Top position in points.
+          example: 0.0
+    ChartCollection:
+      type: object
+      description: Collection of charts.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chart'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization using Microsoft Identity Platform
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            Files.Read: Read user files
+            Files.ReadWrite: Read and write user files

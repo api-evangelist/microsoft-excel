@@ -1,0 +1,109 @@
+openapi: 3.0.3
+info:
+  title: Microsoft Graph Excel Charts Named Items API
+  description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
+  version: 1.0.0
+  contact:
+    name: Microsoft Graph Support
+    url: https://developer.microsoft.com/graph/support
+  license:
+    name: Microsoft API Terms of Use
+    url: https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://graph.microsoft.com/v1.0
+  description: Microsoft Graph v1.0 production endpoint
+security:
+- oauth2:
+  - Files.Read
+  - Files.ReadWrite
+tags:
+- name: Named Items
+  description: Operations for managing named ranges and values.
+paths:
+  /me/drive/items/{item-id}/workbook/names:
+    get:
+      operationId: listNamedItems
+      summary: Microsoft Excel List Named Items
+      description: Retrieve a list of named items (named ranges) in the workbook.
+      tags:
+      - Named Items
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Named items returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamedItemCollection'
+              examples:
+                ListNamedItems200Example:
+                  summary: Default listNamedItems 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - name: data
+                      type: Range
+                      value: Range!$A$1:$D$3
+                      visible: true
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Workbook not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    NamedItemCollection:
+      type: object
+      description: Collection of named items.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/NamedItem'
+    NamedItem:
+      type: object
+      description: Represents a defined name for a cell range or value.
+      properties:
+        name:
+          type: string
+          description: The name of the named item.
+          example: data
+        type:
+          type: string
+          description: The type of the named item.
+          example: Range
+        value:
+          type: string
+          description: The formula or range reference.
+          example: Range!$A$1:$D$3
+        visible:
+          type: boolean
+          description: Whether the named item is visible.
+          example: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization using Microsoft Identity Platform
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            Files.Read: Read user files
+            Files.ReadWrite: Read and write user files

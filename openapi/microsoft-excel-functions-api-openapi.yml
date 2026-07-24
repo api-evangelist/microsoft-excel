@@ -1,0 +1,110 @@
+openapi: 3.0.3
+info:
+  title: Microsoft Graph Excel Charts Functions API
+  description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
+  version: 1.0.0
+  contact:
+    name: Microsoft Graph Support
+    url: https://developer.microsoft.com/graph/support
+  license:
+    name: Microsoft API Terms of Use
+    url: https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://graph.microsoft.com/v1.0
+  description: Microsoft Graph v1.0 production endpoint
+security:
+- oauth2:
+  - Files.Read
+  - Files.ReadWrite
+tags:
+- name: Functions
+  description: Workbook function operations.
+paths:
+  /me/drive/items/{item-id}/workbook/functions/{function-name}:
+    post:
+      operationId: callWorkbookFunction
+      summary: Microsoft Excel Call Workbook Function
+      description: Invoke an Excel workbook function with the specified parameters.
+      tags:
+      - Functions
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: function-name
+        in: path
+        required: true
+        description: The name of the Excel function to call.
+        schema:
+          type: string
+        example: pmt
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              description: Function parameters as key-value pairs.
+            examples:
+              CallWorkbookFunctionRequestExample:
+                summary: Default callWorkbookFunction request
+                x-microcks-default: true
+                value:
+                  rate: 4.5
+                  nper: 12
+                  pv: -1250
+      responses:
+        '200':
+          description: Function result returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkbookFunctionResult'
+              examples:
+                CallWorkbookFunction200Example:
+                  summary: Default callWorkbookFunction 200 response
+                  x-microcks-default: true
+                  value:
+                    error: null
+                    value: 5625.00000734125
+        '400':
+          description: Bad request or invalid function parameters.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    WorkbookFunctionResult:
+      type: object
+      description: Result of a workbook function call.
+      properties:
+        error:
+          type: string
+          nullable: true
+          description: Error information if the function failed.
+        value: {}
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization using Microsoft Identity Platform
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            Files.Read: Read user files
+            Files.ReadWrite: Read and write user files

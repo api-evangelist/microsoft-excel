@@ -1,0 +1,250 @@
+openapi: 3.0.3
+info:
+  title: Microsoft Graph Excel Charts Ranges API
+  description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
+  version: 1.0.0
+  contact:
+    name: Microsoft Graph Support
+    url: https://developer.microsoft.com/graph/support
+  license:
+    name: Microsoft API Terms of Use
+    url: https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://graph.microsoft.com/v1.0
+  description: Microsoft Graph v1.0 production endpoint
+security:
+- oauth2:
+  - Files.Read
+  - Files.ReadWrite
+tags:
+- name: Ranges
+  description: Operations for reading and writing cell ranges.
+paths:
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/range(address='{address}'):
+    get:
+      operationId: getRange
+      summary: Microsoft Excel Get Range
+      description: Retrieve a range of cells from the worksheet.
+      tags:
+      - Ranges
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: worksheet-id-or-name
+        in: path
+        required: true
+        description: Worksheet ID or name.
+        schema:
+          type: string
+      - name: address
+        in: path
+        required: true
+        description: Cell range address in A1 notation.
+        schema:
+          type: string
+        example: A1:B2
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Range returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Range'
+              examples:
+                GetRange200Example:
+                  summary: Default getRange 200 response
+                  x-microcks-default: true
+                  value:
+                    address: Sheet1!A1:B2
+                    addressLocal: Sheet1!A1:B2
+                    cellCount: 4
+                    columnCount: 2
+                    columnIndex: 0
+                    rowCount: 2
+                    rowIndex: 0
+                    hidden: false
+                    values:
+                    - - Test
+                      - Value
+                    - - For
+                      - Update
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Worksheet not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateRange
+      summary: Microsoft Excel Update Range
+      description: Update values, formulas, or number format of a cell range.
+      tags:
+      - Ranges
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: worksheet-id-or-name
+        in: path
+        required: true
+        description: Worksheet ID or name.
+        schema:
+          type: string
+      - name: address
+        in: path
+        required: true
+        description: Cell range address in A1 notation.
+        schema:
+          type: string
+        example: A1:B2
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: array
+                    items: {}
+                numberFormat:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+                formulas:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+            examples:
+              UpdateRangeRequestExample:
+                summary: Default updateRange request
+                x-microcks-default: true
+                value:
+                  values:
+                  - - Test
+                    - Value
+                  - - For
+                    - Update
+      responses:
+        '200':
+          description: Range updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Range'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Range:
+      type: object
+      description: Represents a cell range in a worksheet.
+      properties:
+        address:
+          type: string
+          description: Range reference in A1-style notation.
+          example: Sheet1!A1:B2
+        addressLocal:
+          type: string
+          description: Range reference in locale-specific notation.
+          example: Sheet1!A1:B2
+        cellCount:
+          type: integer
+          description: Number of cells in the range.
+          example: 4
+        columnCount:
+          type: integer
+          description: Number of columns.
+          example: 2
+        columnIndex:
+          type: integer
+          description: Column number of the first cell.
+          example: 0
+        rowCount:
+          type: integer
+          description: Number of rows.
+          example: 2
+        rowIndex:
+          type: integer
+          description: Row number of the first cell.
+          example: 0
+        hidden:
+          type: boolean
+          description: Whether the range is hidden.
+          example: false
+        formulas:
+          type: array
+          description: Formulas in A1-style notation.
+          items:
+            type: array
+            items: {}
+        values:
+          type: array
+          description: Raw values of the range.
+          items:
+            type: array
+            items: {}
+        text:
+          type: array
+          description: Text values of the range.
+          items:
+            type: array
+            items: {}
+        numberFormat:
+          type: array
+          description: Number format codes.
+          items:
+            type: array
+            items:
+              type: string
+        valueTypes:
+          type: array
+          description: Type of data in each cell.
+          items:
+            type: array
+            items:
+              type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization using Microsoft Identity Platform
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            Files.Read: Read user files
+            Files.ReadWrite: Read and write user files

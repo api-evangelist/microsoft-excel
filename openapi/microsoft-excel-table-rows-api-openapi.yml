@@ -1,0 +1,226 @@
+openapi: 3.0.3
+info:
+  title: Microsoft Graph Excel Charts Table Rows API
+  description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
+  version: 1.0.0
+  contact:
+    name: Microsoft Graph Support
+    url: https://developer.microsoft.com/graph/support
+  license:
+    name: Microsoft API Terms of Use
+    url: https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://graph.microsoft.com/v1.0
+  description: Microsoft Graph v1.0 production endpoint
+security:
+- oauth2:
+  - Files.Read
+  - Files.ReadWrite
+tags:
+- name: Table Rows
+  description: Operations for managing table row data.
+paths:
+  /me/drive/items/{item-id}/workbook/tables/{table-id}/rows:
+    get:
+      operationId: listTableRows
+      summary: Microsoft Excel List Table Rows
+      description: Retrieve a list of rows in the table.
+      tags:
+      - Table Rows
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: table-id
+        in: path
+        required: true
+        description: The ID or name of the table.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Table rows returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableRowCollection'
+              examples:
+                ListTableRows200Example:
+                  summary: Default listTableRows 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - index: 0
+                      values:
+                      - - 42019
+                        - 53
+                        - 34
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Table not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: addTableRow
+      summary: Microsoft Excel Add Table Row
+      description: Add a new row to the table.
+      tags:
+      - Table Rows
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: table-id
+        in: path
+        required: true
+        description: The ID or name of the table.
+        schema:
+          type: string
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: array
+                    items: {}
+                index:
+                  type: integer
+                  nullable: true
+            examples:
+              AddTableRowRequestExample:
+                summary: Default addTableRow request
+                x-microcks-default: true
+                value:
+                  values:
+                  - - Jan-15-2026
+                    - '49'
+                    - '37'
+                  index: null
+      responses:
+        '201':
+          description: Row added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableRow'
+              examples:
+                AddTableRow201Example:
+                  summary: Default addTableRow 201 response
+                  x-microcks-default: true
+                  value:
+                    index: 6
+                    values:
+                    - - Jan-15-2026
+                      - 49
+                      - 37
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/tables/{table-id}/rows/$/itemAt(index={row-index}):
+    delete:
+      operationId: deleteTableRow
+      summary: Microsoft Excel Delete Table Row
+      description: Delete a row from the table by index.
+      tags:
+      - Table Rows
+      parameters:
+      - name: item-id
+        in: path
+        required: true
+        description: The ID of the workbook file.
+        schema:
+          type: string
+      - name: table-id
+        in: path
+        required: true
+        description: The ID or name of the table.
+        schema:
+          type: string
+      - name: row-index
+        in: path
+        required: true
+        description: Zero-based index of the row to delete.
+        schema:
+          type: integer
+      - name: workbook-session-id
+        in: header
+        required: false
+        description: Workbook session ID.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Row deleted successfully.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Row not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    TableRowCollection:
+      type: object
+      description: Collection of table rows.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableRow'
+    TableRow:
+      type: object
+      description: Represents a row in an Excel table.
+      properties:
+        index:
+          type: integer
+          description: Zero-based index of the row.
+          example: 0
+        values:
+          type: array
+          description: Raw values of the row.
+          items:
+            type: array
+            items: {}
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization using Microsoft Identity Platform
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            Files.Read: Read user files
+            Files.ReadWrite: Read and write user files
