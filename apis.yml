@@ -2,6 +2,19 @@ aid: microsoft-excel
 name: Microsoft Excel
 description: APIs for automating, integrating, and extending Microsoft Excel functionality including workbook management,
   data manipulation, charting, and formula execution through Microsoft Graph REST APIs.
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://learn.microsoft.com/en-us/graph/images/excel-logo.png
 url: https://raw.githubusercontent.com/api-evangelist/microsoft-excel/refs/heads/main/apis.yml
 humanURL: https://www.microsoft.com/excel
@@ -17,22 +30,51 @@ tags:
 - Office
 - Spreadsheets
 apis:
-- name: Microsoft Graph Excel API
-  description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites,
-    or Group drives through Microsoft Graph. Supports worksheet, table, chart, range, named item, and function operations.
+- name: Excel JavaScript API
+  description: >-
+    Office Add-ins API for building custom functionality within Excel using JavaScript and TypeScript.
+  humanURL: >-
+    https://learn.microsoft.com/en-us/office/dev/add-ins/reference/overview/excel-add-ins-reference-overview
+  baseURL: https://excel.office.com
+  tags:
+  - Client-Side
+  - JavaScript
+  - Office Add-Ins
+  properties:
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/javascript/api/excel
+  - type: GettingStarted
+    url: https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/excel-quickstart-jquery
+- name: Office Scripts API
+  description: >-
+    TypeScript-based automation for Excel on the web, enabling Power Automate integration for business
+    process automation.
+  humanURL: https://learn.microsoft.com/en-us/office/dev/scripts/overview/excel
+  baseURL: https://excel.office.com
+  tags:
+  - Automation
+  - Excel Online
+  - Power Automate
+  - TypeScript
+  properties:
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/office/dev/scripts/develop/scripting-fundamentals
+  - type: CodeExamples
+    url: https://learn.microsoft.com/en-us/office/dev/scripts/resources/samples/samples-overview
+  - type: Tutorials
+    url: https://learn.microsoft.com/en-us/office/dev/scripts/tutorials/excel-tutorial
+- aid: microsoft-excel:microsoft-excel-charts-api
+  name: Microsoft Excel Charts API
+  description: Operations for managing charts within worksheets.
   humanURL: https://learn.microsoft.com/en-us/graph/api/resources/excel
   baseURL: https://graph.microsoft.com/v1.0
   tags:
-  - Cloud
-  - Microsoft Graph
-  - OneDrive
-  - REST API
-  - SharePoint
+  - Charts
   properties:
+  - type: OpenAPI
+    url: openapi/microsoft-excel-charts-api-openapi.yml
   - type: Documentation
     url: https://learn.microsoft.com/en-us/graph/api/resources/excel
-  - type: OpenAPI
-    url: openapi/microsoft-excel-graph-api.yaml
   - type: Authentication
     url: https://learn.microsoft.com/en-us/graph/auth/
   - type: APIReference
@@ -81,37 +123,489 @@ apis:
     url: capabilities/graph-tables.yaml
   - type: X-NaftikoCapability
     url: capabilities/graph-worksheets.yaml
-- name: Excel JavaScript API
-  description: Office Add-ins API for building custom functionality within Excel using JavaScript and TypeScript.
-  humanURL: https://learn.microsoft.com/en-us/office/dev/add-ins/reference/overview/excel-add-ins-reference-overview
-  baseURL: https://excel.office.com
+- aid: microsoft-excel:microsoft-excel-functions-api
+  name: Microsoft Excel Functions API
+  description: Workbook function operations.
+  humanURL: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  baseURL: https://graph.microsoft.com/v1.0
   tags:
-  - Client-Side
-  - JavaScript
-  - Office Add-Ins
+  - Functions
   properties:
+  - type: OpenAPI
+    url: openapi/microsoft-excel-functions-api-openapi.yml
   - type: Documentation
-    url: https://learn.microsoft.com/en-us/javascript/api/excel
-  - type: GettingStarted
-    url: https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/excel-quickstart-jquery
-- name: Office Scripts API
-  description: TypeScript-based automation for Excel on the web, enabling Power Automate integration for business process
-    automation.
-  humanURL: https://learn.microsoft.com/en-us/office/dev/scripts/overview/excel
-  baseURL: https://excel.office.com
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: Authentication
+    url: https://learn.microsoft.com/en-us/graph/auth/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-worksheet-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-row-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-column-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-chart-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-range-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-named-item-schema.json
+  - type: JSONStructure
+    url: json-structure/excel-graph-api-worksheet-structure.json
+  - type: JSONLD
+    url: json-ld/microsoft-excel-graph-api-context.jsonld
+  - type: Examples
+    url: examples/excel-graph-api-worksheet-example.json
+  - type: Examples
+    url: examples/excel-graph-api-table-example.json
+  - type: Examples
+    url: examples/excel-graph-api-range-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/graph-charts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-functions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-named-items.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-ranges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-columns.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-rows.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-tables.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-worksheets.yaml
+- aid: microsoft-excel:microsoft-excel-named-items-api
+  name: Microsoft Excel Named Items API
+  description: Operations for managing named ranges and values.
+  humanURL: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  baseURL: https://graph.microsoft.com/v1.0
   tags:
-  - Automation
-  - Excel Online
-  - Power Automate
-  - TypeScript
+  - Named Items
   properties:
+  - type: OpenAPI
+    url: openapi/microsoft-excel-named-items-api-openapi.yml
   - type: Documentation
-    url: https://learn.microsoft.com/en-us/office/dev/scripts/develop/scripting-fundamentals
-  - type: CodeExamples
-    url: https://learn.microsoft.com/en-us/office/dev/scripts/resources/samples/samples-overview
-  - type: Tutorials
-    url: https://learn.microsoft.com/en-us/office/dev/scripts/tutorials/excel-tutorial
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: Authentication
+    url: https://learn.microsoft.com/en-us/graph/auth/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-worksheet-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-row-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-column-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-chart-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-range-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-named-item-schema.json
+  - type: JSONStructure
+    url: json-structure/excel-graph-api-worksheet-structure.json
+  - type: JSONLD
+    url: json-ld/microsoft-excel-graph-api-context.jsonld
+  - type: Examples
+    url: examples/excel-graph-api-worksheet-example.json
+  - type: Examples
+    url: examples/excel-graph-api-table-example.json
+  - type: Examples
+    url: examples/excel-graph-api-range-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/graph-charts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-functions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-named-items.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-ranges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-columns.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-rows.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-tables.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-worksheets.yaml
+- aid: microsoft-excel:microsoft-excel-ranges-api
+  name: Microsoft Excel Ranges API
+  description: Operations for reading and writing cell ranges.
+  humanURL: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  baseURL: https://graph.microsoft.com/v1.0
+  tags:
+  - Ranges
+  properties:
+  - type: OpenAPI
+    url: openapi/microsoft-excel-ranges-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: Authentication
+    url: https://learn.microsoft.com/en-us/graph/auth/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-worksheet-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-row-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-column-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-chart-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-range-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-named-item-schema.json
+  - type: JSONStructure
+    url: json-structure/excel-graph-api-worksheet-structure.json
+  - type: JSONLD
+    url: json-ld/microsoft-excel-graph-api-context.jsonld
+  - type: Examples
+    url: examples/excel-graph-api-worksheet-example.json
+  - type: Examples
+    url: examples/excel-graph-api-table-example.json
+  - type: Examples
+    url: examples/excel-graph-api-range-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/graph-charts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-functions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-named-items.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-ranges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-columns.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-rows.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-tables.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-worksheets.yaml
+- aid: microsoft-excel:microsoft-excel-sessions-api
+  name: Microsoft Excel Sessions API
+  description: Workbook session management operations.
+  humanURL: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  baseURL: https://graph.microsoft.com/v1.0
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/microsoft-excel-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: Authentication
+    url: https://learn.microsoft.com/en-us/graph/auth/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-worksheet-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-row-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-column-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-chart-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-range-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-named-item-schema.json
+  - type: JSONStructure
+    url: json-structure/excel-graph-api-worksheet-structure.json
+  - type: JSONLD
+    url: json-ld/microsoft-excel-graph-api-context.jsonld
+  - type: Examples
+    url: examples/excel-graph-api-worksheet-example.json
+  - type: Examples
+    url: examples/excel-graph-api-table-example.json
+  - type: Examples
+    url: examples/excel-graph-api-range-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/graph-charts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-functions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-named-items.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-ranges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-columns.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-rows.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-tables.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-worksheets.yaml
+- aid: microsoft-excel:microsoft-excel-table-columns-api
+  name: Microsoft Excel Table Columns API
+  description: Operations for managing table columns.
+  humanURL: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  baseURL: https://graph.microsoft.com/v1.0
+  tags:
+  - Table Columns
+  properties:
+  - type: OpenAPI
+    url: openapi/microsoft-excel-table-columns-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: Authentication
+    url: https://learn.microsoft.com/en-us/graph/auth/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-worksheet-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-row-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-column-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-chart-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-range-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-named-item-schema.json
+  - type: JSONStructure
+    url: json-structure/excel-graph-api-worksheet-structure.json
+  - type: JSONLD
+    url: json-ld/microsoft-excel-graph-api-context.jsonld
+  - type: Examples
+    url: examples/excel-graph-api-worksheet-example.json
+  - type: Examples
+    url: examples/excel-graph-api-table-example.json
+  - type: Examples
+    url: examples/excel-graph-api-range-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/graph-charts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-functions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-named-items.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-ranges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-columns.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-rows.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-tables.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-worksheets.yaml
+- aid: microsoft-excel:microsoft-excel-table-rows-api
+  name: Microsoft Excel Table Rows API
+  description: Operations for managing table row data.
+  humanURL: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  baseURL: https://graph.microsoft.com/v1.0
+  tags:
+  - Table Rows
+  properties:
+  - type: OpenAPI
+    url: openapi/microsoft-excel-table-rows-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: Authentication
+    url: https://learn.microsoft.com/en-us/graph/auth/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-worksheet-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-row-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-column-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-chart-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-range-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-named-item-schema.json
+  - type: JSONStructure
+    url: json-structure/excel-graph-api-worksheet-structure.json
+  - type: JSONLD
+    url: json-ld/microsoft-excel-graph-api-context.jsonld
+  - type: Examples
+    url: examples/excel-graph-api-worksheet-example.json
+  - type: Examples
+    url: examples/excel-graph-api-table-example.json
+  - type: Examples
+    url: examples/excel-graph-api-range-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/graph-charts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-functions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-named-items.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-ranges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-columns.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-rows.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-tables.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-worksheets.yaml
+- aid: microsoft-excel:microsoft-excel-tables-api
+  name: Microsoft Excel Tables API
+  description: Operations for managing tables within worksheets.
+  humanURL: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  baseURL: https://graph.microsoft.com/v1.0
+  tags:
+  - Tables
+  properties:
+  - type: OpenAPI
+    url: openapi/microsoft-excel-tables-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: Authentication
+    url: https://learn.microsoft.com/en-us/graph/auth/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-worksheet-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-row-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-column-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-chart-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-range-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-named-item-schema.json
+  - type: JSONStructure
+    url: json-structure/excel-graph-api-worksheet-structure.json
+  - type: JSONLD
+    url: json-ld/microsoft-excel-graph-api-context.jsonld
+  - type: Examples
+    url: examples/excel-graph-api-worksheet-example.json
+  - type: Examples
+    url: examples/excel-graph-api-table-example.json
+  - type: Examples
+    url: examples/excel-graph-api-range-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/graph-charts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-functions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-named-items.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-ranges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-columns.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-rows.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-tables.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-worksheets.yaml
+- aid: microsoft-excel:microsoft-excel-worksheets-api
+  name: Microsoft Excel Worksheets API
+  description: Operations for managing worksheets within a workbook.
+  humanURL: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  baseURL: https://graph.microsoft.com/v1.0
+  tags:
+  - Worksheets
+  properties:
+  - type: OpenAPI
+    url: openapi/microsoft-excel-worksheets-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: Authentication
+    url: https://learn.microsoft.com/en-us/graph/auth/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/graph/api/resources/excel
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-worksheet-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-row-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-table-column-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-chart-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-range-schema.json
+  - type: JSONSchema
+    url: json-schema/excel-graph-api-named-item-schema.json
+  - type: JSONStructure
+    url: json-structure/excel-graph-api-worksheet-structure.json
+  - type: JSONLD
+    url: json-ld/microsoft-excel-graph-api-context.jsonld
+  - type: Examples
+    url: examples/excel-graph-api-worksheet-example.json
+  - type: Examples
+    url: examples/excel-graph-api-table-example.json
+  - type: Examples
+    url: examples/excel-graph-api-range-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/graph-charts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-functions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-named-items.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-ranges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-columns.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-table-rows.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-tables.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/graph-worksheets.yaml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/microsoft-excel/overview
 - type: AgenticAccess
   url: agentic-access/microsoft-excel-agentic-access.yml
 - type: VulnerabilityDisclosure
