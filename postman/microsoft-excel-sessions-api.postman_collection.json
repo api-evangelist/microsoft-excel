@@ -1,0 +1,403 @@
+{
+  "info": {
+    "_postman_id": "739898a1-5a59-4215-98eb-65d3821549b3",
+    "name": "Microsoft Graph Excel Charts Sessions API",
+    "description": "REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.\n\nContact Support:\n Name: Microsoft Graph Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:11:04.000Z",
+    "updatedAt": "2026-07-28T02:11:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-739898a1-5a59-4215-98eb-65d3821549b3"
+  },
+  "item": [
+    {
+      "name": "me",
+      "item": [
+        {
+          "name": "drive",
+          "item": [
+            {
+              "name": "items",
+              "item": [
+                {
+                  "name": "{item-id}",
+                  "item": [
+                    {
+                      "name": "workbook",
+                      "item": [
+                        {
+                          "name": "createSession",
+                          "item": [
+                            {
+                              "name": "Microsoft Excel Create Workbook Session",
+                              "id": "ac444d54-a4d9-41fb-90a6-095c623e1e6d",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"persistChanges\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/createSession",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "me",
+                                    "drive",
+                                    "items",
+                                    ":item-id",
+                                    "workbook",
+                                    "createSession"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "fe8f30bd-deb1-416d-b9ef-353a04b0e72c",
+                                      "key": "item-id",
+                                      "value": "<string>",
+                                      "description": "(Required) The ID of the workbook file in OneDrive."
+                                    }
+                                  ]
+                                },
+                                "description": "Create a new workbook session with optional persistence."
+                              },
+                              "response": [
+                                {
+                                  "id": "2c1ece49-7004-4a1f-bc12-306476e47e2d",
+                                  "name": "Session created successfully.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"persistChanges\": \"<boolean>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/createSession",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "createSession"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "item-id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"persistChanges\": \"<boolean>\"\n}",
+                                  "createdAt": "2026-07-28T02:11:05.000Z",
+                                  "updatedAt": "2026-07-28T02:11:05.000Z",
+                                  "uid": "35240-2c1ece49-7004-4a1f-bc12-306476e47e2d"
+                                },
+                                {
+                                  "id": "713bcb11-cafd-4180-aba2-6631e9e3be3f",
+                                  "name": "Bad request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"persistChanges\": \"<boolean>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/createSession",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "createSession"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "item-id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"innerError\": {\n      \"request-id\": \"<string>\",\n      \"date\": \"<dateTime>\"\n    }\n  }\n}",
+                                  "createdAt": "2026-07-28T02:11:05.000Z",
+                                  "updatedAt": "2026-07-28T02:11:05.000Z",
+                                  "uid": "35240-713bcb11-cafd-4180-aba2-6631e9e3be3f"
+                                },
+                                {
+                                  "id": "ae4638f7-3df2-46eb-8838-d39fd28e8d37",
+                                  "name": "Unauthorized.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"persistChanges\": \"<boolean>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/createSession",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "createSession"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "item-id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:11:05.000Z",
+                                  "updatedAt": "2026-07-28T02:11:05.000Z",
+                                  "uid": "35240-ae4638f7-3df2-46eb-8838-d39fd28e8d37"
+                                },
+                                {
+                                  "id": "49241305-f655-4527-8b9f-7da6610a2e67",
+                                  "name": "Forbidden.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"persistChanges\": \"<boolean>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/createSession",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "createSession"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "item-id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:11:05.000Z",
+                                  "updatedAt": "2026-07-28T02:11:05.000Z",
+                                  "uid": "35240-49241305-f655-4527-8b9f-7da6610a2e67"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:11:05.000Z",
+                              "updatedAt": "2026-07-28T02:11:05.000Z",
+                              "uid": "35240-ac444d54-a4d9-41fb-90a6-095c623e1e6d"
+                            }
+                          ],
+                          "id": "9921e91e-565a-43c2-b0e0-f64e7370b223",
+                          "createdAt": "2026-07-28T02:11:05.000Z",
+                          "updatedAt": "2026-07-28T02:11:05.000Z",
+                          "uid": "35240-9921e91e-565a-43c2-b0e0-f64e7370b223"
+                        }
+                      ],
+                      "id": "31d9b5c7-3a89-4792-b29a-cb51c1b463e0",
+                      "createdAt": "2026-07-28T02:11:05.000Z",
+                      "updatedAt": "2026-07-28T02:11:05.000Z",
+                      "uid": "35240-31d9b5c7-3a89-4792-b29a-cb51c1b463e0"
+                    }
+                  ],
+                  "id": "0d130d56-39fd-4322-b08b-abde3e2d5125",
+                  "createdAt": "2026-07-28T02:11:05.000Z",
+                  "updatedAt": "2026-07-28T02:11:05.000Z",
+                  "uid": "35240-0d130d56-39fd-4322-b08b-abde3e2d5125"
+                }
+              ],
+              "id": "3d59c182-d041-496e-91e8-85c861453a19",
+              "createdAt": "2026-07-28T02:11:05.000Z",
+              "updatedAt": "2026-07-28T02:11:05.000Z",
+              "uid": "35240-3d59c182-d041-496e-91e8-85c861453a19"
+            }
+          ],
+          "id": "febed205-b669-4590-ac45-f4c585794921",
+          "createdAt": "2026-07-28T02:11:05.000Z",
+          "updatedAt": "2026-07-28T02:11:05.000Z",
+          "uid": "35240-febed205-b669-4590-ac45-f4c585794921"
+        }
+      ],
+      "id": "786e485a-2dd5-434c-b6c1-a873fed6e0f1",
+      "createdAt": "2026-07-28T02:11:05.000Z",
+      "updatedAt": "2026-07-28T02:11:05.000Z",
+      "uid": "35240-786e485a-2dd5-434c-b6c1-a873fed6e0f1"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "Files.Read Files.ReadWrite",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://graph.microsoft.com/v1.0"
+    }
+  ]
+}

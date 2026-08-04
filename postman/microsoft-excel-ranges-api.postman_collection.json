@@ -1,0 +1,627 @@
+{
+  "info": {
+    "_postman_id": "71557f89-78bf-4271-ac56-fc3d0f1230f8",
+    "name": "Microsoft Graph Excel Charts Ranges API",
+    "description": "REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.\n\nContact Support:\n Name: Microsoft Graph Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:11:03.000Z",
+    "updatedAt": "2026-07-28T02:11:04.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-71557f89-78bf-4271-ac56-fc3d0f1230f8"
+  },
+  "item": [
+    {
+      "name": "me",
+      "item": [
+        {
+          "name": "drive",
+          "item": [
+            {
+              "name": "items",
+              "item": [
+                {
+                  "name": "{item-id}",
+                  "item": [
+                    {
+                      "name": "workbook",
+                      "item": [
+                        {
+                          "name": "worksheets",
+                          "item": [
+                            {
+                              "name": "{worksheet-id-or-name}",
+                              "item": [
+                                {
+                                  "name": "range(address='{address}')",
+                                  "item": [
+                                    {
+                                      "name": "Microsoft Excel Get Range",
+                                      "id": "2ac8a4db-3f57-4da1-9cff-a6ea8e82463f",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/range(address='{{address}}')",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name",
+                                            "range(address='{{address}}')"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "3cc423a4-fa1d-43c4-9d80-7ff49609c0a2",
+                                              "key": "item-id",
+                                              "value": "<string>",
+                                              "description": "(Required) The ID of the workbook file."
+                                            },
+                                            {
+                                              "id": "742a1e38-e26d-4ee8-9a90-9305d960ac26",
+                                              "key": "worksheet-id-or-name",
+                                              "value": "<string>",
+                                              "description": "(Required) Worksheet ID or name."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Retrieve a range of cells from the worksheet."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "ee8ab272-5835-4685-880d-ef59ef644f3d",
+                                          "name": "Range returned successfully.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/range(address='{{address}}')",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "worksheets",
+                                                ":worksheet-id-or-name",
+                                                "range(address='{{address}}')"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "worksheet-id-or-name"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"address\": \"<string>\",\n  \"addressLocal\": \"<string>\",\n  \"cellCount\": \"<integer>\",\n  \"columnCount\": \"<integer>\",\n  \"columnIndex\": \"<integer>\",\n  \"rowCount\": \"<integer>\",\n  \"rowIndex\": \"<integer>\",\n  \"hidden\": \"<boolean>\",\n  \"formulas\": [\n    [],\n    []\n  ],\n  \"values\": [\n    [],\n    []\n  ],\n  \"text\": [\n    [],\n    []\n  ],\n  \"numberFormat\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ],\n  \"valueTypes\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                          "createdAt": "2026-07-28T02:11:04.000Z",
+                                          "updatedAt": "2026-07-28T02:11:04.000Z",
+                                          "uid": "35240-ee8ab272-5835-4685-880d-ef59ef644f3d"
+                                        },
+                                        {
+                                          "id": "a17f3148-da17-4e31-b17e-c183251633a0",
+                                          "name": "Unauthorized.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/range(address='{{address}}')",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "worksheets",
+                                                ":worksheet-id-or-name",
+                                                "range(address='{{address}}')"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "worksheet-id-or-name"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Unauthorized",
+                                          "code": 401,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:11:04.000Z",
+                                          "updatedAt": "2026-07-28T02:11:04.000Z",
+                                          "uid": "35240-a17f3148-da17-4e31-b17e-c183251633a0"
+                                        },
+                                        {
+                                          "id": "e807173c-2312-416a-8c96-fde3fb836e89",
+                                          "name": "Worksheet not found.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/range(address='{{address}}')",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "worksheets",
+                                                ":worksheet-id-or-name",
+                                                "range(address='{{address}}')"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "worksheet-id-or-name"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:11:04.000Z",
+                                          "updatedAt": "2026-07-28T02:11:04.000Z",
+                                          "uid": "35240-e807173c-2312-416a-8c96-fde3fb836e89"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:11:04.000Z",
+                                      "updatedAt": "2026-07-28T02:11:04.000Z",
+                                      "uid": "35240-2ac8a4db-3f57-4da1-9cff-a6ea8e82463f"
+                                    },
+                                    {
+                                      "name": "Microsoft Excel Update Range",
+                                      "id": "f6ec34b7-afe9-434c-b906-2a9112c21fb4",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"values\": [\n    [],\n    []\n  ],\n  \"numberFormat\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ],\n  \"formulas\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/range(address='{{address}}')",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name",
+                                            "range(address='{{address}}')"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "4463aebf-559f-45f0-b015-075d1602a09c",
+                                              "key": "item-id",
+                                              "value": "<string>",
+                                              "description": "(Required) The ID of the workbook file."
+                                            },
+                                            {
+                                              "id": "1c389c7c-95f3-43ca-95a4-405fdd8f392e",
+                                              "key": "worksheet-id-or-name",
+                                              "value": "<string>",
+                                              "description": "(Required) Worksheet ID or name."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Update values, formulas, or number format of a cell range."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "02479ad3-ddb2-4aed-8d81-a1a8e84b90ec",
+                                          "name": "Range updated successfully.",
+                                          "originalRequest": {
+                                            "method": "PATCH",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"values\": [\n    [],\n    []\n  ],\n  \"numberFormat\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ],\n  \"formulas\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/range(address='{{address}}')",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "worksheets",
+                                                ":worksheet-id-or-name",
+                                                "range(address='{{address}}')"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "worksheet-id-or-name"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"address\": \"<string>\",\n  \"addressLocal\": \"<string>\",\n  \"cellCount\": \"<integer>\",\n  \"columnCount\": \"<integer>\",\n  \"columnIndex\": \"<integer>\",\n  \"rowCount\": \"<integer>\",\n  \"rowIndex\": \"<integer>\",\n  \"hidden\": \"<boolean>\",\n  \"formulas\": [\n    [],\n    []\n  ],\n  \"values\": [\n    [],\n    []\n  ],\n  \"text\": [\n    [],\n    []\n  ],\n  \"numberFormat\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ],\n  \"valueTypes\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                          "createdAt": "2026-07-28T02:11:04.000Z",
+                                          "updatedAt": "2026-07-28T02:11:04.000Z",
+                                          "uid": "35240-02479ad3-ddb2-4aed-8d81-a1a8e84b90ec"
+                                        },
+                                        {
+                                          "id": "5d52e92d-1174-4686-b5f2-f69ed653dbdf",
+                                          "name": "Bad request.",
+                                          "originalRequest": {
+                                            "method": "PATCH",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"values\": [\n    [],\n    []\n  ],\n  \"numberFormat\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ],\n  \"formulas\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/range(address='{{address}}')",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "worksheets",
+                                                ":worksheet-id-or-name",
+                                                "range(address='{{address}}')"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "worksheet-id-or-name"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Bad Request",
+                                          "code": 400,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:11:04.000Z",
+                                          "updatedAt": "2026-07-28T02:11:04.000Z",
+                                          "uid": "35240-5d52e92d-1174-4686-b5f2-f69ed653dbdf"
+                                        },
+                                        {
+                                          "id": "8c833572-ee85-49bf-86a4-a4f400d4c7f4",
+                                          "name": "Unauthorized.",
+                                          "originalRequest": {
+                                            "method": "PATCH",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"values\": [\n    [],\n    []\n  ],\n  \"numberFormat\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ],\n  \"formulas\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/range(address='{{address}}')",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "worksheets",
+                                                ":worksheet-id-or-name",
+                                                "range(address='{{address}}')"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "worksheet-id-or-name"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Unauthorized",
+                                          "code": 401,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:11:04.000Z",
+                                          "updatedAt": "2026-07-28T02:11:04.000Z",
+                                          "uid": "35240-8c833572-ee85-49bf-86a4-a4f400d4c7f4"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:11:04.000Z",
+                                      "updatedAt": "2026-07-28T02:11:04.000Z",
+                                      "uid": "35240-f6ec34b7-afe9-434c-b906-2a9112c21fb4"
+                                    }
+                                  ],
+                                  "id": "59bd6899-bb9e-40f9-915a-2c2c4950d133",
+                                  "createdAt": "2026-07-28T02:11:04.000Z",
+                                  "updatedAt": "2026-07-28T02:11:04.000Z",
+                                  "uid": "35240-59bd6899-bb9e-40f9-915a-2c2c4950d133"
+                                }
+                              ],
+                              "id": "de492d01-4a51-46d1-b26c-631dd2fdb245",
+                              "createdAt": "2026-07-28T02:11:04.000Z",
+                              "updatedAt": "2026-07-28T02:11:04.000Z",
+                              "uid": "35240-de492d01-4a51-46d1-b26c-631dd2fdb245"
+                            }
+                          ],
+                          "id": "378d0cbd-0ab8-4f17-a7c3-440c624c3a15",
+                          "createdAt": "2026-07-28T02:11:04.000Z",
+                          "updatedAt": "2026-07-28T02:11:04.000Z",
+                          "uid": "35240-378d0cbd-0ab8-4f17-a7c3-440c624c3a15"
+                        }
+                      ],
+                      "id": "69af02f9-acc0-4581-bcc3-8002f2a6612d",
+                      "createdAt": "2026-07-28T02:11:04.000Z",
+                      "updatedAt": "2026-07-28T02:11:04.000Z",
+                      "uid": "35240-69af02f9-acc0-4581-bcc3-8002f2a6612d"
+                    }
+                  ],
+                  "id": "053d8675-80f7-447b-9921-cfcae396dd2d",
+                  "createdAt": "2026-07-28T02:11:04.000Z",
+                  "updatedAt": "2026-07-28T02:11:04.000Z",
+                  "uid": "35240-053d8675-80f7-447b-9921-cfcae396dd2d"
+                }
+              ],
+              "id": "ee49b756-8c9d-409a-a8d0-d98ef1673775",
+              "createdAt": "2026-07-28T02:11:04.000Z",
+              "updatedAt": "2026-07-28T02:11:04.000Z",
+              "uid": "35240-ee49b756-8c9d-409a-a8d0-d98ef1673775"
+            }
+          ],
+          "id": "e83bcad6-ac7d-40a3-9801-89d11b0ec08d",
+          "createdAt": "2026-07-28T02:11:04.000Z",
+          "updatedAt": "2026-07-28T02:11:04.000Z",
+          "uid": "35240-e83bcad6-ac7d-40a3-9801-89d11b0ec08d"
+        }
+      ],
+      "id": "1850fe34-074f-4bf4-817f-afd2c5aab040",
+      "createdAt": "2026-07-28T02:11:04.000Z",
+      "updatedAt": "2026-07-28T02:11:04.000Z",
+      "uid": "35240-1850fe34-074f-4bf4-817f-afd2c5aab040"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "Files.Read Files.ReadWrite",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://graph.microsoft.com/v1.0"
+    },
+    {
+      "key": "address",
+      "value": "<string>"
+    }
+  ]
+}

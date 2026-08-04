@@ -1,0 +1,865 @@
+{
+  "info": {
+    "_postman_id": "c31ef3cb-4faf-42d8-8395-0776f31a98d6",
+    "name": "Microsoft Graph Excel Charts Table Rows API",
+    "description": "REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.\n\nContact Support:\n Name: Microsoft Graph Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:11:26.000Z",
+    "updatedAt": "2026-07-28T02:11:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c31ef3cb-4faf-42d8-8395-0776f31a98d6"
+  },
+  "item": [
+    {
+      "name": "me",
+      "item": [
+        {
+          "name": "drive",
+          "item": [
+            {
+              "name": "items",
+              "item": [
+                {
+                  "name": "{item-id}",
+                  "item": [
+                    {
+                      "name": "workbook",
+                      "item": [
+                        {
+                          "name": "tables",
+                          "item": [
+                            {
+                              "name": "{table-id}",
+                              "item": [
+                                {
+                                  "name": "rows",
+                                  "item": [
+                                    {
+                                      "name": "$",
+                                      "item": [
+                                        {
+                                          "name": "itemAt(index={row-index})",
+                                          "item": [
+                                            {
+                                              "name": "Microsoft Excel Delete Table Row",
+                                              "id": "07744fa0-e697-440a-8448-e539ad38ef0a",
+                                              "protocolProfileBehavior": {
+                                                "disableBodyPruning": true
+                                              },
+                                              "request": {
+                                                "method": "DELETE",
+                                                "header": [
+                                                  {
+                                                    "description": "Workbook session ID.",
+                                                    "key": "workbook-session-id",
+                                                    "value": "<string>"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows/$/itemAt(index={{row-index}})",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "me",
+                                                    "drive",
+                                                    "items",
+                                                    ":item-id",
+                                                    "workbook",
+                                                    "tables",
+                                                    ":table-id",
+                                                    "rows",
+                                                    "$",
+                                                    "itemAt(index={{row-index}})"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "id": "c3e15f83-10aa-40f3-b85b-08019062cc4c",
+                                                      "key": "item-id",
+                                                      "value": "<string>",
+                                                      "description": "(Required) The ID of the workbook file."
+                                                    },
+                                                    {
+                                                      "id": "42fe4369-74b5-4c1d-bb3e-9277fba5e221",
+                                                      "key": "table-id",
+                                                      "value": "<string>",
+                                                      "description": "(Required) The ID or name of the table."
+                                                    }
+                                                  ]
+                                                },
+                                                "description": "Delete a row from the table by index."
+                                              },
+                                              "response": [
+                                                {
+                                                  "id": "996e8230-12e4-4f7a-b67f-14df7f44a6a1",
+                                                  "name": "Row deleted successfully.",
+                                                  "originalRequest": {
+                                                    "method": "DELETE",
+                                                    "header": [
+                                                      {
+                                                        "description": "Workbook session ID.",
+                                                        "key": "workbook-session-id",
+                                                        "value": "<string>"
+                                                      },
+                                                      {
+                                                        "description": "Added as a part of security scheme: oauth2",
+                                                        "key": "Authorization",
+                                                        "value": "<token>"
+                                                      }
+                                                    ],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows/$/itemAt(index={{row-index}})",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "me",
+                                                        "drive",
+                                                        "items",
+                                                        ":item-id",
+                                                        "workbook",
+                                                        "tables",
+                                                        ":table-id",
+                                                        "rows",
+                                                        "$",
+                                                        "itemAt(index={{row-index}})"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "item-id"
+                                                        },
+                                                        {
+                                                          "key": "table-id"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "No Content",
+                                                  "code": 204,
+                                                  "_postman_previewlanguage": "text",
+                                                  "header": [],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": null,
+                                                  "createdAt": "2026-07-28T02:11:26.000Z",
+                                                  "updatedAt": "2026-07-28T02:11:26.000Z",
+                                                  "uid": "35240-996e8230-12e4-4f7a-b67f-14df7f44a6a1"
+                                                },
+                                                {
+                                                  "id": "9cd24419-2ba4-4d52-9cf6-bd86a791946f",
+                                                  "name": "Unauthorized.",
+                                                  "originalRequest": {
+                                                    "method": "DELETE",
+                                                    "header": [
+                                                      {
+                                                        "description": "Workbook session ID.",
+                                                        "key": "workbook-session-id",
+                                                        "value": "<string>"
+                                                      },
+                                                      {
+                                                        "description": "Added as a part of security scheme: oauth2",
+                                                        "key": "Authorization",
+                                                        "value": "<token>"
+                                                      }
+                                                    ],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows/$/itemAt(index={{row-index}})",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "me",
+                                                        "drive",
+                                                        "items",
+                                                        ":item-id",
+                                                        "workbook",
+                                                        "tables",
+                                                        ":table-id",
+                                                        "rows",
+                                                        "$",
+                                                        "itemAt(index={{row-index}})"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "item-id"
+                                                        },
+                                                        {
+                                                          "key": "table-id"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "Unauthorized",
+                                                  "code": 401,
+                                                  "_postman_previewlanguage": "text",
+                                                  "header": [],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": null,
+                                                  "createdAt": "2026-07-28T02:11:26.000Z",
+                                                  "updatedAt": "2026-07-28T02:11:26.000Z",
+                                                  "uid": "35240-9cd24419-2ba4-4d52-9cf6-bd86a791946f"
+                                                },
+                                                {
+                                                  "id": "c861959b-0411-442e-8e16-811385dd7840",
+                                                  "name": "Row not found.",
+                                                  "originalRequest": {
+                                                    "method": "DELETE",
+                                                    "header": [
+                                                      {
+                                                        "description": "Workbook session ID.",
+                                                        "key": "workbook-session-id",
+                                                        "value": "<string>"
+                                                      },
+                                                      {
+                                                        "description": "Added as a part of security scheme: oauth2",
+                                                        "key": "Authorization",
+                                                        "value": "<token>"
+                                                      }
+                                                    ],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows/$/itemAt(index={{row-index}})",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "me",
+                                                        "drive",
+                                                        "items",
+                                                        ":item-id",
+                                                        "workbook",
+                                                        "tables",
+                                                        ":table-id",
+                                                        "rows",
+                                                        "$",
+                                                        "itemAt(index={{row-index}})"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "item-id"
+                                                        },
+                                                        {
+                                                          "key": "table-id"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "Not Found",
+                                                  "code": 404,
+                                                  "_postman_previewlanguage": "text",
+                                                  "header": [],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": null,
+                                                  "createdAt": "2026-07-28T02:11:26.000Z",
+                                                  "updatedAt": "2026-07-28T02:11:26.000Z",
+                                                  "uid": "35240-c861959b-0411-442e-8e16-811385dd7840"
+                                                }
+                                              ],
+                                              "createdAt": "2026-07-28T02:11:26.000Z",
+                                              "updatedAt": "2026-07-28T02:11:26.000Z",
+                                              "uid": "35240-07744fa0-e697-440a-8448-e539ad38ef0a"
+                                            }
+                                          ],
+                                          "id": "5224ee31-cb37-4a04-b61a-ae1b9f3a48e0",
+                                          "createdAt": "2026-07-28T02:11:26.000Z",
+                                          "updatedAt": "2026-07-28T02:11:26.000Z",
+                                          "uid": "35240-5224ee31-cb37-4a04-b61a-ae1b9f3a48e0"
+                                        }
+                                      ],
+                                      "id": "ff16b586-f3d8-45ce-ab16-477b0caa4234",
+                                      "createdAt": "2026-07-28T02:11:26.000Z",
+                                      "updatedAt": "2026-07-28T02:11:26.000Z",
+                                      "uid": "35240-ff16b586-f3d8-45ce-ab16-477b0caa4234"
+                                    },
+                                    {
+                                      "name": "Microsoft Excel List Table Rows",
+                                      "id": "7829b8b9-2e31-4ff7-b4e7-1a328fe13f6c",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "tables",
+                                            ":table-id",
+                                            "rows"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "79ea9c25-3a3e-4594-84ed-5c04620b13c5",
+                                              "key": "item-id",
+                                              "value": "<string>",
+                                              "description": "(Required) The ID of the workbook file."
+                                            },
+                                            {
+                                              "id": "8fe305c2-55e6-46c9-8073-8532f9b31150",
+                                              "key": "table-id",
+                                              "value": "<string>",
+                                              "description": "(Required) The ID or name of the table."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Retrieve a list of rows in the table."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "4cdedfe8-0fe0-4a02-abfe-c4e4d243f58a",
+                                          "name": "Table rows returned successfully.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "tables",
+                                                ":table-id",
+                                                "rows"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "table-id"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"value\": [\n    {\n      \"index\": \"<integer>\",\n      \"values\": [\n        [],\n        []\n      ]\n    },\n    {\n      \"index\": \"<integer>\",\n      \"values\": [\n        [],\n        []\n      ]\n    }\n  ]\n}",
+                                          "createdAt": "2026-07-28T02:11:26.000Z",
+                                          "updatedAt": "2026-07-28T02:11:26.000Z",
+                                          "uid": "35240-4cdedfe8-0fe0-4a02-abfe-c4e4d243f58a"
+                                        },
+                                        {
+                                          "id": "deebf986-e23b-4ae4-81c0-5b26e37c2238",
+                                          "name": "Unauthorized.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "tables",
+                                                ":table-id",
+                                                "rows"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "table-id"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Unauthorized",
+                                          "code": 401,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:11:26.000Z",
+                                          "updatedAt": "2026-07-28T02:11:26.000Z",
+                                          "uid": "35240-deebf986-e23b-4ae4-81c0-5b26e37c2238"
+                                        },
+                                        {
+                                          "id": "5f964cdb-b048-45f6-8a7c-baecd54cda0f",
+                                          "name": "Table not found.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "tables",
+                                                ":table-id",
+                                                "rows"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "table-id"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:11:26.000Z",
+                                          "updatedAt": "2026-07-28T02:11:26.000Z",
+                                          "uid": "35240-5f964cdb-b048-45f6-8a7c-baecd54cda0f"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:11:26.000Z",
+                                      "updatedAt": "2026-07-28T02:11:26.000Z",
+                                      "uid": "35240-7829b8b9-2e31-4ff7-b4e7-1a328fe13f6c"
+                                    },
+                                    {
+                                      "name": "Microsoft Excel Add Table Row",
+                                      "id": "a47b4d58-99c3-46f3-a47a-80576c04b4bf",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"values\": [\n    [],\n    []\n  ],\n  \"index\": \"<integer>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "tables",
+                                            ":table-id",
+                                            "rows"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "5281dcfa-5a49-4952-9eb5-d1c40561d909",
+                                              "key": "item-id",
+                                              "value": "<string>",
+                                              "description": "(Required) The ID of the workbook file."
+                                            },
+                                            {
+                                              "id": "c73f649d-2b02-47a9-aa10-9352621649e4",
+                                              "key": "table-id",
+                                              "value": "<string>",
+                                              "description": "(Required) The ID or name of the table."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Add a new row to the table."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "81aa7246-a5df-4236-8891-104a8f9aa69f",
+                                          "name": "Row added successfully.",
+                                          "originalRequest": {
+                                            "method": "POST",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"values\": [\n    [],\n    []\n  ],\n  \"index\": \"<integer>\"\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "tables",
+                                                ":table-id",
+                                                "rows"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "table-id"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Created",
+                                          "code": 201,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"index\": \"<integer>\",\n  \"values\": [\n    [],\n    []\n  ]\n}",
+                                          "createdAt": "2026-07-28T02:11:26.000Z",
+                                          "updatedAt": "2026-07-28T02:11:26.000Z",
+                                          "uid": "35240-81aa7246-a5df-4236-8891-104a8f9aa69f"
+                                        },
+                                        {
+                                          "id": "589f49f6-f4e3-4280-927e-beb9a03ccb5e",
+                                          "name": "Bad request.",
+                                          "originalRequest": {
+                                            "method": "POST",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"values\": [\n    [],\n    []\n  ],\n  \"index\": \"<integer>\"\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "tables",
+                                                ":table-id",
+                                                "rows"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "table-id"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Bad Request",
+                                          "code": 400,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:11:26.000Z",
+                                          "updatedAt": "2026-07-28T02:11:26.000Z",
+                                          "uid": "35240-589f49f6-f4e3-4280-927e-beb9a03ccb5e"
+                                        },
+                                        {
+                                          "id": "c612d9f1-66cc-4dc0-8088-902c850954c7",
+                                          "name": "Unauthorized.",
+                                          "originalRequest": {
+                                            "method": "POST",
+                                            "header": [
+                                              {
+                                                "description": "Workbook session ID.",
+                                                "key": "workbook-session-id",
+                                                "value": "<string>"
+                                              },
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: oauth2",
+                                                "key": "Authorization",
+                                                "value": "<token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"values\": [\n    [],\n    []\n  ],\n  \"index\": \"<integer>\"\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/tables/:table-id/rows",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "me",
+                                                "drive",
+                                                "items",
+                                                ":item-id",
+                                                "workbook",
+                                                "tables",
+                                                ":table-id",
+                                                "rows"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "item-id"
+                                                },
+                                                {
+                                                  "key": "table-id"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Unauthorized",
+                                          "code": 401,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:11:26.000Z",
+                                          "updatedAt": "2026-07-28T02:11:26.000Z",
+                                          "uid": "35240-c612d9f1-66cc-4dc0-8088-902c850954c7"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:11:26.000Z",
+                                      "updatedAt": "2026-07-28T02:11:26.000Z",
+                                      "uid": "35240-a47b4d58-99c3-46f3-a47a-80576c04b4bf"
+                                    }
+                                  ],
+                                  "id": "6c0a783c-2d5c-43c1-8404-238c8c1ef637",
+                                  "createdAt": "2026-07-28T02:11:26.000Z",
+                                  "updatedAt": "2026-07-28T02:11:26.000Z",
+                                  "uid": "35240-6c0a783c-2d5c-43c1-8404-238c8c1ef637"
+                                }
+                              ],
+                              "id": "34f7d159-3b3e-4dc7-b4a8-edd55f3ced59",
+                              "createdAt": "2026-07-28T02:11:26.000Z",
+                              "updatedAt": "2026-07-28T02:11:26.000Z",
+                              "uid": "35240-34f7d159-3b3e-4dc7-b4a8-edd55f3ced59"
+                            }
+                          ],
+                          "id": "37895728-f521-40e8-a0c7-542a65ed449f",
+                          "createdAt": "2026-07-28T02:11:26.000Z",
+                          "updatedAt": "2026-07-28T02:11:26.000Z",
+                          "uid": "35240-37895728-f521-40e8-a0c7-542a65ed449f"
+                        }
+                      ],
+                      "id": "52adebb2-17ff-4ee7-bc66-6069d1f2a0ca",
+                      "createdAt": "2026-07-28T02:11:26.000Z",
+                      "updatedAt": "2026-07-28T02:11:26.000Z",
+                      "uid": "35240-52adebb2-17ff-4ee7-bc66-6069d1f2a0ca"
+                    }
+                  ],
+                  "id": "7526f5cb-e6bb-450a-9924-f19ea87a6661",
+                  "createdAt": "2026-07-28T02:11:26.000Z",
+                  "updatedAt": "2026-07-28T02:11:26.000Z",
+                  "uid": "35240-7526f5cb-e6bb-450a-9924-f19ea87a6661"
+                }
+              ],
+              "id": "c0a86e1c-4f27-40a2-aeda-0440362c4925",
+              "createdAt": "2026-07-28T02:11:26.000Z",
+              "updatedAt": "2026-07-28T02:11:26.000Z",
+              "uid": "35240-c0a86e1c-4f27-40a2-aeda-0440362c4925"
+            }
+          ],
+          "id": "c8e8f648-25ff-4f05-b39e-e1231a33d403",
+          "createdAt": "2026-07-28T02:11:26.000Z",
+          "updatedAt": "2026-07-28T02:11:26.000Z",
+          "uid": "35240-c8e8f648-25ff-4f05-b39e-e1231a33d403"
+        }
+      ],
+      "id": "a408282c-75c2-48ce-b6c1-43cda43c6581",
+      "createdAt": "2026-07-28T02:11:26.000Z",
+      "updatedAt": "2026-07-28T02:11:26.000Z",
+      "uid": "35240-a408282c-75c2-48ce-b6c1-43cda43c6581"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "Files.Read Files.ReadWrite",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://graph.microsoft.com/v1.0"
+    },
+    {
+      "key": "row-index",
+      "value": "<integer>"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "provider": "microsoft-excel",
+  "sources": [
+    "microsoft-excel-charts-api-openapi.yml",
+    "microsoft-excel-functions-api-openapi.yml",
+    "microsoft-excel-named-items-api-openapi.yml",
+    "microsoft-excel-ranges-api-openapi.yml",
+    "microsoft-excel-sessions-api-openapi.yml",
+    "microsoft-excel-table-columns-api-openapi.yml",
+    "microsoft-excel-table-rows-api-openapi.yml",
+    "microsoft-excel-tables-api-openapi.yml",
+    "microsoft-excel-worksheets-api-openapi.yml"
+  ],
+  "outputs": [
+    "microsoft-excel-charts-api-openapi.yml",
+    "microsoft-excel-functions-api-openapi.yml",
+    "microsoft-excel-named-items-api-openapi.yml",
+    "microsoft-excel-ranges-api-openapi.yml",
+    "microsoft-excel-sessions-api-openapi.yml",
+    "microsoft-excel-table-columns-api-openapi.yml",
+    "microsoft-excel-table-rows-api-openapi.yml",
+    "microsoft-excel-tables-api-openapi.yml",
+    "microsoft-excel-worksheets-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

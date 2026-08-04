@@ -1,0 +1,1609 @@
+openapi: 3.0.3
+info:
+  title: Microsoft Graph Excel API
+  description: >-
+    REST API for accessing and manipulating Excel workbooks stored in OneDrive
+    for Business, SharePoint sites, or Group drives through Microsoft Graph.
+  version: 1.0.0
+  contact:
+    name: Microsoft Graph Support
+    url: https://developer.microsoft.com/graph/support
+  license:
+    name: Microsoft API Terms of Use
+    url: https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+  - url: https://graph.microsoft.com/v1.0
+    description: Microsoft Graph v1.0 production endpoint
+security:
+  - oauth2:
+      - Files.Read
+      - Files.ReadWrite
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization using Microsoft Identity Platform
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            Files.Read: Read user files
+            Files.ReadWrite: Read and write user files
+  schemas:
+    WorkbookSessionInfo:
+      type: object
+      description: Session information for a workbook session.
+      properties:
+        id:
+          type: string
+          description: The session identifier.
+          example: '{session-id}'
+        persistChanges:
+          type: boolean
+          description: Whether changes are persisted.
+          example: true
+    Worksheet:
+      type: object
+      description: Represents an Excel worksheet.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the worksheet.
+          example: '{00000000-0001-0000-0000-000000000000}'
+        name:
+          type: string
+          description: The display name of the worksheet.
+          example: Sheet1
+        position:
+          type: integer
+          description: The zero-based position of the worksheet.
+          example: 0
+        visibility:
+          type: string
+          description: Worksheet visibility.
+          enum:
+            - Visible
+            - Hidden
+            - VeryHidden
+          example: Visible
+    WorksheetCollection:
+      type: object
+      description: Collection of worksheets.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Worksheet'
+    Table:
+      type: object
+      description: Represents an Excel table.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the table.
+          example: '2'
+        name:
+          type: string
+          description: The name of the table.
+          example: SalesData
+        showHeaders:
+          type: boolean
+          description: Whether the header row is visible.
+          example: true
+        showTotals:
+          type: boolean
+          description: Whether the total row is visible.
+          example: false
+        style:
+          type: string
+          description: Table style name.
+          example: TableStyleMedium4
+    TableCollection:
+      type: object
+      description: Collection of tables.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+    TableRow:
+      type: object
+      description: Represents a row in an Excel table.
+      properties:
+        index:
+          type: integer
+          description: Zero-based index of the row.
+          example: 0
+        values:
+          type: array
+          description: Raw values of the row.
+          items:
+            type: array
+            items: {}
+    TableRowCollection:
+      type: object
+      description: Collection of table rows.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableRow'
+    TableColumn:
+      type: object
+      description: Represents a column in an Excel table.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the column.
+          example: '1'
+        index:
+          type: integer
+          description: Zero-based index of the column.
+          example: 0
+        name:
+          type: string
+          description: The name of the column.
+          example: Date
+        values:
+          type: array
+          description: Raw values of the column.
+          items:
+            type: array
+            items: {}
+    TableColumnCollection:
+      type: object
+      description: Collection of table columns.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableColumn'
+    Chart:
+      type: object
+      description: Represents an Excel chart object.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the chart.
+          example: '{00000000-0008-0000-0100-000003000000}'
+        name:
+          type: string
+          description: The name of the chart.
+          example: Chart 1
+        height:
+          type: number
+          format: double
+          description: Height in points.
+          example: 235.5
+        width:
+          type: number
+          format: double
+          description: Width in points.
+          example: 401.25
+        left:
+          type: number
+          format: double
+          description: Left position in points.
+          example: 276.0
+        top:
+          type: number
+          format: double
+          description: Top position in points.
+          example: 0.0
+    ChartCollection:
+      type: object
+      description: Collection of charts.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chart'
+    Range:
+      type: object
+      description: Represents a cell range in a worksheet.
+      properties:
+        address:
+          type: string
+          description: Range reference in A1-style notation.
+          example: 'Sheet1!A1:B2'
+        addressLocal:
+          type: string
+          description: Range reference in locale-specific notation.
+          example: 'Sheet1!A1:B2'
+        cellCount:
+          type: integer
+          description: Number of cells in the range.
+          example: 4
+        columnCount:
+          type: integer
+          description: Number of columns.
+          example: 2
+        columnIndex:
+          type: integer
+          description: Column number of the first cell.
+          example: 0
+        rowCount:
+          type: integer
+          description: Number of rows.
+          example: 2
+        rowIndex:
+          type: integer
+          description: Row number of the first cell.
+          example: 0
+        hidden:
+          type: boolean
+          description: Whether the range is hidden.
+          example: false
+        formulas:
+          type: array
+          description: Formulas in A1-style notation.
+          items:
+            type: array
+            items: {}
+        values:
+          type: array
+          description: Raw values of the range.
+          items:
+            type: array
+            items: {}
+        text:
+          type: array
+          description: Text values of the range.
+          items:
+            type: array
+            items: {}
+        numberFormat:
+          type: array
+          description: Number format codes.
+          items:
+            type: array
+            items:
+              type: string
+        valueTypes:
+          type: array
+          description: Type of data in each cell.
+          items:
+            type: array
+            items:
+              type: string
+    NamedItem:
+      type: object
+      description: Represents a defined name for a cell range or value.
+      properties:
+        name:
+          type: string
+          description: The name of the named item.
+          example: data
+        type:
+          type: string
+          description: The type of the named item.
+          example: Range
+        value:
+          type: string
+          description: The formula or range reference.
+          example: 'Range!$A$1:$D$3'
+        visible:
+          type: boolean
+          description: Whether the named item is visible.
+          example: true
+    NamedItemCollection:
+      type: object
+      description: Collection of named items.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/NamedItem'
+    WorkbookFunctionResult:
+      type: object
+      description: Result of a workbook function call.
+      properties:
+        error:
+          type: string
+          nullable: true
+          description: Error information if the function failed.
+        value: {}
+    ErrorResponse:
+      type: object
+      description: Error response from the API.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code.
+              example: ItemAlreadyExists
+            message:
+              type: string
+              description: Error message.
+              example: A resource with the same name or identifier already exists.
+            innerError:
+              type: object
+              properties:
+                request-id:
+                  type: string
+                date:
+                  type: string
+                  format: date-time
+tags:
+  - name: Sessions
+    description: Workbook session management operations.
+  - name: Worksheets
+    description: Operations for managing worksheets within a workbook.
+  - name: Tables
+    description: Operations for managing tables within worksheets.
+  - name: Table Rows
+    description: Operations for managing table row data.
+  - name: Table Columns
+    description: Operations for managing table columns.
+  - name: Charts
+    description: Operations for managing charts within worksheets.
+  - name: Ranges
+    description: Operations for reading and writing cell ranges.
+  - name: Named Items
+    description: Operations for managing named ranges and values.
+  - name: Functions
+    description: Workbook function operations.
+paths:
+  /me/drive/items/{item-id}/workbook/createSession:
+    post:
+      operationId: createWorkbookSession
+      summary: Microsoft Excel Create Workbook Session
+      description: Create a new workbook session with optional persistence.
+      tags:
+        - Sessions
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file in OneDrive.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                persistChanges:
+                  type: boolean
+                  description: Whether to persist changes to the workbook.
+            examples:
+              CreateWorkbookSessionRequestExample:
+                summary: Default createWorkbookSession request
+                x-microcks-default: true
+                value:
+                  persistChanges: true
+      responses:
+        '201':
+          description: Session created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkbookSessionInfo'
+              examples:
+                CreateWorkbookSession201Example:
+                  summary: Default createWorkbookSession 201 response
+                  x-microcks-default: true
+                  value:
+                    id: '{session-id}'
+                    persistChanges: true
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets:
+    get:
+      operationId: listWorksheets
+      summary: Microsoft Excel List Worksheets
+      description: Retrieve a list of worksheets in the workbook.
+      tags:
+        - Worksheets
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID for performance.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Worksheets returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorksheetCollection'
+              examples:
+                ListWorksheets200Example:
+                  summary: Default listWorksheets 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                      - id: '{00000000-0001-0000-0000-000000000000}'
+                        name: Sheet1
+                        position: 0
+                        visibility: Visible
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Workbook not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createWorksheet
+      summary: Microsoft Excel Create Worksheet
+      description: Add a new worksheet to the workbook.
+      tags:
+        - Worksheets
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the new worksheet.
+            examples:
+              CreateWorksheetRequestExample:
+                summary: Default createWorksheet request
+                x-microcks-default: true
+                value:
+                  name: NewSheet
+      responses:
+        '201':
+          description: Worksheet created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Worksheet'
+              examples:
+                CreateWorksheet201Example:
+                  summary: Default createWorksheet 201 response
+                  x-microcks-default: true
+                  value:
+                    id: '{75A18F35-34AA-4F44-97CC-FDC3C05D9F40}'
+                    name: NewSheet
+                    position: 5
+                    visibility: Visible
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}:
+    get:
+      operationId: getWorksheet
+      summary: Microsoft Excel Get Worksheet
+      description: Retrieve a specific worksheet by ID or name.
+      tags:
+        - Worksheets
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: worksheet-id-or-name
+          in: path
+          required: true
+          description: Worksheet ID or name.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Worksheet returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Worksheet'
+              examples:
+                GetWorksheet200Example:
+                  summary: Default getWorksheet 200 response
+                  x-microcks-default: true
+                  value:
+                    id: '{00000000-0001-0000-0000-000000000000}'
+                    name: Sheet1
+                    position: 0
+                    visibility: Visible
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Worksheet not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateWorksheet
+      summary: Microsoft Excel Update Worksheet
+      description: Update worksheet properties such as name or position.
+      tags:
+        - Worksheets
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: worksheet-id-or-name
+          in: path
+          required: true
+          description: Worksheet ID or name.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Worksheet'
+            examples:
+              UpdateWorksheetRequestExample:
+                summary: Default updateWorksheet request
+                x-microcks-default: true
+                value:
+                  name: RenamedSheet
+                  position: 3
+      responses:
+        '200':
+          description: Worksheet updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Worksheet'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Worksheet not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteWorksheet
+      summary: Microsoft Excel Delete Worksheet
+      description: Delete a worksheet from the workbook.
+      tags:
+        - Worksheets
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: worksheet-id-or-name
+          in: path
+          required: true
+          description: Worksheet ID or name.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Worksheet deleted successfully.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Worksheet not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables:
+    get:
+      operationId: listTables
+      summary: Microsoft Excel List Tables
+      description: Retrieve a list of tables in the worksheet.
+      tags:
+        - Tables
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: worksheet-id-or-name
+          in: path
+          required: true
+          description: Worksheet ID or name.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tables returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableCollection'
+              examples:
+                ListTables200Example:
+                  summary: Default listTables 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                      - id: '1'
+                        name: SalesData
+                        showHeaders: true
+                        showTotals: false
+                        style: TableStyleMedium4
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Worksheet not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/tables/{table-id}:
+    patch:
+      operationId: updateTable
+      summary: Microsoft Excel Update Table
+      description: Update table properties such as name or style.
+      tags:
+        - Tables
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: table-id
+          in: path
+          required: true
+          description: The ID or name of the table.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Table'
+            examples:
+              UpdateTableRequestExample:
+                summary: Default updateTable request
+                x-microcks-default: true
+                value:
+                  name: UpdatedTable
+                  showHeaders: true
+                  showTotals: false
+                  style: TableStyleMedium4
+      responses:
+        '200':
+          description: Table updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Table not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/tables/{table-id}/rows:
+    get:
+      operationId: listTableRows
+      summary: Microsoft Excel List Table Rows
+      description: Retrieve a list of rows in the table.
+      tags:
+        - Table Rows
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: table-id
+          in: path
+          required: true
+          description: The ID or name of the table.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Table rows returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableRowCollection'
+              examples:
+                ListTableRows200Example:
+                  summary: Default listTableRows 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                      - index: 0
+                        values:
+                          - - 42019
+                            - 53
+                            - 34
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Table not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: addTableRow
+      summary: Microsoft Excel Add Table Row
+      description: Add a new row to the table.
+      tags:
+        - Table Rows
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: table-id
+          in: path
+          required: true
+          description: The ID or name of the table.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: array
+                    items: {}
+                index:
+                  type: integer
+                  nullable: true
+            examples:
+              AddTableRowRequestExample:
+                summary: Default addTableRow request
+                x-microcks-default: true
+                value:
+                  values:
+                    - - 'Jan-15-2026'
+                      - '49'
+                      - '37'
+                  index: null
+      responses:
+        '201':
+          description: Row added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableRow'
+              examples:
+                AddTableRow201Example:
+                  summary: Default addTableRow 201 response
+                  x-microcks-default: true
+                  value:
+                    index: 6
+                    values:
+                      - - 'Jan-15-2026'
+                        - 49
+                        - 37
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/tables/{table-id}/rows/$/itemAt(index={row-index}):
+    delete:
+      operationId: deleteTableRow
+      summary: Microsoft Excel Delete Table Row
+      description: Delete a row from the table by index.
+      tags:
+        - Table Rows
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: table-id
+          in: path
+          required: true
+          description: The ID or name of the table.
+          schema:
+            type: string
+        - name: row-index
+          in: path
+          required: true
+          description: Zero-based index of the row to delete.
+          schema:
+            type: integer
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Row deleted successfully.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Row not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/tables/{table-id}/columns:
+    get:
+      operationId: listTableColumns
+      summary: Microsoft Excel List Table Columns
+      description: Retrieve a list of columns in the table.
+      tags:
+        - Table Columns
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: table-id
+          in: path
+          required: true
+          description: The ID or name of the table.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Columns returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableColumnCollection'
+              examples:
+                ListTableColumns200Example:
+                  summary: Default listTableColumns 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                      - id: '1'
+                        index: 0
+                        name: Date
+                        values:
+                          - - Date
+                          - - 42019
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Table not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: addTableColumn
+      summary: Microsoft Excel Add Table Column
+      description: Add a new column to the table.
+      tags:
+        - Table Columns
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: table-id
+          in: path
+          required: true
+          description: The ID or name of the table.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: array
+                    items: {}
+                index:
+                  type: integer
+            examples:
+              AddTableColumnRequestExample:
+                summary: Default addTableColumn request
+                x-microcks-default: true
+                value:
+                  values:
+                    - - Status
+                    - - Open
+                    - - Closed
+                  index: 2
+      responses:
+        '201':
+          description: Column added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableColumn'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/tables/{table-id}/columns/{column-id}:
+    delete:
+      operationId: deleteTableColumn
+      summary: Microsoft Excel Delete Table Column
+      description: Delete a column from the table.
+      tags:
+        - Table Columns
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: table-id
+          in: path
+          required: true
+          description: The ID or name of the table.
+          schema:
+            type: string
+        - name: column-id
+          in: path
+          required: true
+          description: The ID of the column to delete.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Column deleted successfully.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Column not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/tables/{table-id}/convertToRange:
+    post:
+      operationId: convertTableToRange
+      summary: Microsoft Excel Convert Table to Range
+      description: Convert the table to a regular range of cells.
+      tags:
+        - Tables
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: table-id
+          in: path
+          required: true
+          description: The ID or name of the table.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Table converted to range successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Range'
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Table not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables/{table-id}/sort/apply:
+    post:
+      operationId: sortTable
+      summary: Microsoft Excel Sort Table
+      description: Apply sort criteria to a table.
+      tags:
+        - Tables
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: worksheet-id-or-name
+          in: path
+          required: true
+          description: Worksheet ID or name.
+          schema:
+            type: string
+        - name: table-id
+          in: path
+          required: true
+          description: The ID or name of the table.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fields:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        type: integer
+                      ascending:
+                        type: boolean
+      responses:
+        '204':
+          description: Sort applied successfully.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/tables/{table-id}/columns({column-id})/filter/apply:
+    post:
+      operationId: applyTableFilter
+      summary: Microsoft Excel Apply Table Filter
+      description: Apply a filter to a table column.
+      tags:
+        - Tables
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: worksheet-id-or-name
+          in: path
+          required: true
+          description: Worksheet ID or name.
+          schema:
+            type: string
+        - name: table-id
+          in: path
+          required: true
+          description: The ID or name of the table.
+          schema:
+            type: string
+        - name: column-id
+          in: path
+          required: true
+          description: The ID of the column to filter.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                criteria:
+                  type: object
+                  properties:
+                    filterOn:
+                      type: string
+                    criterion1:
+                      type: string
+                    operator:
+                      type: string
+                    criterion2:
+                      type: string
+      responses:
+        '204':
+          description: Filter applied successfully.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/charts:
+    get:
+      operationId: listCharts
+      summary: Microsoft Excel List Charts
+      description: Retrieve a list of charts in the worksheet.
+      tags:
+        - Charts
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: worksheet-id-or-name
+          in: path
+          required: true
+          description: Worksheet ID or name.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Charts returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartCollection'
+              examples:
+                ListCharts200Example:
+                  summary: Default listCharts 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                      - id: '{00000000-0008-0000-0100-000003000000}'
+                        name: Chart 1
+                        height: 235.5
+                        width: 401.25
+                        left: 276.0
+                        top: 0.0
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Worksheet not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/charts/Add:
+    post:
+      operationId: addChart
+      summary: Microsoft Excel Add Chart
+      description: Create a new chart in the worksheet.
+      tags:
+        - Charts
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: worksheet-id-or-name
+          in: path
+          required: true
+          description: Worksheet ID or name.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Chart type.
+                sourcedata:
+                  type: string
+                  description: Source data range.
+                seriesby:
+                  type: string
+                  description: Series by setting.
+            examples:
+              AddChartRequestExample:
+                summary: Default addChart request
+                x-microcks-default: true
+                value:
+                  type: ColumnClustered
+                  sourcedata: 'A1:C4'
+                  seriesby: Auto
+      responses:
+        '201':
+          description: Chart created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chart'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/worksheets/{worksheet-id-or-name}/range(address='{address}'):
+    get:
+      operationId: getRange
+      summary: Microsoft Excel Get Range
+      description: Retrieve a range of cells from the worksheet.
+      tags:
+        - Ranges
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: worksheet-id-or-name
+          in: path
+          required: true
+          description: Worksheet ID or name.
+          schema:
+            type: string
+        - name: address
+          in: path
+          required: true
+          description: Cell range address in A1 notation.
+          schema:
+            type: string
+          example: A1:B2
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Range returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Range'
+              examples:
+                GetRange200Example:
+                  summary: Default getRange 200 response
+                  x-microcks-default: true
+                  value:
+                    address: 'Sheet1!A1:B2'
+                    addressLocal: 'Sheet1!A1:B2'
+                    cellCount: 4
+                    columnCount: 2
+                    columnIndex: 0
+                    rowCount: 2
+                    rowIndex: 0
+                    hidden: false
+                    values:
+                      - - Test
+                        - Value
+                      - - For
+                        - Update
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Worksheet not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateRange
+      summary: Microsoft Excel Update Range
+      description: Update values, formulas, or number format of a cell range.
+      tags:
+        - Ranges
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: worksheet-id-or-name
+          in: path
+          required: true
+          description: Worksheet ID or name.
+          schema:
+            type: string
+        - name: address
+          in: path
+          required: true
+          description: Cell range address in A1 notation.
+          schema:
+            type: string
+          example: A1:B2
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: array
+                    items: {}
+                numberFormat:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+                formulas:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+            examples:
+              UpdateRangeRequestExample:
+                summary: Default updateRange request
+                x-microcks-default: true
+                value:
+                  values:
+                    - - Test
+                      - Value
+                    - - For
+                      - Update
+      responses:
+        '200':
+          description: Range updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Range'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/names:
+    get:
+      operationId: listNamedItems
+      summary: Microsoft Excel List Named Items
+      description: Retrieve a list of named items (named ranges) in the workbook.
+      tags:
+        - Named Items
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Named items returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamedItemCollection'
+              examples:
+                ListNamedItems200Example:
+                  summary: Default listNamedItems 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                      - name: data
+                        type: Range
+                        value: 'Range!$A$1:$D$3'
+                        visible: true
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Workbook not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/drive/items/{item-id}/workbook/functions/{function-name}:
+    post:
+      operationId: callWorkbookFunction
+      summary: Microsoft Excel Call Workbook Function
+      description: Invoke an Excel workbook function with the specified parameters.
+      tags:
+        - Functions
+      parameters:
+        - name: item-id
+          in: path
+          required: true
+          description: The ID of the workbook file.
+          schema:
+            type: string
+        - name: function-name
+          in: path
+          required: true
+          description: The name of the Excel function to call.
+          schema:
+            type: string
+          example: pmt
+        - name: workbook-session-id
+          in: header
+          required: false
+          description: Workbook session ID.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              description: Function parameters as key-value pairs.
+            examples:
+              CallWorkbookFunctionRequestExample:
+                summary: Default callWorkbookFunction request
+                x-microcks-default: true
+                value:
+                  rate: 4.5
+                  nper: 12
+                  pv: -1250
+      responses:
+        '200':
+          description: Function result returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkbookFunctionResult'
+              examples:
+                CallWorkbookFunction200Example:
+                  summary: Default callWorkbookFunction 200 response
+                  x-microcks-default: true
+                  value:
+                    error: null
+                    value: 5625.00000734125
+        '400':
+          description: Bad request or invalid function parameters.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

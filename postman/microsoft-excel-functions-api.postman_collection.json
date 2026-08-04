@@ -1,0 +1,385 @@
+{
+  "info": {
+    "_postman_id": "b7607765-ca89-4e08-9b64-2ebec5ab4889",
+    "name": "Microsoft Graph Excel Charts Functions API",
+    "description": "REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.\n\nContact Support:\n Name: Microsoft Graph Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:10:59.000Z",
+    "updatedAt": "2026-07-28T02:11:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b7607765-ca89-4e08-9b64-2ebec5ab4889"
+  },
+  "item": [
+    {
+      "name": "me",
+      "item": [
+        {
+          "name": "drive",
+          "item": [
+            {
+              "name": "items",
+              "item": [
+                {
+                  "name": "{item-id}",
+                  "item": [
+                    {
+                      "name": "workbook",
+                      "item": [
+                        {
+                          "name": "functions",
+                          "item": [
+                            {
+                              "name": "{function-name}",
+                              "item": [
+                                {
+                                  "name": "Microsoft Excel Call Workbook Function",
+                                  "id": "6394606c-12cb-4316-98df-7fd0de3554aa",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "Workbook session ID.",
+                                        "key": "workbook-session-id",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"incididuntace\": -20837600.967544436\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/functions/:function-name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "functions",
+                                        ":function-name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "cfe3c382-ad22-4e30-9b54-ffb58cf1df5c",
+                                          "key": "item-id",
+                                          "value": "<string>",
+                                          "description": "(Required) The ID of the workbook file."
+                                        },
+                                        {
+                                          "id": "e180d053-c726-4b5c-8997-6b317a1c98b8",
+                                          "key": "function-name",
+                                          "value": "<string>",
+                                          "description": "(Required) The name of the Excel function to call."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Invoke an Excel workbook function with the specified parameters."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "5d982cbc-3440-42c9-9c5a-8887288d0c7a",
+                                      "name": "Function result returned successfully.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"incididuntace\": -20837600.967544436\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/functions/:function-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "functions",
+                                            ":function-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "function-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": \"<string>\",\n  \"value\": {}\n}",
+                                      "createdAt": "2026-07-28T02:11:00.000Z",
+                                      "updatedAt": "2026-07-28T02:11:00.000Z",
+                                      "uid": "35240-5d982cbc-3440-42c9-9c5a-8887288d0c7a"
+                                    },
+                                    {
+                                      "id": "5aa2c076-6cd1-473c-8183-7a9f525805e5",
+                                      "name": "Bad request or invalid function parameters.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"incididuntace\": -20837600.967544436\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/functions/:function-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "functions",
+                                            ":function-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "function-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:11:00.000Z",
+                                      "updatedAt": "2026-07-28T02:11:00.000Z",
+                                      "uid": "35240-5aa2c076-6cd1-473c-8183-7a9f525805e5"
+                                    },
+                                    {
+                                      "id": "43b1dc39-91b8-4712-8e01-3de60aec6447",
+                                      "name": "Unauthorized.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"incididuntace\": -20837600.967544436\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/functions/:function-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "functions",
+                                            ":function-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "function-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:11:00.000Z",
+                                      "updatedAt": "2026-07-28T02:11:00.000Z",
+                                      "uid": "35240-43b1dc39-91b8-4712-8e01-3de60aec6447"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:11:00.000Z",
+                                  "updatedAt": "2026-07-28T02:11:00.000Z",
+                                  "uid": "35240-6394606c-12cb-4316-98df-7fd0de3554aa"
+                                }
+                              ],
+                              "id": "c57f20a2-6af8-4d8f-8519-1b7ad98293cc",
+                              "createdAt": "2026-07-28T02:11:00.000Z",
+                              "updatedAt": "2026-07-28T02:11:00.000Z",
+                              "uid": "35240-c57f20a2-6af8-4d8f-8519-1b7ad98293cc"
+                            }
+                          ],
+                          "id": "5085efab-a656-4095-8a91-cda6f166e374",
+                          "createdAt": "2026-07-28T02:11:00.000Z",
+                          "updatedAt": "2026-07-28T02:11:00.000Z",
+                          "uid": "35240-5085efab-a656-4095-8a91-cda6f166e374"
+                        }
+                      ],
+                      "id": "75bdb566-7092-44da-8fe4-8fc154422e1c",
+                      "createdAt": "2026-07-28T02:11:00.000Z",
+                      "updatedAt": "2026-07-28T02:11:00.000Z",
+                      "uid": "35240-75bdb566-7092-44da-8fe4-8fc154422e1c"
+                    }
+                  ],
+                  "id": "34457e42-8dc2-4a69-beec-2f2ce3dd51a7",
+                  "createdAt": "2026-07-28T02:11:00.000Z",
+                  "updatedAt": "2026-07-28T02:11:00.000Z",
+                  "uid": "35240-34457e42-8dc2-4a69-beec-2f2ce3dd51a7"
+                }
+              ],
+              "id": "0da42287-f0a2-4e20-b280-c77f0a571731",
+              "createdAt": "2026-07-28T02:11:00.000Z",
+              "updatedAt": "2026-07-28T02:11:00.000Z",
+              "uid": "35240-0da42287-f0a2-4e20-b280-c77f0a571731"
+            }
+          ],
+          "id": "bc54b2aa-d55b-44b1-8d28-276bd2ab0f29",
+          "createdAt": "2026-07-28T02:11:00.000Z",
+          "updatedAt": "2026-07-28T02:11:00.000Z",
+          "uid": "35240-bc54b2aa-d55b-44b1-8d28-276bd2ab0f29"
+        }
+      ],
+      "id": "c9d3ed5f-c0db-4870-ac50-966d5ec6dd16",
+      "createdAt": "2026-07-28T02:11:00.000Z",
+      "updatedAt": "2026-07-28T02:11:00.000Z",
+      "uid": "35240-c9d3ed5f-c0db-4870-ac50-966d5ec6dd16"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "Files.Read Files.ReadWrite",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://graph.microsoft.com/v1.0"
+    }
+  ]
+}

@@ -1,0 +1,1340 @@
+{
+  "info": {
+    "_postman_id": "b6dacc8b-bb97-4a0d-ab6a-123c072b77e1",
+    "name": "Microsoft Graph Excel Charts Worksheets API",
+    "description": "REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.\n\nContact Support:\n Name: Microsoft Graph Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:11:45.000Z",
+    "updatedAt": "2026-07-28T02:11:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b6dacc8b-bb97-4a0d-ab6a-123c072b77e1"
+  },
+  "item": [
+    {
+      "name": "me",
+      "item": [
+        {
+          "name": "drive",
+          "item": [
+            {
+              "name": "items",
+              "item": [
+                {
+                  "name": "{item-id}",
+                  "item": [
+                    {
+                      "name": "workbook",
+                      "item": [
+                        {
+                          "name": "worksheets",
+                          "item": [
+                            {
+                              "name": "{worksheet-id-or-name}",
+                              "item": [
+                                {
+                                  "name": "Microsoft Excel Get Worksheet",
+                                  "id": "fec1948d-ae88-47e8-82ce-1cbf0172db43",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Workbook session ID.",
+                                        "key": "workbook-session-id",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "worksheets",
+                                        ":worksheet-id-or-name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "1bb770dc-1c1a-4435-bc66-dc0ddc268c3a",
+                                          "key": "item-id",
+                                          "value": "<string>",
+                                          "description": "(Required) The ID of the workbook file."
+                                        },
+                                        {
+                                          "id": "04be6742-104a-4961-91ae-dff176f759aa",
+                                          "key": "worksheet-id-or-name",
+                                          "value": "<string>",
+                                          "description": "(Required) Worksheet ID or name."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Retrieve a specific worksheet by ID or name."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "e8c6a522-2795-4530-9ffc-a2d257a9ba44",
+                                      "name": "Worksheet returned successfully.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "worksheet-id-or-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"position\": \"<integer>\",\n  \"visibility\": \"Hidden\"\n}",
+                                      "createdAt": "2026-07-28T02:11:46.000Z",
+                                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                                      "uid": "35240-e8c6a522-2795-4530-9ffc-a2d257a9ba44"
+                                    },
+                                    {
+                                      "id": "07dd5348-0c32-45f7-89ff-44cdf7ade9b2",
+                                      "name": "Unauthorized.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "worksheet-id-or-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:11:46.000Z",
+                                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                                      "uid": "35240-07dd5348-0c32-45f7-89ff-44cdf7ade9b2"
+                                    },
+                                    {
+                                      "id": "66083f6c-fe2b-45cf-afe9-0b6448648420",
+                                      "name": "Worksheet not found.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "worksheet-id-or-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:11:46.000Z",
+                                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                                      "uid": "35240-66083f6c-fe2b-45cf-afe9-0b6448648420"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:11:46.000Z",
+                                  "updatedAt": "2026-07-28T02:11:46.000Z",
+                                  "uid": "35240-fec1948d-ae88-47e8-82ce-1cbf0172db43"
+                                },
+                                {
+                                  "name": "Microsoft Excel Update Worksheet",
+                                  "id": "0e059fe5-d93d-4e1a-a5e1-0e717cc54515",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "description": "Workbook session ID.",
+                                        "key": "workbook-session-id",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"position\": \"<integer>\",\n  \"visibility\": \"Hidden\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "worksheets",
+                                        ":worksheet-id-or-name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "e53769f6-10b6-4a42-bc74-13869f10224e",
+                                          "key": "item-id",
+                                          "value": "<string>",
+                                          "description": "(Required) The ID of the workbook file."
+                                        },
+                                        {
+                                          "id": "f4d110ea-7310-4256-9e14-540130be6869",
+                                          "key": "worksheet-id-or-name",
+                                          "value": "<string>",
+                                          "description": "(Required) Worksheet ID or name."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Update worksheet properties such as name or position."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "3ebc3818-075c-49b6-9c45-752db45f4d3e",
+                                      "name": "Worksheet updated successfully.",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"position\": \"<integer>\",\n  \"visibility\": \"Hidden\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "worksheet-id-or-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"position\": \"<integer>\",\n  \"visibility\": \"Hidden\"\n}",
+                                      "createdAt": "2026-07-28T02:11:46.000Z",
+                                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                                      "uid": "35240-3ebc3818-075c-49b6-9c45-752db45f4d3e"
+                                    },
+                                    {
+                                      "id": "1c283958-e8a0-49fe-bd0b-3a45ce4fa3c3",
+                                      "name": "Bad request.",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"position\": \"<integer>\",\n  \"visibility\": \"Hidden\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "worksheet-id-or-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:11:46.000Z",
+                                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                                      "uid": "35240-1c283958-e8a0-49fe-bd0b-3a45ce4fa3c3"
+                                    },
+                                    {
+                                      "id": "45294780-d1f4-4aa7-860d-0e293d4243d0",
+                                      "name": "Unauthorized.",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"position\": \"<integer>\",\n  \"visibility\": \"Hidden\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "worksheet-id-or-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:11:46.000Z",
+                                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                                      "uid": "35240-45294780-d1f4-4aa7-860d-0e293d4243d0"
+                                    },
+                                    {
+                                      "id": "f265b53e-ba84-4d45-b7b8-109b6c1ff8d3",
+                                      "name": "Worksheet not found.",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"position\": \"<integer>\",\n  \"visibility\": \"Hidden\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "worksheet-id-or-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:11:46.000Z",
+                                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                                      "uid": "35240-f265b53e-ba84-4d45-b7b8-109b6c1ff8d3"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:11:46.000Z",
+                                  "updatedAt": "2026-07-28T02:11:46.000Z",
+                                  "uid": "35240-0e059fe5-d93d-4e1a-a5e1-0e717cc54515"
+                                },
+                                {
+                                  "name": "Microsoft Excel Delete Worksheet",
+                                  "id": "d2690a19-d2a3-4cb7-8e2b-4efdc260075b",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Workbook session ID.",
+                                        "key": "workbook-session-id",
+                                        "value": "<string>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "worksheets",
+                                        ":worksheet-id-or-name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "425c2fde-08a3-4184-a89c-24ac0969f039",
+                                          "key": "item-id",
+                                          "value": "<string>",
+                                          "description": "(Required) The ID of the workbook file."
+                                        },
+                                        {
+                                          "id": "0fc51b6d-6afb-46a9-855e-e6cba627780c",
+                                          "key": "worksheet-id-or-name",
+                                          "value": "<string>",
+                                          "description": "(Required) Worksheet ID or name."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Delete a worksheet from the workbook."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "cf16ea71-a3be-4fd6-abb8-6b25d200a339",
+                                      "name": "Worksheet deleted successfully.",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "worksheet-id-or-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "No Content",
+                                      "code": 204,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:11:46.000Z",
+                                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                                      "uid": "35240-cf16ea71-a3be-4fd6-abb8-6b25d200a339"
+                                    },
+                                    {
+                                      "id": "b0a1633a-907d-4fed-9df0-896cbac520e8",
+                                      "name": "Unauthorized.",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "worksheet-id-or-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:11:46.000Z",
+                                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                                      "uid": "35240-b0a1633a-907d-4fed-9df0-896cbac520e8"
+                                    },
+                                    {
+                                      "id": "9b390d7e-d9db-4340-9ed7-982914c2795f",
+                                      "name": "Worksheet not found.",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "description": "Workbook session ID.",
+                                            "key": "workbook-session-id",
+                                            "value": "<string>"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "me",
+                                            "drive",
+                                            "items",
+                                            ":item-id",
+                                            "workbook",
+                                            "worksheets",
+                                            ":worksheet-id-or-name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "item-id"
+                                            },
+                                            {
+                                              "key": "worksheet-id-or-name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:11:46.000Z",
+                                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                                      "uid": "35240-9b390d7e-d9db-4340-9ed7-982914c2795f"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:11:46.000Z",
+                                  "updatedAt": "2026-07-28T02:11:46.000Z",
+                                  "uid": "35240-d2690a19-d2a3-4cb7-8e2b-4efdc260075b"
+                                }
+                              ],
+                              "id": "e267ca4a-acdf-45dc-867e-c731c4bd1116",
+                              "createdAt": "2026-07-28T02:11:46.000Z",
+                              "updatedAt": "2026-07-28T02:11:46.000Z",
+                              "uid": "35240-e267ca4a-acdf-45dc-867e-c731c4bd1116"
+                            },
+                            {
+                              "name": "Microsoft Excel List Worksheets",
+                              "id": "1431eeeb-ba78-4897-a9ba-46fa0e0daf50",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Workbook session ID for performance.",
+                                    "key": "workbook-session-id",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "me",
+                                    "drive",
+                                    "items",
+                                    ":item-id",
+                                    "workbook",
+                                    "worksheets"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "7ed369b1-8abf-4de6-ba94-0be5ef916580",
+                                      "key": "item-id",
+                                      "value": "<string>",
+                                      "description": "(Required) The ID of the workbook file."
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieve a list of worksheets in the workbook."
+                              },
+                              "response": [
+                                {
+                                  "id": "1686dfca-087d-4994-9af6-d42b71af7f9f",
+                                  "name": "Worksheets returned successfully.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Workbook session ID for performance.",
+                                        "key": "workbook-session-id",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "worksheets"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "item-id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"value\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"position\": \"<integer>\",\n      \"visibility\": \"Visible\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"position\": \"<integer>\",\n      \"visibility\": \"Visible\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:11:46.000Z",
+                                  "updatedAt": "2026-07-28T02:11:46.000Z",
+                                  "uid": "35240-1686dfca-087d-4994-9af6-d42b71af7f9f"
+                                },
+                                {
+                                  "id": "4b18ffa3-2cab-4ec1-aa00-85b8978306d7",
+                                  "name": "Unauthorized.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Workbook session ID for performance.",
+                                        "key": "workbook-session-id",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "worksheets"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "item-id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:11:46.000Z",
+                                  "updatedAt": "2026-07-28T02:11:46.000Z",
+                                  "uid": "35240-4b18ffa3-2cab-4ec1-aa00-85b8978306d7"
+                                },
+                                {
+                                  "id": "14a0535b-d4a9-45d8-a6cd-b678f5a65dc9",
+                                  "name": "Workbook not found.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Workbook session ID for performance.",
+                                        "key": "workbook-session-id",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "worksheets"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "item-id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:11:46.000Z",
+                                  "updatedAt": "2026-07-28T02:11:46.000Z",
+                                  "uid": "35240-14a0535b-d4a9-45d8-a6cd-b678f5a65dc9"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:11:46.000Z",
+                              "updatedAt": "2026-07-28T02:11:46.000Z",
+                              "uid": "35240-1431eeeb-ba78-4897-a9ba-46fa0e0daf50"
+                            },
+                            {
+                              "name": "Microsoft Excel Create Worksheet",
+                              "id": "d39d3a09-73cc-40b2-9dde-548640da655e",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Workbook session ID.",
+                                    "key": "workbook-session-id",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "me",
+                                    "drive",
+                                    "items",
+                                    ":item-id",
+                                    "workbook",
+                                    "worksheets"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "cd3d92c8-d270-4ee2-9df5-d0a6b5f284eb",
+                                      "key": "item-id",
+                                      "value": "<string>",
+                                      "description": "(Required) The ID of the workbook file."
+                                    }
+                                  ]
+                                },
+                                "description": "Add a new worksheet to the workbook."
+                              },
+                              "response": [
+                                {
+                                  "id": "3f4fe26e-9ba4-4a75-80fa-2271e50396a8",
+                                  "name": "Worksheet created successfully.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "Workbook session ID.",
+                                        "key": "workbook-session-id",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "worksheets"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "item-id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"position\": \"<integer>\",\n  \"visibility\": \"Hidden\"\n}",
+                                  "createdAt": "2026-07-28T02:11:46.000Z",
+                                  "updatedAt": "2026-07-28T02:11:46.000Z",
+                                  "uid": "35240-3f4fe26e-9ba4-4a75-80fa-2271e50396a8"
+                                },
+                                {
+                                  "id": "cff9019f-6f62-4d9a-9d39-dacafef14f1f",
+                                  "name": "Bad request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "Workbook session ID.",
+                                        "key": "workbook-session-id",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "worksheets"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "item-id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:11:46.000Z",
+                                  "updatedAt": "2026-07-28T02:11:46.000Z",
+                                  "uid": "35240-cff9019f-6f62-4d9a-9d39-dacafef14f1f"
+                                },
+                                {
+                                  "id": "6f465d2c-8033-4475-a18c-79ea1b8f553c",
+                                  "name": "Unauthorized.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "Workbook session ID.",
+                                        "key": "workbook-session-id",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/me/drive/items/:item-id/workbook/worksheets",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "me",
+                                        "drive",
+                                        "items",
+                                        ":item-id",
+                                        "workbook",
+                                        "worksheets"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "item-id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:11:46.000Z",
+                                  "updatedAt": "2026-07-28T02:11:46.000Z",
+                                  "uid": "35240-6f465d2c-8033-4475-a18c-79ea1b8f553c"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:11:46.000Z",
+                              "updatedAt": "2026-07-28T02:11:46.000Z",
+                              "uid": "35240-d39d3a09-73cc-40b2-9dde-548640da655e"
+                            }
+                          ],
+                          "id": "fa2d8894-9991-44b9-8182-d7f06d26936a",
+                          "createdAt": "2026-07-28T02:11:46.000Z",
+                          "updatedAt": "2026-07-28T02:11:46.000Z",
+                          "uid": "35240-fa2d8894-9991-44b9-8182-d7f06d26936a"
+                        }
+                      ],
+                      "id": "7d2b4b74-17dd-421e-aa60-19165c7c94d2",
+                      "createdAt": "2026-07-28T02:11:46.000Z",
+                      "updatedAt": "2026-07-28T02:11:46.000Z",
+                      "uid": "35240-7d2b4b74-17dd-421e-aa60-19165c7c94d2"
+                    }
+                  ],
+                  "id": "5a7779d2-189e-4f61-ae2c-7d82dbb331bf",
+                  "createdAt": "2026-07-28T02:11:46.000Z",
+                  "updatedAt": "2026-07-28T02:11:46.000Z",
+                  "uid": "35240-5a7779d2-189e-4f61-ae2c-7d82dbb331bf"
+                }
+              ],
+              "id": "c75d3807-e50e-4d8b-9377-88ae4f431b71",
+              "createdAt": "2026-07-28T02:11:46.000Z",
+              "updatedAt": "2026-07-28T02:11:46.000Z",
+              "uid": "35240-c75d3807-e50e-4d8b-9377-88ae4f431b71"
+            }
+          ],
+          "id": "6f7df2d1-20e6-450a-bba5-e9bd04b4aa14",
+          "createdAt": "2026-07-28T02:11:46.000Z",
+          "updatedAt": "2026-07-28T02:11:46.000Z",
+          "uid": "35240-6f7df2d1-20e6-450a-bba5-e9bd04b4aa14"
+        }
+      ],
+      "id": "eb5eaa5a-6a3b-4f35-a2cb-a643235a3e81",
+      "createdAt": "2026-07-28T02:11:46.000Z",
+      "updatedAt": "2026-07-28T02:11:46.000Z",
+      "uid": "35240-eb5eaa5a-6a3b-4f35-a2cb-a643235a3e81"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "Files.Read Files.ReadWrite",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://graph.microsoft.com/v1.0"
+    }
+  ]
+}
