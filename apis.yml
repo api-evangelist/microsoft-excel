@@ -105,24 +105,6 @@ apis:
     url: examples/excel-graph-api-table-example.json
   - type: Examples
     url: examples/excel-graph-api-range-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/graph-charts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-functions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-named-items.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-ranges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-columns.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-rows.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-tables.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-worksheets.yaml
 - aid: microsoft-excel:microsoft-excel-functions-api
   name: Microsoft Excel Functions API
   description: Workbook function operations.
@@ -165,24 +147,6 @@ apis:
     url: examples/excel-graph-api-table-example.json
   - type: Examples
     url: examples/excel-graph-api-range-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/graph-charts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-functions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-named-items.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-ranges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-columns.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-rows.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-tables.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-worksheets.yaml
 - aid: microsoft-excel:microsoft-excel-named-items-api
   name: Microsoft Excel Named Items API
   description: Operations for managing named ranges and values.
@@ -225,24 +189,6 @@ apis:
     url: examples/excel-graph-api-table-example.json
   - type: Examples
     url: examples/excel-graph-api-range-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/graph-charts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-functions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-named-items.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-ranges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-columns.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-rows.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-tables.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-worksheets.yaml
 - aid: microsoft-excel:microsoft-excel-ranges-api
   name: Microsoft Excel Ranges API
   description: Operations for reading and writing cell ranges.
@@ -285,24 +231,6 @@ apis:
     url: examples/excel-graph-api-table-example.json
   - type: Examples
     url: examples/excel-graph-api-range-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/graph-charts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-functions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-named-items.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-ranges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-columns.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-rows.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-tables.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-worksheets.yaml
 - aid: microsoft-excel:microsoft-excel-sessions-api
   name: Microsoft Excel Sessions API
   description: Workbook session management operations.
@@ -345,24 +273,6 @@ apis:
     url: examples/excel-graph-api-table-example.json
   - type: Examples
     url: examples/excel-graph-api-range-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/graph-charts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-functions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-named-items.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-ranges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-columns.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-rows.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-tables.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-worksheets.yaml
 - aid: microsoft-excel:microsoft-excel-table-columns-api
   name: Microsoft Excel Table Columns API
   description: Operations for managing table columns.
@@ -405,24 +315,6 @@ apis:
     url: examples/excel-graph-api-table-example.json
   - type: Examples
     url: examples/excel-graph-api-range-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/graph-charts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-functions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-named-items.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-ranges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-columns.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-rows.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-tables.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-worksheets.yaml
 - aid: microsoft-excel:microsoft-excel-table-rows-api
   name: Microsoft Excel Table Rows API
   description: Operations for managing table row data.
@@ -465,24 +357,6 @@ apis:
     url: examples/excel-graph-api-table-example.json
   - type: Examples
     url: examples/excel-graph-api-range-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/graph-charts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-functions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-named-items.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-ranges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-columns.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-rows.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-tables.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-worksheets.yaml
 - aid: microsoft-excel:microsoft-excel-tables-api
   name: Microsoft Excel Tables API
   description: Operations for managing tables within worksheets.
@@ -525,24 +399,6 @@ apis:
     url: examples/excel-graph-api-table-example.json
   - type: Examples
     url: examples/excel-graph-api-range-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/graph-charts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-functions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-named-items.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-ranges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-columns.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-rows.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-tables.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-worksheets.yaml
 - aid: microsoft-excel:microsoft-excel-worksheets-api
   name: Microsoft Excel Worksheets API
   description: Operations for managing worksheets within a workbook.
@@ -585,24 +441,6 @@ apis:
     url: examples/excel-graph-api-table-example.json
   - type: Examples
     url: examples/excel-graph-api-range-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/graph-charts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-functions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-named-items.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-ranges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-columns.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-table-rows.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-tables.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/graph-worksheets.yaml
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/microsoft-excel/overview
