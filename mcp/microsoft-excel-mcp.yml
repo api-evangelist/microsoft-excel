@@ -2,14 +2,12 @@ generated: '2026-06-20'
 method: derived
 status: candidate
 source: openapi/microsoft-excel-graph-api.yaml
-note: >-
-  No official Excel-specific MCP server is published. Microsoft ships a first-party
-  "Microsoft MCP Server for Enterprise" (public preview) that exposes read-only Microsoft
-  Graph query tools (microsoft_graph_get, microsoft_graph_suggest_queries,
-  microsoft_graph_list_properties) scoped to Entra identity/directory scenarios, not
-  Excel workbook operations. Community servers (merill/lokka, softeria/ms-365-mcp-server)
-  wrap the broader Graph/M365 surface. The tools below are a DERIVED candidate mapping of
-  the Excel Graph operations to MCP tools, one per operationId.
+note: No official Excel-specific MCP server is published. Microsoft ships a first-party "Microsoft MCP
+  Server for Enterprise" (public preview) that exposes read-only Microsoft Graph query tools (microsoft_graph_get,
+  microsoft_graph_suggest_queries, microsoft_graph_list_properties) scoped to Entra identity/directory
+  scenarios, not Excel workbook operations. Community servers (merill/lokka, softeria/ms-365-mcp-server)
+  wrap the broader Graph/M365 surface. The tools below are a DERIVED candidate mapping of the Excel Graph
+  operations to MCP tools, one per operationId.
 related_servers:
 - name: Microsoft MCP Server for Enterprise
   official: true
@@ -26,26 +24,78 @@ server:
   name: microsoft-excel
   transport: stdio
 tools:
-- {name: create_workbook_session, description: Create a workbook session (persistent or non-persistent), source_operation: 'openapi/microsoft-excel-graph-api.yaml#createWorkbookSession'}
-- {name: list_worksheets, description: List worksheets in a workbook, source_operation: 'openapi/microsoft-excel-graph-api.yaml#listWorksheets'}
-- {name: create_worksheet, description: Add a worksheet to a workbook, source_operation: 'openapi/microsoft-excel-graph-api.yaml#createWorksheet'}
-- {name: get_worksheet, description: Get a worksheet by id or name, source_operation: 'openapi/microsoft-excel-graph-api.yaml#getWorksheet'}
-- {name: update_worksheet, description: Update worksheet properties, source_operation: 'openapi/microsoft-excel-graph-api.yaml#updateWorksheet'}
-- {name: delete_worksheet, description: Delete a worksheet, source_operation: 'openapi/microsoft-excel-graph-api.yaml#deleteWorksheet'}
-- {name: list_tables, description: List tables in a worksheet, source_operation: 'openapi/microsoft-excel-graph-api.yaml#listTables'}
-- {name: update_table, description: Update a table, source_operation: 'openapi/microsoft-excel-graph-api.yaml#updateTable'}
-- {name: list_table_rows, description: List rows in a table, source_operation: 'openapi/microsoft-excel-graph-api.yaml#listTableRows'}
-- {name: add_table_row, description: Add a row to a table, source_operation: 'openapi/microsoft-excel-graph-api.yaml#addTableRow'}
-- {name: delete_table_row, description: Delete a table row by index, source_operation: 'openapi/microsoft-excel-graph-api.yaml#deleteTableRow'}
-- {name: list_table_columns, description: List columns in a table, source_operation: 'openapi/microsoft-excel-graph-api.yaml#listTableColumns'}
-- {name: add_table_column, description: Add a column to a table, source_operation: 'openapi/microsoft-excel-graph-api.yaml#addTableColumn'}
-- {name: delete_table_column, description: Delete a table column, source_operation: 'openapi/microsoft-excel-graph-api.yaml#deleteTableColumn'}
-- {name: convert_table_to_range, description: Convert a table back into a cell range, source_operation: 'openapi/microsoft-excel-graph-api.yaml#convertTableToRange'}
-- {name: sort_table, description: Apply a sort to a table, source_operation: 'openapi/microsoft-excel-graph-api.yaml#sortTable'}
-- {name: apply_table_filter, description: Apply a filter to a table column, source_operation: 'openapi/microsoft-excel-graph-api.yaml#applyTableFilter'}
-- {name: list_charts, description: List charts in a worksheet, source_operation: 'openapi/microsoft-excel-graph-api.yaml#listCharts'}
-- {name: add_chart, description: Add a chart to a worksheet, source_operation: 'openapi/microsoft-excel-graph-api.yaml#addChart'}
-- {name: get_range, description: Get a cell range by address, source_operation: 'openapi/microsoft-excel-graph-api.yaml#getRange'}
-- {name: update_range, description: Update values/format of a cell range, source_operation: 'openapi/microsoft-excel-graph-api.yaml#updateRange'}
-- {name: list_named_items, description: List named ranges/items in a workbook, source_operation: 'openapi/microsoft-excel-graph-api.yaml#listNamedItems'}
-- {name: call_workbook_function, description: Invoke an Excel worksheet function, source_operation: 'openapi/microsoft-excel-graph-api.yaml#callWorkbookFunction'}
+- name: create_workbook_session
+  description: Create a workbook session (persistent or non-persistent)
+  source_operation: openapi/microsoft-excel-graph-api.yaml#createWorkbookSession
+- name: list_worksheets
+  description: List worksheets in a workbook
+  source_operation: openapi/microsoft-excel-graph-api.yaml#listWorksheets
+- name: create_worksheet
+  description: Add a worksheet to a workbook
+  source_operation: openapi/microsoft-excel-graph-api.yaml#createWorksheet
+- name: get_worksheet
+  description: Get a worksheet by id or name
+  source_operation: openapi/microsoft-excel-graph-api.yaml#getWorksheet
+- name: update_worksheet
+  description: Update worksheet properties
+  source_operation: openapi/microsoft-excel-graph-api.yaml#updateWorksheet
+- name: delete_worksheet
+  description: Delete a worksheet
+  source_operation: openapi/microsoft-excel-graph-api.yaml#deleteWorksheet
+- name: list_tables
+  description: List tables in a worksheet
+  source_operation: openapi/microsoft-excel-graph-api.yaml#listTables
+- name: update_table
+  description: Update a table
+  source_operation: openapi/microsoft-excel-graph-api.yaml#updateTable
+- name: list_table_rows
+  description: List rows in a table
+  source_operation: openapi/microsoft-excel-graph-api.yaml#listTableRows
+- name: add_table_row
+  description: Add a row to a table
+  source_operation: openapi/microsoft-excel-graph-api.yaml#addTableRow
+- name: delete_table_row
+  description: Delete a table row by index
+  source_operation: openapi/microsoft-excel-graph-api.yaml#deleteTableRow
+- name: list_table_columns
+  description: List columns in a table
+  source_operation: openapi/microsoft-excel-graph-api.yaml#listTableColumns
+- name: add_table_column
+  description: Add a column to a table
+  source_operation: openapi/microsoft-excel-graph-api.yaml#addTableColumn
+- name: delete_table_column
+  description: Delete a table column
+  source_operation: openapi/microsoft-excel-graph-api.yaml#deleteTableColumn
+- name: convert_table_to_range
+  description: Convert a table back into a cell range
+  source_operation: openapi/microsoft-excel-graph-api.yaml#convertTableToRange
+- name: sort_table
+  description: Apply a sort to a table
+  source_operation: openapi/microsoft-excel-graph-api.yaml#sortTable
+- name: apply_table_filter
+  description: Apply a filter to a table column
+  source_operation: openapi/microsoft-excel-graph-api.yaml#applyTableFilter
+- name: list_charts
+  description: List charts in a worksheet
+  source_operation: openapi/microsoft-excel-graph-api.yaml#listCharts
+- name: add_chart
+  description: Add a chart to a worksheet
+  source_operation: openapi/microsoft-excel-graph-api.yaml#addChart
+- name: get_range
+  description: Get a cell range by address
+  source_operation: openapi/microsoft-excel-graph-api.yaml#getRange
+- name: update_range
+  description: Update values/format of a cell range
+  source_operation: openapi/microsoft-excel-graph-api.yaml#updateRange
+- name: list_named_items
+  description: List named ranges/items in a workbook
+  source_operation: openapi/microsoft-excel-graph-api.yaml#listNamedItems
+- name: call_workbook_function
+  description: Invoke an Excel worksheet function
+  source_operation: openapi/microsoft-excel-graph-api.yaml#callWorkbookFunction
+deployment:
+  mode: none
+  verified: derived
+  tools: 23
+  checked: '2026-08-12'
+  source: catalog MCP census

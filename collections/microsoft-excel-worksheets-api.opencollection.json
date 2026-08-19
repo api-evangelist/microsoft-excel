@@ -1,0 +1,181 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Microsoft Graph Excel Charts Worksheets API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+      "accessTokenUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Worksheets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Microsoft Excel List Worksheets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/worksheets",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of worksheets in the workbook."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Create Worksheet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/worksheets",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new worksheet to the workbook."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Get Worksheet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "worksheet-id-or-name",
+                "value": "",
+                "type": "path",
+                "description": "Worksheet ID or name."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific worksheet by ID or name."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Update Worksheet",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "worksheet-id-or-name",
+                "value": "",
+                "type": "path",
+                "description": "Worksheet ID or name."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update worksheet properties such as name or position."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Delete Worksheet",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "worksheet-id-or-name",
+                "value": "",
+                "type": "path",
+                "description": "Worksheet ID or name."
+              }
+            ]
+          },
+          "docs": "Delete a worksheet from the workbook."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Microsoft Graph Excel Charts Table Columns API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+      "accessTokenUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Table Columns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Microsoft Excel List Table Columns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/tables/:table-id/columns",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "table-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the table."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of columns in the table."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Add Table Column",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/tables/:table-id/columns",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "table-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the table."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new column to the table."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Delete Table Column",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/tables/:table-id/columns/:column-id",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "table-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the table."
+              },
+              {
+                "name": "column-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the column to delete."
+              }
+            ]
+          },
+          "docs": "Delete a column from the table."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

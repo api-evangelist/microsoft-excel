@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Microsoft Graph Excel Charts Table Rows API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+      "accessTokenUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Table Rows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Microsoft Excel List Table Rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/tables/:table-id/rows",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "table-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the table."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of rows in the table."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Add Table Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/tables/:table-id/rows",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "table-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the table."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new row to the table."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Delete Table Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/tables/:table-id/rows/$/itemAt(index=:row-index)",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "table-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the table."
+              },
+              {
+                "name": "row-index",
+                "value": "",
+                "type": "path",
+                "description": "Zero-based index of the row to delete."
+              }
+            ]
+          },
+          "docs": "Delete a row from the table by index."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

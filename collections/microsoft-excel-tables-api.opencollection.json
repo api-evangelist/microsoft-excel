@@ -1,0 +1,215 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Microsoft Graph Excel Charts Tables API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+      "accessTokenUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Microsoft Excel List Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/tables",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "worksheet-id-or-name",
+                "value": "",
+                "type": "path",
+                "description": "Worksheet ID or name."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of tables in the worksheet."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Update Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/tables/:table-id",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "table-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the table."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update table properties such as name or style."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Convert Table to Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/tables/:table-id/convertToRange",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "table-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the table."
+              }
+            ]
+          },
+          "docs": "Convert the table to a regular range of cells."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Sort Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/tables/:table-id/sort/apply",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "worksheet-id-or-name",
+                "value": "",
+                "type": "path",
+                "description": "Worksheet ID or name."
+              },
+              {
+                "name": "table-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the table."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply sort criteria to a table."
+        },
+        {
+          "info": {
+            "name": "Microsoft Excel Apply Table Filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.microsoft.com/v1.0/me/drive/items/:item-id/workbook/worksheets/:worksheet-id-or-name/tables/:table-id/columns(:column-id)/filter/apply",
+            "headers": [
+              {
+                "name": "workbook-session-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workbook file."
+              },
+              {
+                "name": "worksheet-id-or-name",
+                "value": "",
+                "type": "path",
+                "description": "Worksheet ID or name."
+              },
+              {
+                "name": "table-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the table."
+              },
+              {
+                "name": "column-id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the column to filter."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a filter to a table column."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
