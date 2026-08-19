@@ -20,7 +20,7 @@ url: https://raw.githubusercontent.com/api-evangelist/microsoft-excel/refs/heads
 humanURL: https://www.microsoft.com/excel
 created: '2024'
 modified: '2026-06-20'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 type: Index
 tags:
 - Automation
