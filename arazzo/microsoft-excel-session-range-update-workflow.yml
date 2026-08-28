@@ -12,8 +12,11 @@ info:
     executed without opening the underlying OpenAPI.
   version: 1.0.0
 sourceDescriptions:
-- name: excelGraphApi
-  url: ../openapi/microsoft-excel-graph-api.yaml
+- name: rangesApi
+  url: ../openapi/microsoft-excel-ranges-api-openapi.yml
+  type: openapi
+- name: sessionsApi
+  url: ../openapi/microsoft-excel-sessions-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: session-range-update

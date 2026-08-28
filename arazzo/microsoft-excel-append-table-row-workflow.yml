@@ -12,8 +12,17 @@ info:
     executed without opening the underlying OpenAPI.
   version: 1.0.0
 sourceDescriptions:
-- name: excelGraphApi
-  url: ../openapi/microsoft-excel-graph-api.yaml
+- name: sessionsApi
+  url: ../openapi/microsoft-excel-sessions-api-openapi.yml
+  type: openapi
+- name: tableColumnsApi
+  url: ../openapi/microsoft-excel-table-columns-api-openapi.yml
+  type: openapi
+- name: tableRowsApi
+  url: ../openapi/microsoft-excel-table-rows-api-openapi.yml
+  type: openapi
+- name: tablesApi
+  url: ../openapi/microsoft-excel-tables-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: append-table-row
@@ -122,7 +131,7 @@ workflows:
       contentType: application/json
       payload:
         values: $inputs.values
-        index: null
+        index:
     successCriteria:
     - condition: $statusCode == 201
     outputs:

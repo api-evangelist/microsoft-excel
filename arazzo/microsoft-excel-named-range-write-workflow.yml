@@ -13,8 +13,14 @@ info:
     the flow can be read and executed without opening the underlying OpenAPI.
   version: 1.0.0
 sourceDescriptions:
-- name: excelGraphApi
-  url: ../openapi/microsoft-excel-graph-api.yaml
+- name: namedItemsApi
+  url: ../openapi/microsoft-excel-named-items-api-openapi.yml
+  type: openapi
+- name: rangesApi
+  url: ../openapi/microsoft-excel-ranges-api-openapi.yml
+  type: openapi
+- name: sessionsApi
+  url: ../openapi/microsoft-excel-sessions-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: named-range-write

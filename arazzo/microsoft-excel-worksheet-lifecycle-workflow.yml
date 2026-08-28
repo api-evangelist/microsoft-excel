@@ -11,8 +11,11 @@ info:
     the flow can be read and executed without opening the underlying OpenAPI.
   version: 1.0.0
 sourceDescriptions:
-- name: excelGraphApi
-  url: ../openapi/microsoft-excel-graph-api.yaml
+- name: sessionsApi
+  url: ../openapi/microsoft-excel-sessions-api-openapi.yml
+  type: openapi
+- name: worksheetsApi
+  url: ../openapi/microsoft-excel-worksheets-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: worksheet-lifecycle
