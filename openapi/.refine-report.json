@@ -25,6 +25,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "microsoft-excel-charts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "microsoft-excel-functions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "microsoft-excel-named-items-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "microsoft-excel-ranges-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "microsoft-excel-sessions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "microsoft-excel-table-columns-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "microsoft-excel-table-rows-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "microsoft-excel-tables-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "microsoft-excel-worksheets-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

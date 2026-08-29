@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Microsoft Graph Excel Charts Functions API
   description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
@@ -93,8 +93,9 @@ components:
       description: Result of a workbook function call.
       properties:
         error:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Error information if the function failed.
         value: {}
   securitySchemes:

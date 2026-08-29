@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Microsoft Graph Excel Charts Tables API
   description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
@@ -360,6 +360,14 @@ components:
             type: array
             items:
               type: string
+    TableCollection:
+      type: object
+      description: Collection of tables.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
     Table:
       type: object
       description: Represents an Excel table.
@@ -384,14 +392,6 @@ components:
           type: string
           description: Table style name.
           example: TableStyleMedium4
-    TableCollection:
-      type: object
-      description: Collection of tables.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Table'
   securitySchemes:
     oauth2:
       type: oauth2
