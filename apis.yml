@@ -461,6 +461,8 @@ apis:
   - type: Examples
     url: examples/excel-graph-api-range-example.json
 common:
+- type: StatusPage
+  url: https://status.dev.microsoft.com/
 - type: Website
   url: https://www.microsoft.com/
 - type: PostmanWorkspace
@@ -609,5 +611,5 @@ integrations:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
-x-parent: microsoft
+x-parent: microsoft-365
 x-relationship: product
