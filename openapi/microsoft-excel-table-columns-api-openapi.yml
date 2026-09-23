@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Microsoft Graph Excel Charts Table Columns API
+  title: Microsoft Graph Excel Table Columns API
   description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
   version: 1.0.0
   contact:

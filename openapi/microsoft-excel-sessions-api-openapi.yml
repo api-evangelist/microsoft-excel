@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Microsoft Graph Excel Charts Sessions API
+  title: Microsoft Graph Excel Sessions API
   description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
   version: 1.0.0
   contact:
@@ -81,18 +81,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    WorkbookSessionInfo:
-      type: object
-      description: Session information for a workbook session.
-      properties:
-        id:
-          type: string
-          description: The session identifier.
-          example: '{session-id}'
-        persistChanges:
-          type: boolean
-          description: Whether changes are persisted.
-          example: true
     ErrorResponse:
       type: object
       description: Error response from the API.
@@ -116,6 +104,18 @@ components:
                 date:
                   type: string
                   format: date-time
+    WorkbookSessionInfo:
+      type: object
+      description: Session information for a workbook session.
+      properties:
+        id:
+          type: string
+          description: The session identifier.
+          example: '{session-id}'
+        persistChanges:
+          type: boolean
+          description: Whether changes are persisted.
+          example: true
   securitySchemes:
     oauth2:
       type: oauth2

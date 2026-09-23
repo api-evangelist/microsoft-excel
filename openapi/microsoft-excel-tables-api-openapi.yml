@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Microsoft Graph Excel Charts Tables API
+  title: Microsoft Graph Excel Tables API
   description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
   version: 1.0.0
   contact:
@@ -292,6 +292,30 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Table:
+      type: object
+      description: Represents an Excel table.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the table.
+          example: '2'
+        name:
+          type: string
+          description: The name of the table.
+          example: SalesData
+        showHeaders:
+          type: boolean
+          description: Whether the header row is visible.
+          example: true
+        showTotals:
+          type: boolean
+          description: Whether the total row is visible.
+          example: false
+        style:
+          type: string
+          description: Table style name.
+          example: TableStyleMedium4
     Range:
       type: object
       description: Represents a cell range in a worksheet.
@@ -368,30 +392,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Table'
-    Table:
-      type: object
-      description: Represents an Excel table.
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the table.
-          example: '2'
-        name:
-          type: string
-          description: The name of the table.
-          example: SalesData
-        showHeaders:
-          type: boolean
-          description: Whether the header row is visible.
-          example: true
-        showTotals:
-          type: boolean
-          description: Whether the total row is visible.
-          example: false
-        style:
-          type: string
-          description: Table style name.
-          example: TableStyleMedium4
   securitySchemes:
     oauth2:
       type: oauth2

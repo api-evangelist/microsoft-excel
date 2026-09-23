@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Microsoft Graph Excel Charts Named Items API
+  title: Microsoft Graph Excel Named Items API
   description: REST API for accessing and manipulating Excel workbooks stored in OneDrive for Business, SharePoint sites, or Group drives through Microsoft Graph.
   version: 1.0.0
   contact:
@@ -68,14 +68,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    NamedItemCollection:
-      type: object
-      description: Collection of named items.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/NamedItem'
     NamedItem:
       type: object
       description: Represents a defined name for a cell range or value.
@@ -96,6 +88,14 @@ components:
           type: boolean
           description: Whether the named item is visible.
           example: true
+    NamedItemCollection:
+      type: object
+      description: Collection of named items.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/NamedItem'
   securitySchemes:
     oauth2:
       type: oauth2

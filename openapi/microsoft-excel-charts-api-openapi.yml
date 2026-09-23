@@ -140,6 +140,14 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ChartCollection:
+      type: object
+      description: Collection of charts.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chart'
     Chart:
       type: object
       description: Represents an Excel chart object.
@@ -172,14 +180,6 @@ components:
           format: double
           description: Top position in points.
           example: 0.0
-    ChartCollection:
-      type: object
-      description: Collection of charts.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Chart'
   securitySchemes:
     oauth2:
       type: oauth2
