@@ -38,7 +38,7 @@ tags:
 - Automation
 - Data Analysis
 - Microsoft
-- Microsoft-365
+- Microsoft 365
 - Office
 - Spreadsheets
 tags_raw:
@@ -48,6 +48,7 @@ tags_raw:
 - Microsoft 365
 - Office
 - Spreadsheets
+- Microsoft-365
 apis:
 - name: Excel JavaScript API
   description: >-
