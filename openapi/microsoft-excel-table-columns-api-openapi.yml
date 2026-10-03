@@ -181,6 +181,14 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    TableColumnCollection:
+      type: object
+      description: Collection of table columns.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableColumn'
     TableColumn:
       type: object
       description: Represents a column in an Excel table.
@@ -203,14 +211,6 @@ components:
           items:
             type: array
             items: {}
-    TableColumnCollection:
-      type: object
-      description: Collection of table columns.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/TableColumn'
   securitySchemes:
     oauth2:
       type: oauth2
