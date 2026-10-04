@@ -192,6 +192,14 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    TableRowCollection:
+      type: object
+      description: Collection of table rows.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableRow'
     TableRow:
       type: object
       description: Represents a row in an Excel table.
@@ -206,14 +214,6 @@ components:
           items:
             type: array
             items: {}
-    TableRowCollection:
-      type: object
-      description: Collection of table rows.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/TableRow'
   securitySchemes:
     oauth2:
       type: oauth2
