@@ -4,6 +4,7 @@ source:
 - https://n8n.io/integrations/microsoft-excel/
 checked:
 - https://composio.dev/toolkits/microsoft-excel
+- https://hightouch.com/docs/destinations/microsoft-excel
 - https://monid.ai/tools/microsoft-excel
 - https://n8n.io/integrations/microsoft-excel/
 - https://zapier.com/apps/microsoft-excel/integrations
@@ -357,5 +358,33 @@ marketplace_apps:
   - zoom
   - zscaler-zia
   - zulip
-edges: []
+edges:
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/destinations/microsoft-excel
+  coverage_role:
+  - destination
+  - source
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - microsoft-excel
+      status: released
+      sync_types:
+      - Mirror
+      - Snapshot
+      sync_modes:
+      - all
+    source:
+      catalog_entries:
+      - microsoft-excel-source
+      status: released
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
 templates: []
