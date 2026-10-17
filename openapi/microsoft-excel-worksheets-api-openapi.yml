@@ -264,14 +264,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    WorksheetCollection:
-      type: object
-      description: Collection of worksheets.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Worksheet'
     Worksheet:
       type: object
       description: Represents an Excel worksheet.
@@ -296,6 +288,14 @@ components:
           - Hidden
           - VeryHidden
           example: Visible
+    WorksheetCollection:
+      type: object
+      description: Collection of worksheets.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Worksheet'
   securitySchemes:
     oauth2:
       type: oauth2
